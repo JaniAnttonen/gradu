@@ -1,0 +1,118 @@
+% -------------------------------------------------------------------------
+% tytiivis.sty -- Turun yliopiston vaatima tutkielman tiivistelmäsivu
+%
+% $Id: tytiivis.sty,v 1.1 2000/04/19 13:29:11 jari Exp $
+%
+% $Log: tytiivis.sty,v $
+% Revision 1.2  2002/04/19 13:29:11  jussi
+% Initial revision
+% Wrong marginsize fixed at 23.1.2003 jussi
+%
+% Käyttö: (muotoilun perusteet löytyvät esim. opiskelijan yleisoppasta
+%          1999, sivu 58)
+%
+% \documentclass[a4paper]{article}
+% ...
+% \usepackage{tytiivis}
+% ...
+% \begin{document}
+% ...
+% \begin{tiivistelma}
+%	{<laitos/tiedekunta>}
+%	{<Tekijän nimi muodossa SUKUNIMI, ETUNIMI>}
+%	{<Teoksen nimi>}
+%	{<Tunnisterivi (työn laji, sivumäärä, liitteet)>}
+%	{<Oppiaine>}
+%	{<Ajankohta muodossa Kuukausi VVVV>}
+% <tiivistelmän teksti kirjoitettuna kuten normaalisti>
+%\end{tiivistelma}
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{tytiivis}
+%   [2000/04/14 v0.001 Yliopiston vaatima tutkielman tiivistelmäsivu ]
+
+\newenvironment{tiivistelma}[6]%
+{
+	% #1: Laitos/tiedekunta
+	% #2: Tekijän nimi (SUKUNIMI, ETUNIMI)
+	% #3: Teoksen nimi
+	% #4: Tunnisterivi (Laji, sivumäärä, liitesivut)
+	% #5: Oppiaine
+	% #6: Ajankohta (Kuukausi VVVV)
+	% otetaan sivun asetukset talteen
+	\newlength{\oldhoffset}\setlength{\oldhoffset}{\hoffset}
+	\newlength{\oldoddsidemargin}\setlength{\oldoddsidemargin}{\oddsidemargin}
+	\newlength{\oldvoffset}\setlength{\oldvoffset}{\voffset}
+	\newlength{\oldtopmargin}\setlength{\oldtopmargin}{\topmargin}
+	\newlength{\oldheadheight}\setlength{\oldheadheight}{\headheight}
+	\newlength{\oldheadsep}\setlength{\oldheadsep}{\headsep}
+	\newlength{\oldtextheight}\setlength{\oldtextheight}{\textheight}
+	\newlength{\oldtextwidth}\setlength{\oldtextwidth}{\textwidth}
+	\newlength{\oldmarginparsep}\setlength{\oldmarginparsep}{\marginparsep}
+	\newlength{\oldmarginparwidth}\setlength{\oldmarginparwidth}{\marginparwidth}
+	\newlength{\oldfootskip}\setlength{\oldfootskip}{\footskip}
+	\newlength{\oldparskip}\setlength{\oldparskip}{\parskip}
+        \newlength{\oldtopsep}\setlength{\oldtopsep}{\topsep}
+	% nollataan elementit, joita ei käytetä
+	\setlength{\marginparsep}{0pt}
+	\setlength{\marginparwidth}{0pt}
+	\setlength{\footskip}{0pt}
+	\setlength{\headheight}{0pt}
+	\setlength{\headsep}{0pt}
+        \setlength{\topsep}{0pt}
+	% tekstin leveys
+	\setlength{\textwidth}{\paperwidth}
+	\addtolength{\textwidth}{-6cm}
+	\setlength{\hoffset}{-1in}
+	\setlength{\oddsidemargin}{3.3cm}
+	% tekstin korkeus
+	\setlength{\textheight}{\paperheight}
+	\addtolength{\textheight}{-6.5cm}
+	\setlength{\voffset}{-1in}
+	\setlength{\topmargin}{2cm}
+%	\addtolength{\topmargin}{1.5cm}
+	% rivinväli
+	\renewcommand{\baselinestretch}{1}\large\normalsize
+	% varsinainen sivun muotoilu alkaa
+	\thispagestyle{empty}
+	\begin{minipage}[t][\textheight]{\textwidth}
+	\noindent TURUN YLIOPISTO\\
+	{#1}
+	\begin{list}{}{%
+            	\renewcommand{\makelabel}[1]{{##1}\hfil}% muokkasin
+		\settowidth{\labelwidth}{{#2}}% textbf pois
+		\setlength{\leftmargin}{\labelwidth}%
+		\addtolength\leftmargin{\labelsep}}
+                \vspace{-2ex}
+	        \item[#2]{#3}
+                \vspace{-2ex}
+	\end{list}
+	{#4}\\
+	{#5}\\
+	{#6}\\
+        Turun yliopiston laatujärjestelmän mukaisesti tämän julkaisun alkuperäisyys on tarkastettu Turnitin Originality Check -järjestelmällä.\\  
+	\rule{\textwidth}{0.5pt}
+%	\vspace{\baselineskip}
+	\setlength{\parskip}{0.5\baselineskip}
+}
+{
+	\end{minipage}
+	\clearpage
+	\setlength{\marginparsep}{\oldmarginparsep}
+	\setlength{\marginparwidth}{\oldmarginparwidth}
+	\setlength{\footskip}{\oldfootskip}
+	\setlength{\headheight}{\oldheadheight}
+	\setlength{\headsep}{\oldheadsep}
+        \setlength{\topsep}{\oldtopsep}
+	% tekstin leveys
+	\setlength{\textwidth}{\oldtextwidth}
+	\setlength{\oddsidemargin}{\oldoddsidemargin}
+	\setlength{\hoffset}{\oldhoffset}
+	% tekstin korkeus
+	\setlength{\textheight}{\oldtextheight}
+	\setlength{\topmargin}{\oldtopmargin}
+	\setlength{\voffset}{\oldvoffset}
+	% rivinväli
+	\setlength{\parskip}{\oldparskip}
+}
+		

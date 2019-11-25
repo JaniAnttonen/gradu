@@ -1,0 +1,3 @@
+\select@language {finnish}
+\contentsline {section}{Johdanto}{1}{section*.2}
+\contentsline {section}{\numberline {1}T\IeC {\"a}st\IeC {\"a} alkaa teoriaosuus}{2}{section.1}
