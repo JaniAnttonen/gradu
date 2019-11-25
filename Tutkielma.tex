@@ -1,0 +1,266 @@
+%
+% Document template suitable for use as a latex master-file for masters
+% thesis in University of Turku Department of Information Technology. 
+% Relies on itpackage.sty for additional definitions.
+%
+% Sami Nuuttila (samnuutt@utu.fi) 
+%
+% Last mod 2.9.2015:
+% 
+% Why:
+%  - No need for anyone to invent the wheel again. You can of course do that
+%    if you wish - TeX'll even let you invent many different kinds of wheels
+%  - That said, if you come up with a great new wheel I'd like to hear about 
+%    it - it might even end up being used here 
+% 
+% Features:
+%  - Proper page sizes as required by university guide for students:
+%      - proper font sizes as well as linespacings
+%      - proper size of margins
+%  - Generic title page:
+%      - \gentitle
+%  - Generic abstract page(s):
+%      - \begin{itabstract}{Keywords}
+%          abstract text
+%        \end{itabstract}
+%      - \begin{ittiivis}...\end{ittiivis} provides finnish version
+%         - ittiivis defaults to finnish so no need to issue 
+%           \selectlanguage{finnish}
+%      - total number of pages as well as total number of pages in appendices
+%        are automagically handled
+%  - Entry environment:
+%      - \begin{entry}[widest label]
+%          \item[1st label text] ...
+%          \item[2nd label text] ...
+%        \end{entry}
+%      - the actual items are aligned to suit the widest label, which is
+%        given as an argument to the environment
+%  - Use of specific latex packages to ease in formatting the thesis:
+%      - format table of contents to have bibliography shown as references
+%        as well as other fixes           (tocbibind)
+%      - enhanced verbatim handling       (sverb)
+%      - source code inclusion            (listings)
+%      - handling of headers and footers  (fancyhdr)
+%
+%      - consultation of the manuals of these packages is strongly
+%        encouraged 
+%
+% Assumptions:
+%  - itpackage.sty file is available 
+%  - each chapter is as a separate file which is read in with e.g. \input
+%   
+% Miscellaneous:
+%  - comments are welcome
+%  - should a required package be missing see http://www.ctan.org/ 
+%  - http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf
+%asd
+% Later modifications:
+%  - 22.9.2016, 1.10.2017:Johannes Holvitie <jjholv@utu.fi>, additions
+%    marked "JH:". Reason: modified for use in tex.soft.utu.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% load all required packages
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% document is based on report class
+\documentclass[a4paper,12pt]{report}
+
+% load ams-packages for maths
+\usepackage{amssymb,amsthm,amsmath}
+
+% load babel-package for automatic hyphenation
+\usepackage[finnish]{babel}
+% JH: modified latin to UTF-8 encoding cues to make Scandinavian characters works
+\usepackage[utf8]{inputenc}
+
+% load graphicx package
+%   - automagically select proper parameters depending on whether
+%     we're running pdflatex or latex
+%   - specify \includegraphics{file} without the file extension
+%     (.eps /.pdf (/ .png / .jpeg / ...)), tex should select the proper file
+%
+\usepackage{ifpdf}
+\usepackage{graphicx}
+%% !!! NOTE: if you have ancient LaTeX distribution then you might need to
+%% use the following instead
+%% \newif\ifpdf
+%% \ifx\pdfoutput\undefined
+%%   \pdffalse
+%% \else
+%%   \pdfoutput=1
+%%   \pdftrue
+%% \fi
+%% % if graphicx complains about option clash remove the [pdftex] option
+%% \ifpdf
+%%   \usepackage[pdftex]{graphicx}
+%% \else
+%%   \usepackage[dvips]{graphicx}
+%% \fi
+
+
+% load tocbibind package 
+%   - do not include table of contents in itself
+%   - convert the name of bibliography to references
+\usepackage[nottoc]{tocbibind}
+
+% load sverb package
+%   - enhanced handling of verbatim stuff; listing environment
+\usepackage{sverb}
+
+% load listings package
+%   - handle inclusion of source code
+\usepackage{listings}
+
+% load fancyheaders package
+%   - the actual headers and footers are set later
+\usepackage{fancyhdr}
+
+% load itpackage 
+%   - additional defines and stuff
+\usepackage{thesis/itpackage}
+
+% uncomment the following snippet to get rid of Luku/Chapter text at the
+% beginning of each Chapter... 
+%\makeatletter
+%\renewcommand{\@chapapp}{\relax}
+%\renewcommand{\@makechapterhead}[1]{%
+%  \vspace*{50\p@}%
+%  {\parindent \z@ \raggedright \normalfont
+%    \ifnum \c@secnumdepth >\m@ne
+%        \huge\bfseries \@chapapp\space \thechapter\space\space
+%    \fi
+%    \interlinepenalty\@M
+%    \Huge \bfseries #1\par\nobreak
+%    \vskip 40\p@
+%  }}
+%\makeatother
+\begin{document}
+
+% Select language here by removing comment from one of the two rows below
+%\selectlanguage{finnish}\fintrue
+\selectlanguage{english}\finfalse
+
+% Set some names based on selected language; no modification required
+\iffin
+\settocbibname{Lähdeluettelo}
+\renewcommand{\appname}{Liitteet}
+\else
+\settocbibname{References}
+\renewcommand{\appname}{Appendices}
+\fi
+
+% Fill in your information below
+\workinfo{Jani Anttonen}
+{Using Grover's Search Algorithm in Content-Addressed Networks }
+{First Supervisor}
+{Second Supervisor}
+{2019}
+{November}
+{Kuukausi}
+
+% Set the type of your thesis (Diplomityö, TkK -tutkielma, etc.) and
+% laboratory or field of study below
+\worktype{Type of thesis}{M.Sc.} 
+\deptinfo{Laboratory Name}{Tulevaisuuden teknologioiden laitos}
+
+% Generate the title page 
+\gentitle
+
+% Include the abstract
+\input{Tiivistelma}
+
+% empty pagestyle for table of contents etc. 
+%
+% the redefinition of plain style works also for 1st pages of chapters,
+% which is the default in report class. Just state \thispagestyle{empty}
+% after \chapter{something} if you want empty style for the 1st pages. 
+%
+\pagestyle{empty}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0 pt}
+}
+
+% roman numbering for table of contents etc.
+\pagenumbering{roman}
+
+% insert table of contents, list of figures, list of tables
+%
+% setting the counter to zero effectively removes the page number from
+% the toc, lof etc. entries in the toc since there is no roman numeral
+% for zero ;-) (if you want them without numbering)
+%
+%\setcounter{page}{0}
+\tableofcontents
+\clearpage
+%\setcounter{page}{0}
+%\listoffigures 
+%\clearpage
+%\setcounter{page}{0}
+%\listoftables
+
+% possibly insert 'list of acronyms'
+%
+%   - create a chapter called List Of Acronyms (or whatever), which
+%     should contain all your acronym definitions, e.g. 
+%     \chapter{List Of Acronyms} 
+%   - the secnumdepth trickery is needed because acronyms are as a
+%     standard chapter and we are faking '\listofacronyms'
+%
+%\setcounter{secnumdepth}{-1}
+%\input{your acronym chapter's file name}
+%\setcounter{secnumdepth}{2}
+
+% setup page numbering, page counter, etc.
+\startpages
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Thesis starts here. Create a new tex file for each chapter and input it below. You may encounter errors if you use å, ä, ö or <space> characters in referred names.
+%
+% Good luck!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Johdanto}
+\input{Toinen_Luku}
+%\input{file_name_of_chapter_x}
+%\input{file_name_of_chapter_y}
+
+
+% insert references
+%  - included unsrtf.bst provides finnish language version of unsrt
+\iffin
+\bibliographystyle{thesis/unsrtf}
+\else
+\bibliographystyle{unsrt}
+\fi
+\bibliography{Bibliografia}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Almost there....
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% make sure pagecount is correct even if references overflow to a new page
+\pagebreak\addtocounter{page}{-1}
+\eofpages
+\appendices
+
+% create your appendix chapters with command \appchapter{some name} instead
+% of \chapter{some name} for the automagic page counting to work
+%\input{file name of appchapter xxx}
+%\input{file name of appchapter yyy}
+%\input{file name of appchapter zzz}
+%\input{and so on}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% main document ends here
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\eofapppages
+\end{document}
