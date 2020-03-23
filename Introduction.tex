@@ -1,0 +1,48 @@
+\chapter{Introduction}
+\label{Introduction}
+
+Viittaaminen lukuun \ref{Introduction}, toiseen lukuun \ref{Toinen luku}, alilukuun \ref{Alaotsikko}, tätä alempaan lukuun \ref{Alempiotsikko}, alimpaan lukuun \ref{Alinotsikko}, kuvaan \ref{Kuva esimerkki} ja tauluun \ref{Taulu esimerkki}.
+
+Kuva liitetäään seuraavasti. ShareLaTeXin autocomplete rakentaa koko begin-end blockin yleensä puolestasi.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{kuvat/turun_yliopisto_logo_rgb.png}
+\caption{Kuvan otsikko}
+\label{Kuva esimerkki}
+\end{figure}
+
+Taulukkoja tehdään seuraavasti.
+
+\begin{table}
+\centering
+\caption{Taulukon otsikko tulee taulun yläpuolelle}
+\begin{tabular}{l|c|r|}
+ Taulun             &   elementit   & erotetaan \\
+ \hline
+ toisistaan         &   et-merkillä & \\
+ soluja voi myös    &               & jättää tyhjäksi
+\end{tabular}
+\label{Taulu esimerkki}
+\end{table}
+
+%Kirjallisuusviitteet lisätään bib-muodossa bibliografiatiedostoon ja niihin viitataan niiden ID:llä, joka on bib-muodon ensimmäinen kenttä \cite{crawley2007write}.
+
+\section{Background and Motivation}
+\label{Background and Motivation}
+
+Distributed systems are vulnerable to problems related to data integrity, because in many cases there is no single source of truth. Work pioneered by the likes of Leslie Lamport has tried to mitigate these problems with clock synchronization and consensus algorithms, which have fixed some but not all of the underlying issues related to the field.
+
+\subsection{Alempiotsikko}
+\label{Alempiotsikko}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget tellus porttitor, tempus lacus non, pellentesque ligula. Donec sit amet erat condimentum, feugiat mi accumsan, euismod quam.
+
+Mauris laoreet maximus aliquet. Mauris at gravida elit. Ut nec lobortis elit. Sed lacinia nisi in ex sollicitudin, ac consequat lacus imperdiet. Etiam et velit eu lacus maximus faucibus.
+
+\subsubsection{Alinotsikko, joka ei näy sisällysluettelossa}
+\label{Alinotsikko}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget tellus porttitor, tempus lacus non, pellentesque ligula. Donec sit amet erat condimentum, feugiat mi accumsan, euismod quam.
+
+\paragraph{Otsikko tekstissä, joka ei näy sisällysluettelossa}Mauris laoreet maximus aliquet. Mauris at gravida elit. Ut nec lobortis elit. Sed lacinia nisi in ex sollicitudin, ac consequat lacus imperdiet. Etiam et velit eu lacus maximus faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec vulputate tellus ullamcorper odio sodales, non scelerisque neque eleifend. 
