@@ -1,20 +1,266 @@
-% !TeX root = ./Thesis.tex
-\chapter{Introduction}
-\label{Introduction}
+%
+% Document template suitable for use as a latex master-file for masters
+% thesis in University of Turku Department of Information Technology. 
+% Relies on itpackage.sty for additional definitions.
+%
+% Sami Nuuttila (samnuutt@utu.fi) 
+%
+% Last mod 2.9.2015:
+% 
+% Why:
+%  - No need for anyone to invent the wheel again. You can of course do that
+%    if you wish - TeX'll even let you invent many different kinds of wheels
+%  - That said, if you come up with a great new wheel I'd like to hear about 
+%    it - it might even end up being used here 
+% 
+% Features:
+%  - Proper page sizes as required by university guide for students:
+%      - proper font sizes as well as linespacings
+%      - proper size of margins
+%  - Generic title page:
+%      - \gentitle
+%  - Generic abstract page(s):
+%      - \begin{itabstract}{Keywords}
+%          abstract text
+%        \end{itabstract}
+%      - \begin{ittiivis}...\end{ittiivis} provides finnish version
+%         - ittiivis defaults to finnish so no need to issue 
+%           \selectlanguage{finnish}
+%      - total number of pages as well as total number of pages in appendices
+%        are automagically handled
+%  - Entry environment:
+%      - \begin{entry}[widest label]
+%          \item[1st label text] ...
+%          \item[2nd label text] ...
+%        \end{entry}
+%      - the actual items are aligned to suit the widest label, which is
+%        given as an argument to the environment
+%  - Use of specific latex packages to ease in formatting the thesis:
+%      - format table of contents to have bibliography shown as references
+%        as well as other fixes           (tocbibind)
+%      - enhanced verbatim handling       (sverb)
+%      - source code inclusion            (listings)
+%      - handling of headers and footers  (fancyhdr)
+%
+%      - consultation of the manuals of these packages is strongly
+%        encouraged 
+%
+% Assumptions:
+%  - itpackage.sty file is available 
+%  - each chapter is as a separate file which is read in with e.g. \input
+%   
+% Miscellaneous:
+%  - comments are welcome
+%  - should a required package be missing see http://www.ctan.org/ 
+%  - http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf
+%asd
+% Later modifications:
+%  - 22.9.2016, 1.10.2017:Johannes Holvitie <jjholv@utu.fi>, additions
+%    marked "JH:". Reason: modified for use in tex.soft.utu.fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% load all required packages
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Kirjallisuusviitteet lisätään bib-muodossa bibliografiatiedostoon ja niihin viitataan niiden ID:llä, joka on bib-muodon ensimmäinen kenttä \cite{crawley2007write}.
+% document is based on report class
+\documentclass[a4paper,12pt]{report}
 
-\section{Background and Motivation}
-\label{Background and Motivation}
+% load ams-packages for maths
+\usepackage{amssymb,amsthm,amsmath}
 
-Distributed systems are vulnerable to problems related to data integrity, because in many cases there is no single source of truth. Work pioneered by the likes of Leslie Lamport has tried to mitigate these problems with clock synchronization and consensus algorithms, which have fixed some but not all of the underlying issues related to the field.
+% load babel-package for automatic hyphenation
+\usepackage[english]{babel}
+% JH: modified latin to UTF-8 encoding cues to make Scandinavian characters works
+\usepackage[utf8]{inputenc}
 
-%TODO: Edelliseen kappaleeseen vähän lisää beeffiä ja järkeä
+% load graphicx package
+%   - automagically select proper parameters depending on whether
+%     we're running pdflatex or latex
+%   - specify \includegraphics{file} without the file extension
+%     (.eps /.pdf (/ .png / .jpeg / ...)), tex should select the proper file
+%
+\usepackage{ifpdf}
+\usepackage{graphicx}
+%% !!! NOTE: if you have ancient LaTeX distribution then you might need to
+%% use the following instead
+%% \newif\ifpdf
+%% \ifx\pdfoutput\undefined
+%%   \pdffalse
+%% \else
+%%   \pdfoutput=1
+%%   \pdftrue
+%% \fi
+%% % if graphicx complains about option clash remove the [pdftex] option
+%% \ifpdf
+%%   \usepackage[pdftex]{graphicx}
+%% \else
+%%   \usepackage[dvips]{graphicx}
+%% \fi
 
-Proof of Work is the most well-known consensus algorithm, as it is used in most public blockchains today, including Bitcoin, of in which whitepaper it was first described in 2008. New algorithms have been introduced since to battle it's resource intensiveness, including Proof of Stake, which requires network nodes participating in the voting of new blocks to stake a part of their assets as a pawn. If the voters get labeled as malicious by a certain majority, they can get slashed, losing all or a part of the staked asset in the process. This serves as an incentive for honest co-operation, with sufficient computation resources.
 
-Problem is that the block generation votes are not done globally, but by a selected group of peers called the validators, which vote for the contents of proposed blocks by one peer selected as the block generator. The validators are selected randomly. This has generated an increasing demand for verifiable public randomness, that is pre-image resistant, meaning the output of the algorithm generating the randomness cannot be influenced beforehand. This created a motivation for an algorithm that would prevent multiple malicious actors from being selected to vote at once, effectively creating a more secure public blockchain.
+% load tocbibind package 
+%   - do not include table of contents in itself
+%   - convert the name of bibliography to references
+\usepackage[nottoc]{tocbibind}
 
-In 2018, two research papers were released independently with similar formalizations of a VDF.\cite{wesolowski_efficient_2018}\cite{pietrzak_simple_2018} By definition, a VDF is an algorithm that requires a specified number of sequential steps to evaluate, but produces a unique output that can be efficiently and publicly verified.\cite{boneh_verifiable_2018} To achieve pre-image resistance, a VDF is sequential in nature, and cannot be sped up by parallel processing. There are multiple formulations of a VDF, and not all even have a generated proof, instead using parallel processing with graphics processors to check that the calculation is sequential.\cite{yakovenko_solana_nodate} This bars less powerful devices, like embedded devices, from verifying the result efficiently. Thus, generating an efficient proof that requires little time to verify is more ideal.\cite{boneh_verifiable_2018}
+% load sverb package
+%   - enhanced handling of verbatim stuff; listing environment
+\usepackage{sverb}
 
-Using verifiable delay functions, I propose a novel algorithm for producing a publicly verifiable proof of network latency and computation resource difference between two participants in a peer-to-peer network. This proof can be used for dynamic routing in peer-to-peer networks to reduce latency between peers, and for making sybil attacks harder to achieve.
+% load listings package
+%   - handle inclusion of source code
+\usepackage{listings}
+
+% load fancyheaders package
+%   - the actual headers and footers are set later
+\usepackage{fancyhdr}
+
+% load itpackage 
+%   - additional defines and stuff
+\usepackage{thesis/itpackage}
+
+% uncomment the following snippet to get rid of Luku/Chapter text at the
+% beginning of each Chapter... 
+%\makeatletter
+%\renewcommand{\@chapapp}{\relax}
+%\renewcommand{\@makechapterhead}[1]{%
+%  \vspace*{50\p@}%
+%  {\parindent \z@ \raggedright \normalfont
+%    \ifnum \c@secnumdepth >\m@ne
+%        \huge\bfseries \@chapapp\space \thechapter\space\space
+%    \fi
+%    \interlinepenalty\@M
+%    \Huge \bfseries #1\par\nobreak
+%    \vskip 40\p@
+%  }}
+%\makeatother
+\begin{document}
+
+% Select language here by removing comment from one of the two rows below
+%\selectlanguage{finnish}\fintrue
+\selectlanguage{english}\finfalse
+
+% Set some names based on selected language; no modification required
+\iffin
+\settocbibname{Lähdeluettelo}
+\renewcommand{\appname}{Liitteet}
+\else
+\settocbibname{References}
+\renewcommand{\appname}{Appendices}
+\fi
+
+% Fill in your information below
+\workinfo{Jani Anttonen}
+{Proof of Proximity Using a Verifiable Delay Function}
+{Jaakko Järvi}
+{Second Supervisor}
+{2020}
+{November}
+{Kuukausi}
+
+% Set the type of your thesis (Diplomityö, TkK -tutkielma, etc.) and
+% laboratory or field of study below
+\worktype{Type of thesis}{M.Sc.} 
+\deptinfo{Laboratory Name}{Tulevaisuuden teknologioiden laitos}
+
+% Generate the title page 
+\gentitle
+
+% Include the abstract
+\input{Tiivistelma}
+
+% empty pagestyle for table of contents etc. 
+%
+% the redefinition of plain style works also for 1st pages of chapters,
+% which is the default in report class. Just state \thispagestyle{empty}
+% after \chapter{something} if you want empty style for the 1st pages. 
+%
+\pagestyle{empty}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0 pt}
+}
+
+% roman numbering for table of contents etc.
+\pagenumbering{roman}
+
+% insert table of contents, list of figures, list of tables
+%
+% setting the counter to zero effectively removes the page number from
+% the toc, lof etc. entries in the toc since there is no roman numeral
+% for zero ;-) (if you want them without numbering)
+%
+%\setcounter{page}{0}
+\tableofcontents
+\clearpage
+%\setcounter{page}{0}
+%\listoffigures 
+%\clearpage
+%\setcounter{page}{0}
+%\listoftables
+
+% possibly insert 'list of acronyms'
+%
+%   - create a chapter called List Of Acronyms (or whatever), which
+%     should contain all your acronym definitions, e.g. 
+%     \chapter{List Of Acronyms} 
+%   - the secnumdepth trickery is needed because acronyms are as a
+%     standard chapter and we are faking '\listofacronyms'
+%
+%\setcounter{secnumdepth}{-1}
+%\input{your acronym chapter's file name}
+%\setcounter{secnumdepth}{2}
+
+% setup page numbering, page counter, etc.
+\startpages
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Thesis starts here. Create a new tex file for each chapter and input it below. You may encounter errors if you use å, ä, ö or <space> characters in referred names.
+%
+% Good luck!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Introduction}
+\input{Toinen_Luku}
+%\input{file_name_of_chapter_x}
+%\input{file_name_of_chapter_y}
+
+
+% insert references
+%  - included unsrtf.bst provides finnish language version of unsrt
+\iffin
+\bibliographystyle{thesis/unsrtf}
+\else
+\bibliographystyle{unsrt}
+\fi
+\bibliography{library}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Almost there....
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% make sure pagecount is correct even if references overflow to a new page
+\pagebreak\addtocounter{page}{-1}
+\eofpages
+\appendices
+
+% create your appendix chapters with command \appchapter{some name} instead
+% of \chapter{some name} for the automagic page counting to work
+%\input{file name of appchapter xxx}
+%\input{file name of appchapter yyy}
+%\input{file name of appchapter zzz}
+%\input{and so on}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% main document ends here
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\eofapppages
+\end{document}
