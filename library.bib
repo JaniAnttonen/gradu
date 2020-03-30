@@ -1754,3 +1754,123 @@ Random oracles as a mathematical abstraction were firstly used in rigorous crypt
 	year = {2002},
 	keywords = {Peer-to-peer architecture (Computer networks) -- Congresses}
 }
+
+@misc{noauthor_kademlia_2020,
+	title = {Kademlia},
+	copyright = {Creative Commons Attribution-ShareAlike License},
+	url = {https://en.wikipedia.org/w/index.php?title=Kademlia&oldid=936998972},
+	abstract = {Kademlia is a distributed hash table for decentralized peer-to-peer computer networks designed by Petar Maymounkov and David Mazières in 2002. It specifies the structure of the network and the exchange of information through node lookups. Kademlia nodes communicate among themselves using UDP. A virtual or overlay network is formed by the participant nodes. Each node is identified by a number or node ID. The node ID serves not only as identification, but the Kademlia algorithm uses the node ID to locate values (usually file hashes or keywords). In fact, the node ID provides a direct map to file hashes and that node stores information on where to obtain the file or resource.
+When searching for some value, the algorithm needs to know the associated key and explores the network in several steps. Each step will find nodes that are closer to the key until the contacted node returns the value or no more closer nodes are found. This is very efficient: like many other DHTs, Kademlia contacts only 
+  
+    
+      
+        O
+        (
+        log
+        ⁡
+        (
+        n
+        )
+        )
+      
+    
+    \{{\textbackslash}displaystyle O({\textbackslash}log(n))\}
+   nodes during the search out of a total of 
+  
+    
+      
+        n
+      
+    
+    \{{\textbackslash}displaystyle n\}
+   nodes in the system.
+Further advantages are found particularly in the decentralized structure, which increases the resistance against a denial-of-service attack. Even if a whole set of nodes is flooded, this will have limited effect on network availability, since the network will recover itself by knitting the network around these "holes".
+I2P's implementation of Kademlia is modified to mitigate Kademlia's vulnerabilities, such as Sybil attacks.},
+	language = {en},
+	urldate = {2020-03-23},
+	journal = {Wikipedia},
+	month = jan,
+	year = {2020},
+	note = {Page Version ID: 936998972},
+	file = {Snapshot:/home/jani/Zotero/storage/7T74ZR7W/index.html:text/html}
+}
+
+@misc{noauthor_vdf_nodate-1,
+	title = {{VDF} open problems - {HackMD}},
+	url = {https://notes.ethereum.org/bPQjvr0hQ8OIlwkZbO6o5A},
+	language = {en},
+	urldate = {2020-03-23},
+	note = {Library Catalog: notes.ethereum.org},
+	file = {Snapshot:/home/jani/Zotero/storage/Z6JWVRSZ/bPQjvr0hQ8OIlwkZbO6o5A.html:text/html}
+}
+
+@techreport{mahmoody_publicly_2011,
+	title = {Publicly {Verifiable} {Proofs} of {Sequential} {Work}},
+	url = {http://eprint.iacr.org/2011/553},
+	abstract = {We construct a publicly verifiable protocol for proving computational work based on collision-resistant hash functions and a new plausible complexity assumption regarding the existence of "inherently sequential" hash functions. Our protocol is based on a novel construction of time-lock puzzles. Given a sampled "puzzle" \$P {\textbackslash}gets D\_n\$, where \$n\$ is the security parameter and \$D\_n\$ is the distribution of the puzzles, a corresponding "solution" can be generated using \$N\$ evaluations of the sequential hash function, where \$N{\textgreater}n\$ is another parameter, while any feasible adversarial strategy for generating valid solutions must take at least as much time as \${\textbackslash}Omega(N)\$ *sequential* evaluations of the hash function after receiving \$P\$. Thus, valid solutions constitute a "proof" that \${\textbackslash}Omega(N)\$ parallel time elapsed since \$P\$ was received. Solutions can be publicly and efficiently verified in time \${\textbackslash}poly(n) {\textbackslash}cdot {\textbackslash}polylog(N)\$. Applications of these "time-lock puzzles" include noninteractive timestamping of documents (when the distribution over the possible documents corresponds to the puzzle distribution \$D\_n\$) and universally verifiable CPU benchmarks.
+
+
+
+Our construction is secure in the standard model under complexity assumptions (collision-resistant hash functions and inherently sequential hash functions), and makes black-box use of the underlying primitives. Consequently, the corresponding construction in the random oracle model is secure unconditionally. Moreover, as it is a public-coin protocol, it can be made non-interactive in the random oracle model using the Fiat-Shamir Heuristic.
+
+Our construction makes a novel use of ``depth-robust'' directed acyclic graphs---ones whose depth remains large even after removing a constant fraction of vertices---which were previously studied for the purpose of complexity lower bounds. The construction bypasses a recent negative result of Mahmoody, Moran, and Vadhan (CRYPTO `11) for time-lock puzzles in the random oracle model, which showed that it is impossible to have time-lock puzzles like ours in the random oracle model if the puzzle generator also computes a solution together with the puzzle.},
+	number = {553},
+	urldate = {2020-03-23},
+	author = {Mahmoody, Mohammad and Moran, Tal and Vadhan, Salil},
+	year = {2011},
+	keywords = {cryptographic protocols},
+	file = {ePrint IACR Full Text PDF:/home/jani/Zotero/storage/FZAD5NXB/Mahmoody et al. - 2011 - Publicly Verifiable Proofs of Sequential Work.pdf:application/pdf;ePrint IACR Snapshot:/home/jani/Zotero/storage/TZJL3SKC/553.html:text/html}
+}
+
+@techreport{goodell_compact_2019,
+	title = {Compact linkable ring signatures and applications},
+	url = {http://eprint.iacr.org/2019/654},
+	abstract = {We introduce an efficient linkable ring multisignature construction, compact linkable spontaneous anonymous group (CLSAG) signatures. These admit d-dimensional keys with a specified linking coordinate but do not have signature sizes directly proportional to d. Compared to existing constructions used for signer-ambiguous confidential transactions without trusted setup, CLSAG signatures are smaller and more efficient in terms of both proving and verification time. CLSAG signatures also satisfy some rigorous security definitions: unforgeability depends upon the k-OMDL hardness assumption, linkability depends on unforgeability as well as the collision resistance of key aggregation, and signer-ambiguity depends on the DDH assumption. We demonstrate an application for CLSAG signatures for use in transacting multiple assets over ring signature-based transaction protocols.},
+	number = {654},
+	urldate = {2020-03-23},
+	author = {Goodell, Brandon and Noether, Sarang and RandomRun},
+	year = {2019},
+	keywords = {applications, digital signatures, ring signatures},
+	file = {ePrint IACR Full Text PDF:/home/jani/Zotero/storage/XL9RRVQY/Goodell et al. - 2019 - Compact linkable ring signatures and applications.pdf:application/pdf;ePrint IACR Snapshot:/home/jani/Zotero/storage/HD2MV5IE/654.html:text/html}
+}
+
+@misc{noauthor_diffiehellman_2020,
+	title = {Diffie–{Hellman} key exchange},
+	copyright = {Creative Commons Attribution-ShareAlike License},
+	url = {https://en.wikipedia.org/w/index.php?title=Diffie%E2%80%93Hellman_key_exchange&oldid=946462919},
+	abstract = {Diffie–Hellman key exchange is a method of securely exchanging cryptographic keys over a public channel and was one of the first public-key protocols as conceived by Ralph Merkle and named after Whitfield Diffie and Martin Hellman. DH is one of the earliest practical examples of public key exchange implemented within the field of cryptography.
+Traditionally, secure encrypted communication between two parties required that they first exchange keys by some secure physical means, such as paper key lists transported by a trusted courier. The Diffie–Hellman key exchange method allows two parties that have no prior knowledge of each other to jointly establish a shared secret key over an insecure channel. This key can then be used to encrypt subsequent communications using a symmetric key cipher.
+Diffie–Hellman is used to secure a variety of Internet services. However, research published in October 2015 suggests that the parameters in use for many DH Internet applications at that time are not strong enough to prevent compromise by very well-funded attackers, such as the security services of large governments.The scheme was published by Whitfield Diffie and Martin Hellman in 1976, but in 1997 it was revealed that James H. Ellis, Clifford Cocks, and Malcolm J. Williamson of GCHQ, the British signals intelligence agency, had previously shown in 1969 how public-key cryptography could be achieved.Although Diffie–Hellman key agreement itself is a non-authenticated key-agreement protocol, it provides the basis for a variety of authenticated protocols, and is used to provide forward secrecy in Transport Layer Security's ephemeral modes (referred to as EDH or DHE depending on the cipher suite).
+The method was followed shortly afterwards by RSA, an implementation of public-key cryptography using asymmetric algorithms.
+Expired U.S. Patent 4,200,770 from 1977 describes the now public-domain algorithm. It credits Hellman, Diffie, and Merkle as inventors.},
+	language = {en},
+	urldate = {2020-03-25},
+	journal = {Wikipedia},
+	month = mar,
+	year = {2020},
+	note = {Page Version ID: 946462919},
+	file = {Snapshot:/home/jani/Zotero/storage/Z9UZKAIF/index.html:text/html}
+}
+
+@article{nakamoto_bitcoin_nodate,
+	title = {Bitcoin: {A} {Peer}-to-{Peer} {Electronic} {Cash} {System}},
+	abstract = {A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.},
+	language = {en},
+	author = {Nakamoto, Satoshi},
+	pages = {9},
+	file = {Nakamoto - Bitcoin A Peer-to-Peer Electronic Cash System.pdf:/home/jani/Zotero/storage/TUHB4YC2/Nakamoto - Bitcoin A Peer-to-Peer Electronic Cash System.pdf:application/pdf}
+}
+
+@misc{noauthor_consensus_2020,
+	title = {Consensus (computer science)},
+	copyright = {Creative Commons Attribution-ShareAlike License},
+	url = {https://en.wikipedia.org/w/index.php?title=Consensus_(computer_science)&oldid=938841675},
+	abstract = {A fundamental problem in distributed computing and multi-agent systems is to achieve overall system reliability in the presence of a number of faulty processes. This often requires processes to agree on some data value that is needed during computation. Examples of applications of consensus include whether to commit a transaction to a database, agreeing on the identity of a leader, state machine replication, and atomic broadcasts. The real world applications include clock synchronization, PageRank, opinion formation, smart power grids, state estimation, control of UAVs (and multiple robots/agents in general), load balancing, blockchain and others.},
+	language = {en},
+	urldate = {2020-03-26},
+	journal = {Wikipedia},
+	month = feb,
+	year = {2020},
+	note = {Page Version ID: 938841675},
+	file = {Snapshot:/home/jani/Zotero/storage/S39KZRB7/index.html:text/html}
+}
