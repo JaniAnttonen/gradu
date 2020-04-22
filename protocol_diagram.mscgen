@@ -1,18 +1,26 @@
 msc {
-  a,b,c;
-
-  a->b [ label = "ab()" ] ;
-  b->c [ label = "bc(TRUE)"];
-  c=>c [ label = "process(1)" ];
-  c=>c [ label = "process(2)" ];
+  a [label="Peer 1 (Prover)"],b [label="Peer 2 (Verifier)"];
+  a->b [ label = "Key exchange" ];
+  a<-b [ label = "Key exchange" ];
+  |||;
+  ---  [ label = "Shared key g created" ];
+  |||;
+  ---  [ label = "Start VDF calculation" ];
+  |||;
+  a=>b [ label = "X for Peer 2 to sign" ];
+  |||;
+  a->a [ label = "VDF(g, T=1)" ];
+  |||;
   ...;
-  c=>c [ label = "process(n)" ];
-  c=>c [ label = "process(END)" ];
-  a<<=c [ label = "callback()"];
-  ---  [ label = "If more to run", ID="*" ];
-  a->a [ label = "next()"];
-  a->c [ label = "ac1()\nac2()"];
-  b<-c [ label = "cb(TRUE)"];
-  b->b [ label = "stalled(...)"];
-  a<-b [ label = "ab() = FALSE"];
+  |||;
+  a->a [ label = "VDF(g^(2*(n-1)), T=n-1)" ];
+  a<<b [ label = "Sign(X)" ];
+  a->a [ label = "VDF(g^(2*n), T=n)" ];
+  |||;
+  ---  [ label = "VDF calculation stopped" ];
+  |||;
+  a->a [ label = "Generate proof of latency" ];
+  |||;
+  ---  [ label = "Proof available to the network" ];
+  |||;
 }
