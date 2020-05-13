@@ -49,14 +49,17 @@ My goal with this thesis is to introduce a better way of constructing distribute
 
 Overarching research questions regarding this research are if I can construct a valid mathematical proof of latency and computation resources, and if it can be applied to P2P network routing that results in a more performant network with less network hops between continents and unrelated peers. Another goal is to inspire ideas for further research of verifiable delay functions and my algorithm, finding new applications for it other than my proposed one.
 
-\section{Materials and methods}
-I have already gathered a stack of material on the subject, with the most important reference points being the individual whitepapers of blockchain networks, and the original two plus subsequent research papers by Wesolowski and Pietrzak describing verifiable delay functions. Material is mostly going to be in the form of research papers and articles. There are a few good explainers on verifiable delay functions in the form of blog posts that I'm going to be referring to. Unfortunately some new material in the field of blockchains is not peer reviewed and can resemble an advertisement more than a research paper, but on the other hand, verifiable delay functions have seen real academic research.
+\section{Background}
+VDF's have emerged from the motivation to create verifiable time-lock puzzles. Time-lock puzzles was coined by Rivest, Shamir, and Wagner in 1996 in their paper "Time-lock puzzles and timed-release Crypto". Time-lock puzzles themselves are rather esoteric in nature, and are a way to construct a mathematic "time capsule" that can be opened only after a certain number of calculations probabilistically. Verifying time-lock puzzles means that the calculation can be stopped at any point, can be resumed at another time and by another process without requiring trust. The thesis is going to study the idea of using a VDF as a measurement metric. 
 
-Most of the material used is public and with free access, and this also holds true with the programming tools used. All the code that I'm going to use along the way will be open-source, licenced with non-restrictive licences like MIT. The research I'm doing for this thesis requires no non-disclosure agreements to be signed, or any other contracts or permissions to be requested.
+I stumbled on VDFs when I was imagining alternative consensus protocols for public blockchains first through the blockchain project Solana, but formalized the idea in correspondence with people from VDF research. 
 
-During the research I may consult Simon Peffers and Kelly Olson from Supranational, or any other VDF research related people on my progress, as they were present in the process of narrowing down the research question of this thesis. This said, I'm going to be doing the research and programming myself without external help on the execution.
-asd
-Later on in the process I might want to try out formal methods, like TLA+, to prove that my proof is sound mathematically.
+The thesis assumes some preliminary knowledge of public-key cryptography, networking, and of course, general knowledge of computer science and mathematics. Fortunately, VDFs are not a terribly broad subject, but a rather tight definition for an algorithm. Although many works that have utilized VDFs revolve around blockchains, the research is not going to rely on that, altough there might be some mentions along the way.
+
+\section{Related Work}
+Chia Network Inc have made a VDF library in Rust that covers the Pietrzak and Wesolowski approaches. There's another, albeit much smaller library made by William Borgeaud only including the Wesolowski scheme to accompany his blog post "Understanding Verifiable Delay Functions", which I will be using as a reference point for my Rust implementation. Neither of the existing libraries allow for indefinite iteration of the VDF, requiring the user to define the difficulty T beforehand.
+
+To my knowledge, nobody has applied VDFs to proving latency between peers publicly before. There's no public work that's conflicting or competing with my application available as of writing this research plan.
 
 \section{Timeline}
 Work on this thesis started in February 2020. I've spent the month of March studying verifiable delay functions and gathering existing research.
@@ -66,6 +69,10 @@ During next month, I aim to formalize and program a working prototype of my algo
 In the following months, May and June, the plan is to make some code improvements to the algorithm, and write the thesis' parts considering my own research and finalize any introductory parts that need editing or additions.
 
 In July, I plan to make revisions of the work suitable for review, and make any corrections needed to the thesis. If there's any considerable time left, I might study the subject further will it fit my thesis or not.
+
+During the research I may consult Simon Peffers and Kelly Olson from Supranational, or any other VDF research related people on my progress, as they were present in the process of narrowing down the research question of this thesis. This said, I'm going to be doing the research and programming myself without external help on the execution.
+
+Later on in the process I might want to try out formal methods, like TLA+, to prove that my proof is sound mathematically.
 
 I plan to be finished by the end of summer to early fall.
 
