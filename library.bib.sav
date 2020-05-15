@@ -1,3 +1,4 @@
+% Encoding: UTF-8
 
 @inproceedings{boneh_verifiable_2018,
 	address = {Cham},
@@ -2210,3 +2211,5 @@ Section: Startup},
 	annote = {Comment: 15 pages. 2 figures},
 	file = {arXiv.org Snapshot:/home/jani/Zotero/storage/KSWDFHIC/1402.html:text/html;Cai_Devroye_2015_The Analysis of Kademlia for random IDs.pdf:/home/jani/Zotero/storage/PLYNIFE2/Cai_Devroye_2015_The Analysis of Kademlia for random IDs.pdf:application/pdf}
 }
+
+@Comment{jabref-meta: databaseType:bibtex;}
