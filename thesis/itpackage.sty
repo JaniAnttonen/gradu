@@ -13,8 +13,6 @@
 %
 % handle things based on language
 %
-\newif\iffin
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -164,23 +162,11 @@
 \vspace*{\stretch{4}}
 \\
 \renewcommand{\baselinestretch}{1}\normalsize
- \iffin
- \begin{tabular}{p{80 mm}p{70 mm}}           \\
- &
- \usebox{\wtfi}                              \\
- & Turun yliopisto                           \\
- & Tulevaisuuden teknologioiden laitos       \\
- \else
 \begin{tabular}{p{78 mm}p{72 mm}}            \\
  & \usebox{\wt}                              \\
  & University of Turku                       \\
  & Department of Future Technologies         \\
- \fi
- & \iffin
- \usebox{\difi}                              \\
- \else
  \usebox{\di}                                \\
- \fi
  & \usebox{\eyear}                           \\
  & \usebox{\eauthor}                         \\
  &                                           \\
@@ -196,13 +182,9 @@
 \end{tabular}
 \vspace*{\stretch{1}}\\
 \begin{minipage}[b]{\textwidth}
-\iffin
-\scriptsize Turun yliopiston laatujärjestelmän mukaisesti tämän julkaisun alkuperäisyys on tarkastettu Turnitin OriginalityCheck-järjestelmällä.
-\else
 \scriptsize The originality of this thesis has been checked in
 accordance with the University of Turku quality assurance system using
 the Turnitin OriginalityCheck service. 
-\fi
 \end{minipage}
 \renewcommand{\baselinestretch}{1.655}\normalsize
 \clearpage
@@ -248,56 +230,6 @@ Department of Information Technology
 \\
 \begin{entry}{Keywords}
 \item[Keywords] \usebox{\keywords}
-\end{entry}
-\end{minipage}
-\clearpage
-\setcounter{page}{0}
-\setlength{\headheight}{12 pt}
-\setlength{\headsep}{24 pt}
-\setlength{\topmargin}{0 mm}
-\renewcommand{\baselinestretch}{1.655}\normalsize
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% define ittiivis environment for tiivistelm�sivu ;-)
-%
-\newenvironment{ittiivis}[1]{%
-\selectlanguage{finnish}
-\newsavebox{\asiasanat}
-\newlength{\asiasanatwidth}
-\settowidth{\asiasanatwidth}{\textrm{Asiasanat:}}
-\setlength{\etttmpwidth}{\linewidth}
-\addtolength{\etttmpwidth}{-\asiasanatwidth}
-\addtolength{\etttmpwidth}{-\labelsep}
-\addtolength{\etttmpwidth}{-1mm}
-\sbox{\asiasanat}{\parbox[t]{\etttmpwidth}{#1}}
-\setlength{\headheight}{0 pt}
-\setlength{\headsep}{0 pt}
-\addtolength\topmargin{-1 in}
-\addtolength\topmargin{2.0 cm}
-\renewcommand{\baselinestretch}{1}\normalsize
-\clearpage
-\thispagestyle{empty}
-\noindent
-\begin{minipage}[\textheight]{\linewidth}
-TURUN YLIOPISTO\\
-Informaatioteknologian laitos
-\begin{entry}{\usebox{\eauthor}}
-\item[\usebox{\esauthor}] \usebox{\etitle}
-\end{entry}
-
-\usebox{\wtfi}, \pageref{endofpages} s., \pageref{endofappendices} liites. \\
-\usebox{\difi}\\
-\usebox{\emonthfi} \usebox{\eyear} \\
-\rule{\linewidth}{1 pt}
-\\
-}
-{
-\bigskip
-\\
-\begin{entry}{Asiasanat}
-\item[Asiasanat] \usebox{\asiasanat}
 \end{entry}
 \end{minipage}
 \clearpage

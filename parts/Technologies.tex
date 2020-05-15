@@ -7,13 +7,14 @@
 \section{Asymmetric Cryptography}
 \subsection{Diffie-Hellman Key Exchange}
 
+
 \section{Elliptic Curve Cryptography}
 
 \chapter{Distributed Hash Tables}
 \label{DHT}
-
-\section{Definition}
+Distributed hash tables are a way of pointing content to peers in a distributed network. In addition to indexing content in content-addressed networks like IPFS, they can function as routing tables. A hash table is just a regular key-value store, a mapping from a to b. What makes them distributed is the fact that the data stored is meant to be distributed between peers, with not a single peer keeping all the available data in its DHT, but relaying queries that it can't answer to other peers on the network.
 
 \section{Kademlia}
+Kademlia is a DHT designed by Petar Maymounkov and David Mazières in 2002.
 \subsection{Problem with Randomness}
-
+A single query in Kademlia has been shown in real-world tests to result in an average of 3 network hops, meaning that the query gets relayed through two peers before reaching the requested resource.\cite{roos_comprehending_2013} Network hops are a necessary evil in distributed systems, and Kademlia does well in requiring on average a log(n) queries in a network of n nodes. There's a problem, though. Since the closeness metric is based on a similarity search rather than a measurement, the closest peer is only closest by the identifier, not by network latency.

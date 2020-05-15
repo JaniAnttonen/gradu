@@ -139,17 +139,11 @@
 \begin{document}
 
 % Select language here by removing comment from one of the two rows below
-%\selectlanguage{finnish}\fintrue
-\selectlanguage{english}\finfalse
+\selectlanguage{english}
 
 % Set some names based on selected language; no modification required
-\iffin
-\settocbibname{Lähdeluettelo}
-\renewcommand{\appname}{Liitteet}
-\else
 \settocbibname{References}
 \renewcommand{\appname}{Appendices}
-\fi
 
 % Fill in your information below
 \workinfo{Jani Anttonen}
@@ -162,7 +156,7 @@
 
 % Set the type of your thesis (Diplomityö, TkK -tutkielma, etc.) and
 % laboratory or field of study below
-\worktype{Type of thesis}{M.Sc.} 
+\worktype{Master's Thesis}{M.Sc.} 
 \deptinfo{Department of Future Technologies}
 
 % Generate the title page 
@@ -179,8 +173,8 @@
 %
 \pagestyle{empty}
 \fancypagestyle{plain}{
-  \fancyhf{}
-  \renewcommand{\headrulewidth}{0 pt}
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0 pt}
 }
 
 % roman numbering for table of contents etc.
@@ -195,11 +189,11 @@
 %\setcounter{page}{0}
 \tableofcontents
 \clearpage
-%\setcounter{page}{0}
-%\listoffigures 
-%\clearpage
-%\setcounter{page}{0}
-%\listoftables
+\setcounter{page}{0}
+\listoffigures 
+\clearpage
+\setcounter{page}{0}
+\listoftables
 
 % possibly insert 'list of acronyms'
 %
@@ -210,7 +204,7 @@
 %     standard chapter and we are faking '\listofacronyms'
 %
 %\setcounter{secnumdepth}{-1}
-%\input{your acronym chapter's file name}
+%\input{parts/Terms}
 %\setcounter{secnumdepth}{2}
 
 % setup page numbering, page counter, etc.
@@ -225,19 +219,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{parts/Introduction}
-\input{parts/Background}
+\input{parts/Technologies}
 \input{parts/VDF}
 \input{parts/ProofOfLatency}
-\input{parts/Results}
+\input{parts/Conclusion}
 
 % insert references
 %  - included unsrtf.bst provides finnish language version of unsrt
-\iffin
-\bibliographystyle{thesis/unsrtf}
-\else
 \bibliographystyle{unsrt}
-\fi
-\bibliography{library}
+\bibliography{library.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %

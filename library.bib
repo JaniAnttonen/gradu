@@ -1496,10 +1496,10 @@ Random oracles as a mathematical abstraction were firstly used in rigorous crypt
 	keywords = {Peer-to-peer architecture (Computer networks) -- Congresses}
 }
 
-@misc{noauthor_kademlia_2020,
+@article{petar_maymounkov_kademlia_2020,
 	title = {Kademlia},
 	copyright = {Creative Commons Attribution-ShareAlike License},
-	url = {https://en.wikipedia.org/w/index.php?title=Kademlia&oldid=936998972},
+	shorttitle = {kademlia},
 	abstract = {Kademlia is a distributed hash table for decentralized peer-to-peer computer networks designed by Petar Maymounkov and David Mazières in 2002. It specifies the structure of the network and the exchange of information through node lookups. Kademlia nodes communicate among themselves using UDP. A virtual or overlay network is formed by the participant nodes. Each node is identified by a number or node ID. The node ID serves not only as identification, but the Kademlia algorithm uses the node ID to locate values (usually file hashes or keywords). In fact, the node ID provides a direct map to file hashes and that node stores information on where to obtain the file or resource.
 When searching for some value, the algorithm needs to know the associated key and explores the network in several steps. Each step will find nodes that are closer to the key until the contacted node returns the value or no more closer nodes are found. This is very efficient: like many other DHTs, Kademlia contacts only 
   
@@ -1529,7 +1529,7 @@ Further advantages are found particularly in the decentralized structure, which 
 I2P's implementation of Kademlia is modified to mitigate Kademlia's vulnerabilities, such as Sybil attacks.},
 	language = {en},
 	urldate = {2020-03-23},
-	journal = {Wikipedia},
+	author = {Petar Maymounkov, David Mazières},
 	month = jan,
 	year = {2020},
 	note = {Page Version ID: 936998972},
@@ -2198,4 +2198,20 @@ Section: Startup},
 	url = {https://www.vsat-systems.com/satellite-internet-explained/latency.html},
 	urldate = {2020-05-14},
 	file = {Satellite Internet Latency - VSAT Systems Broadband Satellite Internet Latency - Broadband Satellite Internet Service Latency:/home/jani/Zotero/storage/BJXUVIIT/latency.html:text/html}
+}
+
+@article{roos_comprehending_2013,
+	title = {Comprehending {Kademlia} {Routing} - {A} {Theoretical} {Framework} for the {Hop} {Count} {Distribution}},
+	shorttitle = {kademlia-routing},
+	url = {http://arxiv.org/abs/1307.7000},
+	abstract = {The family of Kademlia-type systems represents the most efficient and most widely deployed class of internet-scale distributed systems. Its success has caused plenty of large scale measurements and simulation studies, and several improvements have been introduced. Its character of parallel and non-deterministic lookups, however, so far has prevented any concise formal analysis. This paper introduces the first comprehensive formal model of the routing of the entire family of systems that is validated against previous measurements. It sheds light on the overall hop distribution and lookup delays of the different variations of the original protocol. It additionally shows that several of the recent improvements to the protocol in fact have been counter-productive and identifies preferable designs with regard to routing overhead and resilience.},
+	urldate = {2020-05-14},
+	journal = {arXiv:1307.7000 [cs]},
+	author = {Roos, Stefanie and Salah, Hani and Strufe, Thorsten},
+	month = jul,
+	year = {2013},
+	note = {arXiv: 1307.7000},
+	keywords = {Computer Science - Networking and Internet Architecture},
+	annote = {Comment: 12 pages, 6 figures},
+	file = {arXiv.org Snapshot:/home/jani/Zotero/storage/ZR74I7K9/1307.html:text/html;Roos et al_2013_Comprehending Kademlia Routing - A Theoretical Framework for the Hop Count.pdf:/home/jani/Zotero/storage/KQZB3NAY/Roos et al_2013_Comprehending Kademlia Routing - A Theoretical Framework for the Hop Count.pdf:application/pdf}
 }
