@@ -53,7 +53,7 @@
 %  - comments are welcome
 %  - should a required package be missing see http://www.ctan.org/ 
 %  - http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf
-%asd
+%
 % Later modifications:
 %  - 22.9.2016, 1.10.2017:Johannes Holvitie <jjholv@utu.fi>, additions
 %    marked "JH:". Reason: modified for use in tex.soft.utu.fi
@@ -70,10 +70,13 @@
 % load ams-packages for maths
 \usepackage{amssymb,amsthm,amsmath}
 
-% load babel-package for automatic hyphenation
-\usepackage[english]{babel}
+% load url package for urls, specifically in references
+\usepackage{url}
+
 % JH: modified latin to UTF-8 encoding cues to make Scandinavian characters works
 \usepackage[utf8]{inputenc}
+% load babel-package for automatic hyphenation
+\usepackage[english]{babel}
 
 \usepackage{ifpdf}
 \usepackage{graphicx}
