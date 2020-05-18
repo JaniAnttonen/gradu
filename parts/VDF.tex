@@ -1,13 +1,18 @@
 % !TeX root = ./Thesis.tex
 \chapter{Verifiable Delay Functions}
 \label{Verifiable Delay Functions}
+A verifiable delay function (VDF) is a function f : X → Y that takes a prescribed time to compute, even on a parallel computer. However once computed, the output can be quickly verified by anyone. Moreover, every input x ∈X must have a unique valid output y ∈Y. In more detail, a VDF that implements a function X →Y is a tuple of three algorithms: • Setup(λ,T ) → pp is a randomized algorithm that takes a security parameter λ and a time bound T, and outputs public parameters pp, • Eval(pp,x) → (y,π) takes an input x ∈X and outputs a y ∈Y and a proof π. • Verify(pp,x,y,π) → {accept,reject} outputs accept if y is the correct evaluation of the VDF on input x.
 
 \section{History}
-Verifiable delay functions are based on time-lock puzzles. Time-lock puzzles are computational sequential puzzles that require a certain amount of time to solve.\cite{rivest_time-lock_nodate} Verifiable delay functions fall under the same definition, but introduce a publicly verifiable proof that is much faster to verify than the puzzle was to solve.
+Verifiable delay functions are based on time-lock puzzles. Time-lock puzzles are computational sequential puzzles that require a certain amount of time to solve.\cite{rivest_time-lock_nodate} Time-lock puzzles
 
-
+Verifiable delay functions fall under the same definition, but introduce a publicly verifiable proof that is much faster to verify than the puzzle was to solve.
 
 \section{Applications}
+
+Many have shown that there are more use cases for these algoritms than puzzles and random number generators. Some examples include preventing front running in p2p cryptocurrency exchanges, spam prevention and rate limiting\cite{vdfresearch}
+
+All of these applications can be made faster with hardware, and it has been estimated that with an ASIC chip a VDF can be calculated more than ten times faster than with a GPU. If or when hardware specifically optimized for sequential squarings is commercialized, VDFs can become much more mainstream, and suffer less from competition, thus requiring less trust between the calculating parties.
 
 \section{Variations}
 

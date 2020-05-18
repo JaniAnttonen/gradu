@@ -75,30 +75,8 @@
 % JH: modified latin to UTF-8 encoding cues to make Scandinavian characters works
 \usepackage[utf8]{inputenc}
 
-% load graphicx package
-%   - automagically select proper parameters depending on whether
-%     we're running pdflatex or latex
-%   - specify \includegraphics{file} without the file extension
-%     (.eps /.pdf (/ .png / .jpeg / ...)), tex should select the proper file
-%
 \usepackage{ifpdf}
 \usepackage{graphicx}
-%% !!! NOTE: if you have ancient LaTeX distribution then you might need to
-%% use the following instead
-%% \newif\ifpdf
-%% \ifx\pdfoutput\undefined
-%%   \pdffalse
-%% \else
-%%   \pdfoutput=1
-%%   \pdftrue
-%% \fi
-%% % if graphicx complains about option clash remove the [pdftex] option
-%% \ifpdf
-%%   \usepackage[pdftex]{graphicx}
-%% \else
-%%   \usepackage[dvips]{graphicx}
-%% \fi
-
 
 % load tocbibind package 
 %   - do not include table of contents in itself
