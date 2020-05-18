@@ -47,7 +47,7 @@ Since calculating a VDF is relatively easy for modern processors, a VDF over as 
 Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. The two versions of the algorithm differ much in terms of security.
 
 \subsection{Performance Matching}
-Both versions suffer from the same issue, enabling attackers to perform an eclipse attack on low-performance devices by matching the attacker's performance with the targeted mobile device so that it is as close as possible in the difference between iterations in PoL. Now again, if the algorithm had a trusted platform module requirement, this wouldn't be an issue on either of the versions of the algorithm. This attack could result in a complete network split.
+Both versions suffer from the same issue, let's call it performance matching, which is a timing attack. It enables attackers to perform an eclipse attack on low-performance devices by matching the attacker's performance with the targeted mobile device so that it is as close as possible in the difference between iterations in PoL. Now again, if the algorithm had a trusted platform module requirement, this wouldn't be an issue on either of the versions of the algorithm. This attack could result in a complete network split.
 
 \section{Protecting Against Performance Matching}
 \subsection{Zero-Knowledge Proofs}
