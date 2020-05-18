@@ -2184,12 +2184,12 @@ Section: Startup},
 	file = {arXiv.org Snapshot:/home/jani/Zotero/storage/ZR74I7K9/1307.html:text/html;Roos et al_2013_Comprehending Kademlia Routing - A Theoretical Framework for the Hop Count.pdf:/home/jani/Zotero/storage/KQZB3NAY/Roos et al_2013_Comprehending Kademlia Routing - A Theoretical Framework for the Hop Count.pdf:application/pdf}
 }
 
-@misc{harry_halpin_nym-litepaperpdf_nodate,
-	title = {nym-litepaper.pdf},
-	url = {https://nymtech.net/nym-litepaper.pdf},
-	urldate = {2020-05-14},
-	author = {Harry Halpin},
-	file = {nym-litepaper.pdf:/home/jani/Zotero/storage/SA4A4XS2/nym-litepaper.pdf:application/pdf}
+@Misc{harry_halpin_nym-litepaperpdf_nodate,
+  author  = {Harry Halpin},
+  title   = {Nym Litepaper},
+  file    = {nym-litepaper.pdf:/home/jani/Zotero/storage/SA4A4XS2/nym-litepaper.pdf:application/pdf},
+  url     = {https://nymtech.net/nym-litepaper.pdf},
+  urldate = {2020-05-14},
 }
 
 @article{cai_analysis_2015,
