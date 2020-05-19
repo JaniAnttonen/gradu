@@ -2,32 +2,42 @@
 \chapter{Cryptography}
 \label{Cryptography}
 
+Modern cryptography is based on relatively few but robust mathematical principles. The most dominant principles have historically been prime numbers and modular multiplication, but elliptic curve cryptography is increasingly considered to be the most secure method out there to keep things private.
+
+Modular multiplication with large numbers has a useful property that you can exchange encrypted data without the participants knowing each other's private keys, but requiring a computation that is theoretically almost impossible to break. Prime numbers and elliptic curves can be used to create the variables used in modular multiplication, providing the basis for the robustness of the cryptosystem.
+
 \section{RSA}
 
-\section{Asymmetric Cryptography}
-\subsection{Diffie-Hellman Key Exchange}
+RSA is named after it's discoverers – Rivest, Shamir, Adleman. It is a public-key cryptosystem, meaning that it is based on a keypair, from which the other is a public key and other is a secret key. The public key is used to encrypt data, and the secret key is used to decrypt data. This means that everyone who has the public key can encrypt data that can't, with a large probability, be decrypted without the secret key. It works due to the fact that it's hard to factor the product of two large prime numbers.
+
+Some institutions also have been publishing these products of two large prime numbers, claiming they have discarded the two prime numbers that were used in the creation. These are published as public puzzles with prizes for correct factorizations as high as 200000 US dollars, but the larger ones can also be used in cryptography to remove a trusted setup. These products are called RSA numbers, of which RSA-1024 and RSA-2048 are widely used. They can be considered relatively safe for production use, since the latest broken RSA number at the time of writing is RSA-250. Still, in practice, the keys could be still stored by the number's creator, requiring trust towards the institutions or individuals who have published them.
+
+\section{Diffie-Hellman Key Exchange}
+
+Diffie-Hellman key exchange is a way of generating a shared cryptographic key between two participants. The working principle is that both participants in the exchange do commutative calculations on the input that result in the same output, using prime numbers that result in good cryptographic primitives because of the prime factorization problem, that quarantees the participants' secret keys staying secret and the cryptography hard to break. There's also an elliptic curve version of the Diffie-Hellman key exchange, but let's first touch on an example with primes:
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/diffiehellman.eps}
 	\caption{Diffie-Hellman key exchange algorithm\cite{Jeon2014-ag}}
 	\label{Diagram, Diffie-Hellman Key Exchange}
 \end{figure}
+
+The two parties, who are called Alice and Bob, want to generate a shared encryption key to communicate secretly between each other. Alice and Bob first agree on a large prime number \(p\) and a nonzero integer \(g  modulo  p\). This info is shared between Alice and Bob, is considered public, and serves as the starting point for the encryption scheme.
 						
-Diffie-Hellman key exchange is a way of generating a shared cryptographic key between two participants. The two parties, who are called Alice and Bob, want to generate a shared encryption key to communicate secretly between each other. Alice and Bob first agree on a large prime number \(p\) and a nonzero integer \(g modulo p\). This info is shared between Alice and Bob, and serves as the starting point for the encryption scheme.
+Next up, Alice picks a secret integer that she keeps to herself, \(a\), and Bob picks a secret integer \(b\). 
 						
-Next up, Alice picks a secret integer that she keeps to herself, \(a\), 
-						
+
 \section{Elliptic Curve Cryptography}
 						
-\chapter{Peer-to-Peer}
-\label{Peer-to-Peer}
-Distributed hash tables are a way of pointing content to peers in a distributed network. In addition to indexing content in content-addressed networks like IPFS, they can function as routing tables. A hash table is just a regular key-value store, a mapping from a to b. What makes them distributed is the fact that the data stored is meant to be distributed between peers, with not a single peer keeping all the available data in its DHT, but relaying queries that it can't answer to other peers on the network.
+\chapter{Peer-to-Peer Networking}
+\label{Peer-to-Peer Networking}
 						
 \section{Routing}
 						
 %TODO add more examples of P2P routing
 						
 \subsection{Distributed Hash Tables}
+Distributed hash tables are a way of pointing content to peers in a distributed network. In addition to indexing content in content-addressed networks like IPFS, they can function as routing tables. A hash table is just a regular key-value store, a mapping from a to b. What makes them distributed is the fact that the data stored is meant to be distributed between peers, with not a single peer keeping all the available data in its DHT, but relaying queries that it can't answer to other peers on the network.
 						
 \subsubsection{Kademlia}
 Kademlia is a DHT designed by Petar Maymounkov and David Mazières in 2002. It is based on a tree of identifiers which are split across peers on a network.
