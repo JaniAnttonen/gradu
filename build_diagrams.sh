@@ -1,2 +1,5 @@
-mscgen -T eps -o pictures/pol1_diagram.eps -i protocol_diagram_1.mscgen
-mscgen -T eps -o pictures/pol2_diagram.eps -i protocol_diagram_2.mscgen
+#!/bin/bash
+for filename in pictures/*.mscgen; do
+    mscgen -T eps -o "pictures/$(basename "$filename" .mscgen).eps" -i "$filename"
+done
+
