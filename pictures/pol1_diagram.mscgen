@@ -3,9 +3,9 @@ msc {
   a->b [ label = "Key exchange" ];
   a<-b [ label = "Key exchange" ];
   |||;
-  ---  [ label = "Shared key g created" ];
+  ---  [ label = "Shared root g created" ];
   |||;
-  ---  [ label = "Start VDF calculation" ];
+  ---  [ label = "Prover starts VDF calculation" ];
   |||;
   a=>b [ label = "X for Peer 2 to sign" ];
   |||;
