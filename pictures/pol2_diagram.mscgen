@@ -16,7 +16,7 @@ msc {
   |||;
   ...;
   |||;
-  a->a [ label = "VDF(g^(2*(upper_bound)), T=upper_bound-n)" ];
+  a->a [ label = "VDF(g^(2*(upper_bound)), T=upper_bound)" ];
   b->b [ label = "VDF(g^(2*(upper_bound)), T=upper_bound)" ];
   |||;
   ---  [ label = "Verifier VDF completed" ];
