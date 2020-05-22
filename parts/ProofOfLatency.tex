@@ -78,4 +78,6 @@ There's a catch, though. The prover can still lie to other peers by slowing down
 
 \chapter{Proof of Concept}
 \label{Proof of Concept}
-To test out Proof of Latency, I made a software proof of concept in Rust, using some open source projects, blog posts and previous knowledge as a base for the work. 
+To test out Proof of Latency, I made a software proof of concept in Rust, using some open source projects, blog posts and previous knowledge as a base for the work. William Borgeaud's blog post\cite{Borgeaud2019-wk} from November 2019 in particular was the first reference I encountered that described verifiable delay functions in familiar terms to a software engineer like me. The blog post and it's accompanying code\cite{Borgeaud2019-nn} helped me bootstrap the project.
+
+First of all, I knew I had to make the VDF run asynchronically or if possible, in another thread, because it would be one of two VDFs needed in the protocol. For Proof of Latency it was also needed that the prover's calculation could be ran indefinitely, and ended abruptly by a received proof from the verifier.
