@@ -6,57 +6,6 @@
 % Sami Nuuttila (samnuutt@utu.fi) 
 %
 % Last mod 2.9.2015:
-% 
-% Why:
-%  - No need for anyone to invent the wheel again. You can of course do that
-%    if you wish - TeX'll even let you invent many different kinds of wheels
-%  - That said, if you come up with a great new wheel I'd like to hear about 
-%    it - it might even end up being used here 
-% 
-% Features:
-%  - Proper page sizes as required by university guide for students:
-%      - proper font sizes as well as linespacings
-%      - proper size of margins
-%  - Generic title page:
-%      - \gentitle
-%  - Generic abstract page(s):
-%      - \begin{itabstract}{Keywords}
-%          abstract text
-%        \end{itabstract}
-%      - \begin{ittiivis}...\end{ittiivis} provides finnish version
-%         - ittiivis defaults to finnish so no need to issue 
-%           \selectlanguage{finnish}
-%      - total number of pages as well as total number of pages in appendices
-%        are automagically handled
-%  - Entry environment:
-%      - \begin{entry}[widest label]
-%          \item[1st label text] ...
-%          \item[2nd label text] ...
-%        \end{entry}
-%      - the actual items are aligned to suit the widest label, which is
-%        given as an argument to the environment
-%  - Use of specific latex packages to ease in formatting the thesis:
-%      - format table of contents to have bibliography shown as references
-%        as well as other fixes           (tocbibind)
-%      - enhanced verbatim handling       (sverb)
-%      - source code inclusion            (listings)
-%      - handling of headers and footers  (fancyhdr)
-%
-%      - consultation of the manuals of these packages is strongly
-%        encouraged 
-%
-% Assumptions:
-%  - itpackage.sty file is available 
-%  - each chapter is as a separate file which is read in with e.g. \input
-%   
-% Miscellaneous:
-%  - comments are welcome
-%  - should a required package be missing see http://www.ctan.org/ 
-%  - http://www.ctan.org/tex-archive/info/lshort/english/lshort.pdf
-%
-% Later modifications:
-%  - 22.9.2016, 1.10.2017:Johannes Holvitie <jjholv@utu.fi>, additions
-%    marked "JH:". Reason: modified for use in tex.soft.utu.fi
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -71,7 +20,9 @@
 \usepackage{amssymb,amsthm,amsmath}
 
 % load url package for urls, specifically in references
-\usepackage{url}
+% Use hyphenation
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
 
 % JH: modified latin to UTF-8 encoding cues to make Scandinavian characters works
 \usepackage[utf8]{inputenc}
@@ -130,10 +81,10 @@
 \workinfo{Jani Anttonen}
 {Proof of Latency Using a Verifiable Delay Function}
 {Jaakko Järvi}
-{Second Supervisor}
+{Najmul Islam}
 {2020}
-{November}
-{Kuukausi}
+{May}
+{Toukokuu}
 
 % Set the type of your thesis (Diplomityö, TkK -tutkielma, etc.) and
 % laboratory or field of study below
