@@ -31,33 +31,42 @@ Now, if we were to rely on IP address geolocation, we could more efficiently con
 
 Proof of Latency is made to improve the performance of current P2P networking solutions and make them future-proof, even for hops between planets, while still being compatible with some privacy-preserving P2P protocols, since it is agnostic of the addressing method used.
 
-\section{Alternative Version}
-The first iteration of the algorithm is based on an attempt to simplify the initial Proof of Latency algorithm. After some thought, I came to the conclusion that the initial iteration, which ended up as the second and final version of the algorithm, is actually the most resistant to attacks and requires less trust from the participants.
+\section{Protocol Description}
 \begin{figure}
-	\includegraphics[width=\textwidth]{pictures/pol1_diagram.eps}
-        \caption{Alternative, minimized version of PoL}
-	\label{PoL Diagram 1}
+  \includegraphics[width=\textwidth]{pictures/pol2_diagram.eps}
+  \caption{Protocol Diagram, Proof of Latency}
+  \label{PoL Diagram 2}
 \end{figure}
+The most important part when calculating any VDF is the setup. If a prover wants to create a valid proof, it needs a previously unknown starting point at first, so that it can prove for certain that it cannot have calculated the VDF in advance. Proof of Latency tackles this problem with a two-way RSA Diffie-Hellman key setup with random ephemeral prime numbers, which is an industry standard to achieve a previously unknown key with large certainty. 
 
-\subsection{Results}
-Since the network peers are trying to compete with each other for the least latency, they win the game by calculating the least amount of VDF iterations. In the first version of the algorithm, this soon becomes a problem. There's no way to tell how fast another computer is, so in this case spoofed results of 1 iteration would win every time.
-
-This version only works if the peers can trust each other, but in that case we could also resort to using ping. Ways of introducing trust would be using a trusted computing platform, but even that could be vulnerable to undervolting or other physical tampering. This problem drove me to revert back to my original idea, which I'm calling the version two of Proof of Latency.
-
-\section{Second Version of PoL}
-\begin{figure}
-	\includegraphics[width=\textwidth]{pictures/pol2_diagram.eps}
-	\caption{Proof of Latency, Version 2}
-	\label{PoL Diagram 2}
-\end{figure}
-The second version of PoL introduces a race between the two peers. Like in the first version, there's a prover and a verifier. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two.
+The proof generation removes trust between the two peers by introducing a race between them. The two participants are called the prover and the verifier, although they both are actively proving and verifying their VDFs. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two.
 
 First the prover and the verifier do a Diffie-Hellman key exchange to construct a previously unknown key. Then, they both start calculating a VDF in parallel. The prover only calculates the VDF up to a predefined threshold, and then sends the proof with a signature back to the verifier. The verifier then stops its own calculation, generates a proof of it, and then calculates the absolute difference between the amount of iterations between its own VDF and the prover's.
 
 Since calculating a VDF is relatively easy for modern processors, a VDF over as little as a few milliseconds of time can be a valid way of measuring latency. Still, without an ASIC chip for calculating VDFs faster than any other available processor, these protocols are also a measurement of processing performance. This might introduce an unfortunate barrier for entry for mobile and IoT devices. The second version of PoL is meant to tackle this problem by creating a performance and latency gradient to the network. The network topology results in a gradient that is defined by geographical location and the similarity in performance. This means that connectedness between mobile and IoT devices is going to be better than between devices that have a huge performance difference.
 
+\section{Alternative Version}
+This alternative version of the algorithm is based on an attempt to simplify the initial Proof of Latency algorithm. It drops the requirement of both parties having to run a VDF, leaving it to the prover. In short, the prover proves the verifier their latency with a regular Wesolowski VDF proof, the difference being that all the input has been negotiated with the verifier.
+\begin{figure}
+	\includegraphics[width=\textwidth]{pictures/pol1_diagram.eps}
+        \caption{Alternative, minimized version of PoL}
+	\label{PoL Diagram 1}
+\end{figure}
+Since the network peers are trying to compete with each other for the least latency, they win the game by calculating the least amount of VDF iterations. In this version of the algorithm, this soon becomes a problem. Another peer can tell you that it only had the time to calculate 1 iteration of its VDF before it received back your signed message of the input it gave you, messing up the measurement metric. A peer would win a place in your DHT by just calculating 1 iteration of a VDF and thus faking low latency. If you flipped the metric around, it would favor large latency over a small one, defeating the purpose of the algorithm.
+
+This version only works if the peers can trust each other, but in that case we could also resort to using ping. Ways of introducing trust would be using a trusted computing platform, but even that could be vulnerable to undervolting or other physical tampering. One way to improve upon this version of the algorithm would be to introduce a VDF handshake between the two peers, with the two flipping their responsibilities in the algoritm at the middle. They would then compare their results, and accept the other peer into their DHT if they were close enough in terms of iterations.
+
+I largely prefer the original version. It merges the calculation of the two VDFs into the same timeframe, making the total calculation time of the algorithm shorter. I came to the conclusion that the original version is actually the most resistant to attacks and requires less trust from the participants.
+
 \section{Attack Vectors}
-Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. The two versions of the algorithm differ much in terms of security.
+Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. The two versions of the algorithm differ much in terms of security. Proof of Latency is not meant to be a one-stop shop towards a safer network, but rather an add-on to make things more efficient while still keeping security in mind. The following attack vectors are a product of prior knowledge, research and the writer's thought process, and none have been tested out in practice, yet.
+
+\subsection{Advertising Dishonest Peers}
+A sybil network participant can spawn an arbitrarily large number of new identities and network peers that are close-by, create multiple Proofs of Latency with them, and only advertise these peers to the rest of the network on their DHT. Two peers can also fake the proof if they co-operate by using VDFs they have already calculated and matched their outputs to be as close as possible. 
+
+This can be mitigated somewhat by requiring peers to renew their proofs regularly or by using a public source of randomness like Ethereum 2.0's Beacon Chain. It's hard to make systems completely trustless, and this was a good example while doing this research. Unless the proofs are based on a blockchain, there's no "blind" trust that can be achieved with PoL on how low a latency another peer has to another unless it is calculated yourself by a process you control. Even in this case, the proofs would need constant updating and would at most have a minimum trusted latency roughly equal to the blocktime. This doesn't leave many chains out there at the time of writing that have the capability to do this, and even them would maybe have to introduce some localized consensus to decrease latency even more.
+
+While this sounds bad, if the protocol were to be enforced in a way that it required a proof to be generated between an advertiser and every advertised peer, these sybil, dishonest peers would not propagate falsely to the rest of the network but would remain a separate blob.
 
 \subsection{Performance Matching}
 Both versions suffer from the same issue, let's call it performance matching, which is a timing attack. Timing attacks are a family of attacks against computer systems called side-channel attacks, which attack the fact that although software is abstract and can be very well fit against any attacks on the software level, outer factors still affect the hardware it runs on. Timing attacks rely on gathering of timing data from the target.\cite{noauthor_undated-mp} In performance matching, this means connecting to the targeted peer by another protocol or comparing existing proofs of latencies from all peers that have calculated their latency with the target.
@@ -65,16 +74,22 @@ Both versions suffer from the same issue, let's call it performance matching, wh
 Performance matching enables attackers to perform an eclipse attack on low-performance devices by matching the attacker's performance with the targeted mobile device so that it is as close as possible in the difference between iterations in PoL. Now again, if the algorithm had a trusted platform module requirement, or we had an ASIC for repeated squarings, this wouldn't be an issue on either of the versions of the algorithm. This attack could result in a complete network split.
 
 \section{Protecting Against Performance Matching}
-\subsection{Zero-Knowledge Proofs}
+\subsection{Hiding Information of VDF Results}
 Zero-knowledge proofs could be used to protect against performance matching. If the publicized proof didn't include both the VDF results and iterations, but just included the iteration difference, an attacker would have less info on each peer. This would make attacking more difficult, requiring more queries and PoL runs on average before finding a vulnerable peer.
 
 \subsection{Web of Trust}
-There's also a possibility of introducing a web of trust in parallel to PoL to recognize and shut out malicious peers more effectively. An example of such a system is SybilLimit, which adds a construction called trusted routes to DHT-based routing.\cite{Yu2008-xl}
+There's also a possibility of introducing a web of trust in parallel to PoL to recognize and shut out malicious peers more effectively. An example of such a system is SybilLimit, which adds a construction called trusted routes to DHT-based routing.\cite{Yu2008-xl} I see that trusted routes in conjunction with Proof of Latency would be a great couple. The problem of advertising dishonest peers could also be tackled with a trust-based system. Introducing too much trust into the system could also make PoL useless, since there could be a simple ping protocol with a time-based latency instead.
 
 \subsection{Switch Responsibilities}
 This remedy aims to improve PoL version 1 by flipping the responsibilities of the prover and the verifier. The calculating party wants to prove its latency to the verifier by actually calculating the VDF itself, requiring the verifier to respond as fast as it can to the prover's messages. This way, only a proof of one VDF is needed, which the prover then advertises to the network, telling connecting peers exatly the number of calculations it got to calculate before the verifier responded to it. 
 
 There's a catch, though. The prover can still lie to other peers by slowing down their VDF calculation. By flipping the responsibilities the protocol becomes trustless for the prover, but not for others. The flip felt promising at first glance, but I soon realized there's no better way to do this than the second version, where trust is shared and not assumed.
+
+\subsection{Results}
+Since the network peers are trying to compete with each other for the least latency, they win the game by calculating the least amount of VDF iterations. In the first version of the algorithm, this soon becomes a problem. There's no way to tell how fast another computer is, so in this case spoofed results of 1 iteration would win every time.
+
+This version only works if the peers can trust each other, but in that case we could also resort to using ping. Ways of introducing trust would be using a trusted computing platform, but even that could be vulnerable to undervolting or other physical tampering. This problem drove me to revert back to my original idea, which I'm calling the version two of Proof of Latency.
+
 
 \chapter{Proof of Concept}
 \label{Proof of Concept}
