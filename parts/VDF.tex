@@ -15,12 +15,12 @@ Verifiable delay functions are based on time-lock puzzles. Like VDF's, time-lock
   \item A key escrow scheme can be based on timed-release crypto so that the government can get the message keys but only after a fixed period, say one year
 \end{itemize}
 
-Verifiable delay functions fall under the same definition, but introduce a publicly verifiable proof that is much faster to verify than the puzzle was to solve. The original motivation for verifiable delay functions was to enable someone to pick off where somebody else had left when calculating a time puzzle - to make it possible to create checkpoints in the calculation that could be trusted.
+Verifiable delay functions fall under the same definition, but introduce a publicly verifiable proof that is much faster to verify than the puzzle was to solve. The original motivation for verifiable delay functions was to enable someone to pick off where somebody else had left when calculating a time puzzle - to make it possible to create checkpoints in the calculation that could be trusted. At the same time, VDFs found use in blockchain applications as a way to achieve unspoofable randomness in elections and smart contract input.
 
 \section{Use Cases}
-Many have shown that there are more use cases for these algoritms than puzzles and random number generators. Some examples include preventing front running in p2p cryptocurrency exchanges, spam prevention and rate limiting\cite{noauthor_undated-hk}
+Many have shown that there are more use cases for these algoritms than puzzles and random number generators. Some examples include preventing front running in p2p cryptocurrency exchanges, spam prevention and rate limiting\cite{noauthor_undated-hk} Almost all use cases are based on the property that with a new unique input, and a difficulty requirement, there is no easy way to speed up the calculation.
 
-Almost all use cases are based on the property that with a new unique input, and a difficulty requirement, there is no easy way to speed up the calculation. In the front running use case, this property can be used to remove the effects of latency to prevent any peer, that has heard of a trade happening before another, that has already committed to it, to do a similar trade and get their message across first.\cite{Cline2020-wb} The problem arises from the way messages propagate through a p2p network.
+In the front running use case, this property can be used to restrict front-running in both centralized and decentralized exchanges. In a centralized exchange, this means that the exchange waits for a specified time before it starts the fulfilling the trade. The VDF serves as a receipt for the order taker that there was no reordering and the take orders were processed in a FIFO\footnote{First in, first out} fashion.\cite{Cline2020-wb}
 
 \section{Variations}
 There are multiple variations on the security principles used, since a VDF can use any group of unknown order as a basis for its unpredictability.

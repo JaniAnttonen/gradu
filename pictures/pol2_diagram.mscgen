@@ -9,8 +9,6 @@ msc {
   |||;
   ---  [ label = "Both start VDF calculation" ];
   |||;
-  a=>b [ label = "X for Peer 2 to sign" ];
-  |||;
   a->a [ label = "VDF(g, T=1)" ];
   b->b [ label = "VDF(g, T=1)" ];
   |||;
