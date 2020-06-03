@@ -31,15 +31,19 @@ Next up, Alice picks a secret integer that she keeps to herself, \(a\), and Bob 
 						
 \chapter{Peer-to-Peer Networking}
 \label{Peer-to-Peer Networking}
+Although most p2p networks utilize the internet, and thus familiar things like IP addresses to find other peers through the same routers than anyone else, there needs to be a way of signaling the participation to a particular p2p network. The simplest way to create a p2p network would be to share a single file with anyone who connects to you that has all the IP addresses you've ever connected with. This would be an example of an unstructured p2p network, which could work relatively well in a closed setting, like inside a LAN if there's no support for multicast DNS, or mDNS in short.
+
+\section{Ad Hoc and Zero Configuration Networking}
+Multicast DNS was proposed by Apple in 2013\cite{Cheshire2013-ja} as a way of discovering peers in a local area network in a zero-configuration manner, and it is used nowadays for resource sharing, like sharing printers. Multicast DNS doesn't work outside local area networks, since it works by associating names with IP addresses like regular DNS does. The problem is, that these names are not quaranteed unique, and can be spoofed. If there's two clients with the same name, the first one to respond with its IP address to a query wins.\cite{Pdp2008-tg} Security of zero-configuration and ad hoc networking must relay on cryptographic identities, so that a peer can verify itself with public-key cryptography, which makes the peers on the network practically unique and hard to spoof.
+
+Zero-configuration networking in an unconstrained, global setting is possible with radios, using either dedicated meshnet radios like GoTenna or Helium, or by using the antennas inside mobile devices to form a network. These types of networks are usually called meshnets or ad hoc networks. Basically, Walkie-Talkies are the simplest form of a p2p network. Problems arise when you want to cross large distances, like country borders or large bodies of water. Mesh networking has been used most famously in protests worldwide by using a smartphone app called Firechat.\cite{Milian2014-mt}
+
+Ad hoc mesh networks have a natural metric for latency, signal strength, and thus will not benefit from dynamic routing offered by DHTs as much. Mesh networks are relatively easy to route by connecting to the peers that are reachable without hops and have sufficient signal strength. These networks in their simplest form are very localized and performant, but to make them perform well over a distance there needs to be some satellite or internet hops on the way. 
+
+\section{Distributed Hash Tables}
+Distributed hash tables are a way of pointing content to peers in a distributed network. In addition to indexing content in content-addressed networks like IPFS, they can function as routing tables. A hash table is a key-value mapping from a to b. What makes them distributed is the fact that the data stored is meant to be distributed between peers, with not a single peer keeping all the available data in its hash table, but relaying queries for resources it can't reach to other peers on the network. There are multiple versions of DHTs with different methods for prioritizing certain peers, using tree structures, sorting by identifiers, using computational trust et cetera. 
 						
-\section{Routing}
-						
-%TODO add more examples of P2P routing
-						
-\subsection{Distributed Hash Tables}
-Distributed hash tables are a way of pointing content to peers in a distributed network. In addition to indexing content in content-addressed networks like IPFS, they can function as routing tables. A hash table is just a regular key-value store, a mapping from a to b. What makes them distributed is the fact that the data stored is meant to be distributed between peers, with not a single peer keeping all the available data in its DHT, but relaying queries that it can't answer to other peers on the network.
-						
-\subsubsection{Kademlia}
+\subsection{Kademlia}
 Kademlia is a DHT designed by Petar Maymounkov and David Mazières in 2002. It is based on a tree of identifiers which are split across peers on a network.
 						
 A single query in Kademlia has been shown in real-world tests to result in an average of 3 network hops, meaning that the query gets relayed through two peers before reaching the requested resource.\cite{Roos2013-mb} Network hops are a necessary evil in distributed systems, and Kademlia does well in requiring on average a log(n) queries in a network of n nodes. Since the closeness metric is based on a similarity search rather than a measurement, the closest peer is only closest by the identifier, not by network latency.\cite{Eigenmann2020-zm}
