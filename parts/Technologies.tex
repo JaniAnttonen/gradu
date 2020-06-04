@@ -22,6 +22,17 @@ Diffie-Hellman key exchange is a way of generating a shared cryptographic key be
 	\label{Diagram, Diffie-Hellman Key Exchange}
 \end{figure}
 
+\begin{enumerate}
+  \item Alice and Bob agree on a large prime number $p = 941$ and a primitive root of it, $g = 627$.
+  \item Alice chooses the secret key $a = 347$ and computes
+    \(A = 390 \equiv 627^{347} \ (\bmod 941).\)
+  \item Bob chooses the secret key $b = 781$ and computes
+    \(B = 691 \equiv 627^{781} \ (\bmod 941).\)
+  \item Alice sends bob the number $390$ and Bob sends Alice the number $691$.
+  \item Alice & Bob are now able to compute the number
+    \(470 \equiv 627^{347 \times 781} \equiv A^b \equiv B^a \quad (\bmod 941)\)
+\end{enumerate}
+
 The two parties, who are called Alice and Bob, want to generate a shared encryption key to communicate secretly between each other. Alice and Bob first agree on a large prime number \(p\) and a nonzero integer \(g  modulo  p\). This info is shared between Alice and Bob, is considered public, and serves as the starting point for the encryption scheme.
 						
 Next up, Alice picks a secret integer that she keeps to herself, \(a\), and Bob picks a secret integer \(b\). 
