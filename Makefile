@@ -1,8 +1,6 @@
-.PHONY: Thesis.pdf
-
-Thesis.pdf: 
-		pdflatex Thesis
-		bibtex Thesis
+pdf: 
+	bibtex Thesis
+	pdflatex Thesis
 
 diagrams:
 	./build_diagrams.sh

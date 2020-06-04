@@ -18,6 +18,8 @@ A protocol like this could be used to query for performance. In fact, Proof of L
 
 This could serve as a part of a greater protocol in a distributed computation system. It would be very unfortunate to run large datasets against a data analysis model on a mobile phone, and it could be beneficial to prove that the peer that advertises its services can actually run the computation without hiccups.
 
+There have been proposals for a VDF-as-a-function system, in which less performant peers could query for a VDF calculation if they don't have the means to do so in a time frame small enough themselves. 
+
 \section{Role of Latency in Distributed Systems}
 It's hardly a surprise, but latency is a huge factor in distributed systems, especially trustless, decentralized ones. Latency is mostly constrained by the speed of light, which can not be changed, and thus there are concrete factors that must be taken into account when designing a p2p system with routing. In 2012, the global average round-trip delay time to Google's servers was around 100ms.\cite{Grigorik_undated-mc}
 
@@ -93,7 +95,7 @@ This version only works if the peers can trust each other, but in that case we c
 
 \chapter{Proof of Concept}
 \label{Proof of Concept}
-To test out Proof of Latency, I made a software proof of concept in Rust, using some open source projects, blog posts and previous knowledge as a base for the work. William Borgeaud's blog post\cite{Borgeaud2019-wk} from November 2019 in particular was the first reference I encountered that described verifiable delay functions in familiar terms to a software engineer like me. The blog post and it's accompanying code\cite{Borgeaud2019-nn} helped me bootstrap the project.
+To test out Proof of Latency, I made a software proof of concept in Rust, using some open source projects, blog posts and previous knowledge as a base for the work. William Borgeaud's blog post\cite{Borgeaud2019-wk} from November 2019 in particular was the first reference I encountered that described verifiable delay functions in familiar terms to a software engineer like me. The blog post and it's accompanying code\cite{Borgeaud2019-wk} helped me bootstrap the project.
 
 First of all, I knew I had to make the VDF run asynchronically or if possible, in another thread, because it would be one of two VDFs needed in the protocol. For Proof of Latency it was also needed that the prover's calculation could be ran indefinitely, and ended abruptly by a received proof from the verifier.
 
