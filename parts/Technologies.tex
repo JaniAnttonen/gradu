@@ -29,14 +29,11 @@ Diffie-Hellman key exchange is a way of generating a shared cryptographic key be
   \item Bob chooses the secret key $b = 781$ and computes
     \(B = 691 \equiv 627^{781} \ (\bmod 941).\)
   \item Alice sends bob the number $390$ and Bob sends Alice the number $691$.
-  \item Alice & Bob are now able to compute the number
+  \item Since the operations are commutative, Alice & Bob are now able to compute the number
     \(470 \equiv 627^{347 \times 781} \equiv A^b \equiv B^a \quad (\bmod 941)\)
 \end{enumerate}
 
-The two parties, who are called Alice and Bob, want to generate a shared encryption key to communicate secretly between each other. Alice and Bob first agree on a large prime number \(p\) and a nonzero integer \(g  modulo  p\). This info is shared between Alice and Bob, is considered public, and serves as the starting point for the encryption scheme.
-						
-Next up, Alice picks a secret integer that she keeps to herself, \(a\), and Bob picks a secret integer \(b\). 
-						
+The number $470$ is their shared secret, which they can use for symmetric encryption. Of course, in the real world, the modulus would have to be a large enough prime, because with $941$ as the modulus the maximum number of tries to break it would be just $940$. 
 
 \section{Elliptic Curve Cryptography}
 						
@@ -49,13 +46,13 @@ Multicast DNS was proposed by Apple in 2013\cite{Cheshire2013-ja} as a way of di
 
 Zero-configuration networking in an unconstrained, global setting is possible with radios, using either dedicated meshnet radios like GoTenna or Helium, or by using the antennas inside mobile devices to form a network. These types of networks are usually called meshnets or ad hoc networks. Basically, Walkie-Talkies are the simplest form of a p2p network. Problems arise when you want to cross large distances, like country borders or large bodies of water. Mesh networking has been used most famously in protests worldwide by using a smartphone app called Firechat.\cite{Milian2014-mt}
 
-Ad hoc mesh networks have a natural metric for latency, signal strength, and thus will not benefit from dynamic routing offered by DHTs as much. Mesh networks are relatively easy to route by connecting to the peers that are reachable without hops and have sufficient signal strength. These networks in their simplest form are very localized and performant, but to make them perform well over a distance there needs to be some satellite or internet hops on the way. 
+Ad hoc mesh networks have a natural metric for latency, signal strength, and thus will not benefit from dynamic routing offered by DHTs as much. They can rely on Bluetooth RSSI\footnote{Received Signal Strength Indication} as a metric, or triangulate distances by cooperating with multiple peers. This type of system is used to locate emergency calls and contact tracing.\cite{theintercept} Mesh networks are relatively easy to route by connecting to the peers that are reachable without hops and have sufficient signal strength. These networks in their simplest form are very localized and performant, but to make them perform well over a distance there needs to be some satellite or internet hops on the way. 
 
 \section{Distributed Hash Tables}
 Distributed hash tables are a way of pointing content to peers in a distributed network. In addition to indexing content in content-addressed networks like IPFS, they can function as routing tables. A hash table is a key-value mapping from a to b. What makes them distributed is the fact that the data stored is meant to be distributed between peers, with not a single peer keeping all the available data in its hash table, but relaying queries for resources it can't reach to other peers on the network. There are multiple versions of DHTs with different methods for prioritizing certain peers, using tree structures, sorting by identifiers, using computational trust et cetera. 
 						
 \subsection{Kademlia}
-Kademlia is a DHT designed by Petar Maymounkov and David Mazières in 2002. It is based on a tree of identifiers which are split across peers on a network.
+Kademlia is a DHT designed by Petar Maymounkov and David Mazières in 2002. It is based on a tree of identifiers which are split across peers on a network. The identifiers are 160 bits, e.g. a SHA-1 hash of some larger data. Kademlia tries to improve upon previous DHT-based routing algorithms by introducing a symmetric XOR metric for distance between node IDs in the key space.\cite{Petar_Maymounkov2020-sx} These IDs are sorted in a binary search tree, with each node's position determined by the shortest unique prefix of its ID.
 						
 A single query in Kademlia has been shown in real-world tests to result in an average of 3 network hops, meaning that the query gets relayed through two peers before reaching the requested resource.\cite{Roos2013-mb} Network hops are a necessary evil in distributed systems, and Kademlia does well in requiring on average a log(n) queries in a network of n nodes. Since the closeness metric is based on a similarity search rather than a measurement, the closest peer is only closest by the identifier, not by network latency.\cite{Eigenmann2020-zm}
 						
