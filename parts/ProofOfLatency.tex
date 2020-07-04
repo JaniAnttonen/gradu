@@ -83,6 +83,9 @@ Zero-knowledge proofs could be used to protect against performance matching. If 
 \subsection{Web of Trust}
 There's also a possibility of introducing a web of trust in parallel to PoL to recognize and shut out malicious peers more effectively. An example of such a system is SybilLimit, which adds a construction called trusted routes to DHT-based routing.\cite{Yu2008-xl} I see that trusted routes in conjunction with Proof of Latency would be a great couple. The problem of advertising dishonest peers could also be tackled with a trust-based system. Introducing too much trust into the system could also make PoL useless, since there could be a simple ping protocol with a time-based latency instead.
 
+\subsection{Peer Scoring}
+Proof of Latency gives a 
+
 \subsection{Switch Responsibilities}
 This remedy aims to improve PoL version 1 by flipping the responsibilities of the prover and the verifier. The calculating party wants to prove its latency to the verifier by actually calculating the VDF itself, requiring the verifier to respond as fast as it can to the prover's messages. This way, only a proof of one VDF is needed, which the prover then advertises to the network, telling connecting peers exatly the number of calculations it got to calculate before the verifier responded to it. 
 
