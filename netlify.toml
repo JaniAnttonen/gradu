@@ -1,7 +1,2 @@
 [build]
-  command = "scripts/build.sh"
-
-[[redirects]]
-  from = "/"
-  to = "/Thesis.pdf"
-  status = 200
+command = "bash build.sh Thesis.tex"
