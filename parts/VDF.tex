@@ -5,7 +5,7 @@
 % TODO: Reduce vagueness, more oomph
 A verifiable delay function is a function that calculates sequential calculations that cannot be parallellized or skipped, and creates a proof of the calculations that is faster to verify than recalculating. The computation of a VDF can be split into three distinct parts: Evaluation, proof generation, and verification. Evaluation is the hard calculation a proof is generated from that can be verified much faster than the evaluation.
 
-There's no known way to reduce computation costs sublinearly to the bit length of the exponent used.~\cite{Boneh2018-sm} This means that there's no algorithm-based solution to make VDF computation faster that is not related to other factors like efficiency. Despite this, there is a growing effort in developing faster hardware for VDF calculation, especially for doing repeated modular squarings.
+There's no known way to reduce computation costs sublinearly to the bit length of the exponent used.~\cite{Boneh2018-sm} This means that there's no algorithm-based solution to make VDF computation faster that is not related to other factors like efficiency. Despite this, there is a growing effort in developing faster hardware for VDF evaluation, especially for doing repeated modular squarings.
 
 %TODO add an intro on VDFs from the boneh paper
 \section{History}
@@ -26,9 +26,11 @@ Many have shown that there are more use cases for these algoritms than puzzles a
 
 In the front running use case, this property can be used to restrict front-running in both centralized and decentralized exchanges.~\cite{Khalil2019-sl} In a centralized exchange, this means that the exchange waits for a specified time before it starts the fulfilling the trade. The VDF serves as a receipt for the order taker that there was no reordering and the take orders were processed in a FIFO\footnote{First in, first out} fashion.~\cite{Cline2020-wb} In a decentralized exchange the same holds, if there exists only one peer that can fulfill the order. The peer then functions exactly like the centralized exchange mentioned before.
 
+Spam prevention and rate limiting in the context of VDFs mean roughly the same thing. This is because spam prevention with VDFs is done with rate limiting. If a network application requires peers to perform some sort of Proof-of-Work in a form of a VDF, by defining the difficulty parameter T they can set a time boundary for subsequent requests, also called a rate limit. If all the peers need to perform a challenge to request resources from the requestee, a performance-based limit is created for the time between each individual request, thus limiting spam.
+
 \section{Variations}
 % TODO: Add a footnote for groups of unknown order, add groups of unknown order to cryptography chapter? Describe Wesolowski's and the other's differences
-There are multiple variations on the security principles used, since a VDF can use any group of unknown order as a basis for its unpredictability.
+There are multiple variations on the security principles used, since a VDF can use any group of unknown order as a basis for its unpredictability. Known solutions use RSA, elliptic curves and class groups as their cryptographic basis.
 
 % TODO ADD MATH, DEFINITIONS, Explain how VDF works!
 
