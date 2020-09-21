@@ -9,36 +9,12 @@ Modular multiplication with large numbers has a useful property that you can exc
 % HAH TÄÄ ON IHAN PASKA ATM, get a grip
 
 \section{RSA}
-
 RSA is named after it's discoverers – Rivest, Shamir, Adleman. It is an asymmetric public-key cryptosystem, meaning that it is based on a keypair, in which one is a public and the other is a secret. The public key is used to encrypt, and the secret key is used to decrypt. This means that everyone who has the public key can encrypt data and that encrypted data is practically impossible to decrypt without the secret key. This works due to the fact that it is hard to factor the product of two large prime numbers.
 
+RSA is an arithmetic trick that creates a mathematical object called a trapdoor permutation. Trapdoor permutation is a function that transforms a number x to a number y in the same range, in a way that computing y from x is easy using the public key but computing x from y is practically impossible without knowing the private key. The private key is the trapdoor.\cite{Aumasson2018-nh}
 % TODO: Reader thinks what the hell is the next paragraph about, try to open things up a bit before going into factoring competitions, although they play a big part in VDF history
 
 Some institutions also have been publishing these products of two large prime numbers, claiming they have discarded the two prime numbers that were used in the creation. These are published as public puzzles with prizes for correct factorizations as high as 200000 US dollars, but the larger ones can also be used in cryptography to remove a trusted setup. These products are called RSA numbers, of which RSA-1024 and RSA-2048 are widely used. They can be considered relatively safe for production use, since the latest broken RSA number at the time of writing is RSA-250. Still, in practice, the keys could be still stored by the number's creator, requiring trust towards the institutions or individuals who have published them.
-
-% TODO: We might not need this because of Fiat-Shamir, so consider removing this
-\section{Diffie-Hellman Key Exchange}
-
-Diffie-Hellman key exchange is a way of generating a shared cryptographic key between two participants. The working principle is that both participants in the exchange do commutative calculations on the input that result in the same output, using prime numbers that result in good cryptographic primitives because of the prime factorization problem, that quarantees the participants' secret keys staying secret and the cryptography hard to break. Diffie-Hellman is most widely used in TLS. TLS is the protocol that is working behind secure http traffic, and most of us probably use Diffie-Hellman key exchange every day. There's also an elliptic curve version of the Diffie-Hellman key exchange, but let's first touch on an example with primes:
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{pictures/diffiehellman.eps}
-	\caption{Diffie-Hellman key exchange algorithm\cite{Jeon2014-ag}}
-	\label{Diagram, Diffie-Hellman Key Exchange}
-\end{figure}
-
-\begin{enumerate}
-  \item Alice and Bob agree on a large prime number $p = 941$ and a primitive root of it, $g = 627$.
-  \item Alice chooses the secret key $a = 347$ and computes
-    \(A = 390 \equiv 627^{347} \ (\bmod 941).\)
-  \item Bob chooses the secret key $b = 781$ and computes
-    \(B = 691 \equiv 627^{781} \ (\bmod 941).\)
-  \item Alice sends bob the number $390$ and Bob sends Alice the number $691$.
-  \item Since the operations are commutative, Alice and Bob are now able to compute the number
-    \(470 \equiv 627^{347 \times 781} \equiv A^b \equiv B^a \quad (\bmod 941)\)
-\end{enumerate}
-
-The number $470$ is their shared secret, which they can use for symmetric encryption. Of course, in the real world, the modulus would have to be a large enough prime, because with $941$ as the modulus the maximum number of tries to break it would be just $940$. 
 
 \section{Elliptic Curve Cryptography}
 % TODO: Do I need this? Would make a great filler

@@ -9,7 +9,7 @@ The algorithm is trustless and requires no specific hardware from the participan
 The section Peer-to-peer Networking described the problems Proof of Latency is trying to solve. While the use in P2P routing might be a no-brainer, the same algorithm can be used for computation performance benchmarking. In the next sections I will describe these use cases more thoroughly.
 
 \subsection{Dynamic P2P Routing}
-The use case that drove me to proceed working on Proof of Latency is an idea that there could be a trustless way of telling to other peers how much latency you have to another peer. Today, if one peer were to tell you that it had a 10ms latency to another peer, there would be no quarantees of the 10ms latency holding true. Now, if we could make a proof of that latency using cryptography, you could tell by almost certain that the told latency is true, and nobody is trying to advertise you peers that have a malicious agenda.
+The use case that drove me to proceed working on Proof of Latency is an idea that there could be a trustless way of telling to other peers how much latency you have to another peer. In current P2P systems, if one peer were to tell you that it had a 10ms latency to another peer, there would be no quarantees of the 10ms latency holding true. If we could make a proof of that latency using cryptography, you could tell that the reported latency is true, and some work has been done to calculate it. This kind of proof could also make eclipse attacks harder to accomplish by requiring a closer distance or more resources to reach a lower latency to the targeted peer.
 
 % TODO: Explain this idea WAAAAAY further
 
@@ -20,7 +20,7 @@ A protocol like this could be used to query for performance. In fact, Proof of L
 
 This could serve as a part of a greater protocol in a distributed computation system. It would be very unfortunate to run large datasets against a data analysis model on a mobile phone, and it could be beneficial to prove that the peer that advertises its services can actually run the computation without hiccups.
 % TODO Cite?
-There have been proposals for a VDF-as-a-function system, in which less performant peers could query for a VDF calculation if they don't have the means to do so in a time frame small enough themselves. A benchmark query using PoL could also be a part of such a system. 
+There have been proposals for a VDF-as-a-function system, in which less performant peers could query for a VDF calculation if they don't have the means to do so in a time frame small enough themselves. A benchmark query using PoL could also be a part of such a system to verify peers' ability to perform VDF calculations faster than the querying peer.
 
 \section{Role of Latency in Distributed Systems}
 It's hardly a surprise, but latency is a huge factor in distributed systems, especially trustless, decentralized ones. Latency is mostly constrained by the speed of light, which can not be changed, and thus there are concrete factors that must be taken into account when designing a p2p system with routing. In 2012, the global average round-trip delay time to Google's servers was around 100ms.~\cite{Grigorik_undated-mc}
@@ -38,9 +38,9 @@ Proof of Latency is made to improve the performance of current P2P networking so
 
 \section{Protocol Description}
 \begin{figure}
-  \includegraphics[width=\textwidth]{pictures/pol2_diagram.eps}
-  \caption{Protocol Diagram, Proof of Latency}
-  \label{PoL Diagram 2}
+	\includegraphics[width=\textwidth]{pictures/pol2_diagram.eps}
+	\caption{Protocol Diagram, Proof of Latency}
+	\label{PoL Diagram 2}
 \end{figure}
 The most important part when calculating any VDF is the setup. If a prover wants to create a valid proof, it needs a previously unknown starting point at first, so that it can prove for certain that it cannot have calculated the VDF in advance. Proof of Latency tackles this problem with a two-way RSA Diffie-Hellman key setup with random ephemeral prime numbers, which is an industry standard to achieve a previously unknown key with large certainty. 
 
@@ -65,7 +65,7 @@ While this sounds bad, if the protocol were to be enforced in a way that it requ
 \subsection{Performance Matching}
 Both versions suffer from the same issue, let's call it performance matching, which is a timing attack. Timing attacks are a family of attacks against computer systems called side-channel attacks, which attack the fact that although software is abstract and can be very well fit against any attacks on the software level, outer factors still affect the hardware it runs on. Timing attacks rely on gathering of timing data from the target.~\cite{noauthor_undated-mp} In performance matching, this means connecting to the targeted peer by another protocol or comparing existing proofs of latencies from all peers that have calculated their latency with the target.
 
-Performance matching enables attackers to perform an eclipse attack on low-performance devices by matching the attacker's performance with the targeted mobile device so that it is as close as possible in the difference between iterations in PoL. Now again, if the algorithm had a trusted platform module requirement, or we had an ASIC for repeated squarings, this wouldn't be an issue on either of the versions of the algorithm. This attack could result in a complete network split.
+Performance matching enables attackers to perform an eclipse attack on low-performance devices by matching the attacker's performance with the targeted mobile device so that it is as close as possible in the difference between iterations in PoL. Now again, if the algorithm had a trusted platform module requirement, or we had an ASIC for repeated squarings, this wouldn't be an issue. This attack could result in a complete network split.
 
 \section{Protecting Against Performance Matching}
 \subsection{Hiding Information of VDF Results}
@@ -92,7 +92,12 @@ This version only works if the peers can trust each other, but in that case we c
 \label{Proof of Concept}
 To test out Proof of Latency, I made a software proof of concept in Rust. William Borgeaud's blog post~\cite{Borgeaud2019-wk} from November 2019 in particular was the first reference I encountered that described verifiable delay functions in familiar terms to a software engineer like me. The blog post and it's accompanying code~\cite{Borgeaud2019-wk} helped me bootstrap the project.
 
-First of all, I knew I had to make the VDF run asynchronically or if possible, in another thread, because it would be one of two VDFs needed in the protocol. This is because there needs to be a separate task for listening to the other party's input, and to make it possible to test locally without networking. For Proof of Latency it was also needed that the prover's calculation could be ran indefinitely, and ended abruptly by a received proof from the verifier.
+First of all, I knew I had to make the VDF run asynchronically or if possible, in another thread, because it would be one of two VDFs needed in the protocol. This is because there needs to be a separate task for listening to the other party's input, and to make it possible to test locally without networking. For Proof of Latency it was also needed that the prover's calculation could be ran indefinitely, and ended abruptly by a received proof from the verifier. No previous VDF library seemed to have this option, because the difficulty parameter T is usually predetermined for all parties in contrast to Proof of Latency.
+
+The code is structured as follows: A runnable binary demo (main.rs) and the reusable library (lib.rs) resides in the top crate. They both depend on the subcrates "p2p" and "vdf".
+
+To achieve a better algorithm design, the library itself is described as a state machine, which also helps in thinking of the algorithm in TLA+. Variable names have been converted into more readable non-mathematical forms.
+% TODO: Diagram of the state machine, generated by "sm"?
 
 % TODO: Show code!
 
@@ -106,10 +111,11 @@ To make sure that the VDF calculations worked on arbitrary input by generating a
 
 In addition to regular unit tests with predefined input, I dabbled in property testing. Property testing is a term that belongs somewhere between fuzzing\footnote{Testing systems against highly randomized and a high volume of input.} and unit tests. Otherwise it functions like regular unit tests, but it adds generated input into the equation. By adding generated, sometimes randomized input, one can check more thoroughly for edge cases. While being effective in recognizing some unexpected bugs, it still has a way to go when compared to formal verification, which is a testing method that aims to define a system with mathematic proofs, verifying that the output should always, apart from hardware issues, be predictable and deterministic.
 
-\subsection{End to End Tests
+\subsection{End to End Tests}
+To test the whole demo out in a simulated P2P setting I used Protocol Labs' Testground software. It is a tool to simulate a network with thousands of peers on one machine.
 
 \chapter{Future Considerations}
 \label{Future Considerations}
 If this system was integrated to a blockchain or a publicly verifiable source of randomness for the initial setup, the proofs could be verified by anyone against consensus. Not only this would add trust to the latency measurements, but also speed up initial bootstrapping of the P2P network. When P2P networks eventually grow larger and larger, the network bootstrapping infrastructure needs to be rethought to handle more traffic and be faster in its initialization. By getting introduced to the closest peers possible right at the start the user can experience a more performant network right from the beginning, lowering the barrier for entry by making first impressions better. 
 
-Also, I believe the work is not cryptographically as secure as it could be, and the field is progressing at a mindnumbing pace. Converting the used cryptographical primitives from RSA to ECC would be the logical step in trying to achieve quantum resistance. The idea behind this thesis is to think of a new creative way of using verifiable delay functions by defining a protocol, not necessarily using the most robust cryptography available. 
+Also, I believe the work is not cryptographically as secure as it could be, and the field is progressing at a mindnumbing pace. Making sure the algorithm is VDF-agnostic would be a logical next step, since the field is still in progress of finding the best possible formulation of a VDF. Quantum computing can render all existing VDF types insufficient, and new VDF types could change the parameter logic fundamentally. The idea behind this thesis is to think of a new creative way of using verifiable delay functions by defining a protocol, and not to necessarily use the most robust cryptography available. 
