@@ -3,7 +3,9 @@
 \label{Verifiable Delay Functions}
 
 % TODO: Reduce vagueness, more oomph
-A verifiable delay function is a function that calculates sequential calculations that cannot be parallellized or skipped, and creates a proof of the calculations that is faster to verify than recalculating. The computation of a VDF can be split into three distinct parts: Evaluation, proof generation, and verification. Evaluation is the hard calculation a proof is generated from that can be verified much faster than the evaluation.
+A verifiable delay function is a function that calculates sequential calculations that cannot be significantly sped up by parallellisation or skipped, and creates a proof of the calculations that is faster to verify than the calculations are to fully re-evaluate. The computation of a VDF can be split into three distinct parts: Evaluation, proof generation, and verification. The evaluation is the hard sequential calculation from which a proof is generated.  
+
+Verifiable delay functions are a peculiar bunch of cryptographic proofs, since they are not proving that something has happened or something has been seen, but that a certain amount of time has been spent to compute the result. This results in the fact that in many use cases the starting parameters for VDF calculation must be given by a third party or computed by a multi-party computation. This is to prevent possible precomputation --- meaning that the peer that provides a VDF proof could have computed it earlier, separately from the current transaction.
 
 There's no known way to reduce computation costs sublinearly to the bit length of the exponent used.~\cite{Boneh2018-sm} This means that there's no algorithm-based solution to make VDF computation faster that is not related to other factors like efficiency. Despite this, there is a growing effort in developing faster hardware for VDF evaluation, especially for doing repeated modular squarings.
 
