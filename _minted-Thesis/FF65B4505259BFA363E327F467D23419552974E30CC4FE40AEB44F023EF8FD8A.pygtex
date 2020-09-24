@@ -7,7 +7,7 @@
 \PYG{+w}{  }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{worker\PYGZus{}sender}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{caller\PYGZus{}receiver}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{channel}\PYG{p}{();}
 
 \PYG{+w}{  }\PYG{n}{thread}::\PYG{n}{spawn}\PYG{p}{(}\PYG{k}{move}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{      }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{base}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{();}
+\PYG{+w}{      }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{generator}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{();}
 \PYG{+w}{      }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{two}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Int}::\PYG{n}{from}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{);}
 \PYG{+w}{      }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{iterations}: \PYG{k+kt}{u32} \PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
 \PYG{+w}{      }\PYG{k}{loop}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
@@ -15,7 +15,8 @@
 \PYG{+w}{          }\PYG{n}{iterations}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
 
 \PYG{+w}{          }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{upper\PYGZus{}bound}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{k+kt}{u32}::\PYG{n}{MAX}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{              }\PYG{c+c1}{// Upper bound reached, stops iteration and calculates the proof}
+\PYG{+w}{              }\PYG{c+c1}{// Upper bound reached, stops iteration}
+\PYG{+w}{              }\PYG{c+c1}{// and calculates the proof}
 \PYG{+w}{              }\PYG{n}{debug}\PYG{o}{!}\PYG{p}{(}
 \PYG{+w}{                  }\PYG{l+s}{\PYGZdq{}Upper bound of \PYGZob{}:?\PYGZcb{} reached, generating proof.\PYGZdq{}}\PYG{p}{,}
 \PYG{+w}{                  }\PYG{n}{iterations}
@@ -39,7 +40,7 @@
 \PYG{+w}{              }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{vdf\PYGZus{}result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFResult}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{result}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{p}{\PYGZcb{};}
 \PYG{+w}{              }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFProof}::\PYG{n}{new}\PYG{p}{(}
 \PYG{+w}{                  }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{p}{,}
-\PYG{+w}{                  }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{base}\PYG{p}{,}
+\PYG{+w}{                  }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{generator}\PYG{p}{,}
 \PYG{+w}{                  }\PYG{o}{\PYGZam{}}\PYG{n}{vdf\PYGZus{}result}\PYG{p}{,}
 \PYG{+w}{                  }\PYG{o}{\PYGZam{}}\PYG{n}{self\PYGZus{}cap}\PYG{p}{,}
 \PYG{+w}{              }\PYG{p}{);}
@@ -52,7 +53,8 @@
 
 \PYG{+w}{              }\PYG{k}{break}\PYG{p}{;}
 \PYG{+w}{          }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{              }\PYG{c+c1}{// Try receiving a cap from the other participant on each iteration}
+\PYG{+w}{              }\PYG{c+c1}{// Try receiving a cap from the other participant}
+\PYG{+w}{              }\PYG{c+c1}{// on each iteration}
 \PYG{+w}{              }\PYG{k}{if}\PYG{+w}{ }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n+nb}{Ok}\PYG{p}{(}\PYG{n}{cap}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{worker\PYGZus{}receiver}\PYG{p}{.}\PYG{n}{try\PYGZus{}recv}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
 \PYG{+w}{                  }\PYG{c+c1}{// Cap received}
 \PYG{+w}{                  }\PYG{n}{debug}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Received the cap \PYGZob{}:?\PYGZcb{}, generating proof.\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{cap}\PYG{p}{);}
@@ -63,7 +65,7 @@
 \PYG{+w}{                      }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{vdf\PYGZus{}result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFResult}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{result}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{p}{\PYGZcb{};}
 \PYG{+w}{                      }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFProof}::\PYG{n}{new}\PYG{p}{(}
 \PYG{+w}{                          }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{p}{,}
-\PYG{+w}{                          }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{base}\PYG{p}{,}
+\PYG{+w}{                          }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{generator}\PYG{p}{,}
 \PYG{+w}{                          }\PYG{o}{\PYGZam{}}\PYG{n}{vdf\PYGZus{}result}\PYG{p}{,}
 \PYG{+w}{                          }\PYG{o}{\PYGZam{}}\PYG{n}{cap}\PYG{p}{,}
 \PYG{+w}{                      }\PYG{p}{);}

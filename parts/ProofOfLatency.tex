@@ -54,14 +54,12 @@ Since calculating a VDF is relatively easy for modern processors, a VDF over as 
 \section{Attack Vectors}
 Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. The two versions of the algorithm differ much in terms of security. Proof of Latency is not meant to be a one-stop shop towards a safer network, but rather an add-on to make things more efficient while still keeping security in mind. The following attack vectors are a product of prior knowledge, research and the writer's thought process, and none have been tested out in practice, yet.
 
-\subsection{Advertising Dishonest Peers}
+\subsection{Advertising Dishonest Peers and Proof Spoofing}
 A sybil network participant can spawn an arbitrarily large number of new identities and network peers that are close-by, create multiple Proofs of Latency with them, and only advertise these peers to the rest of the network on their DHT. Two peers can also fake the proof if they co-operate by using VDFs they have already calculated and matched their outputs to be as close as possible. 
 
-This can be mitigated somewhat by requiring peers to renew their proofs regularly or by using a public source of randomness. It's hard to make systems completely trustless, and this was a good example while doing this research. Unless the proofs are based on a blockchain, there's no "blind" trust that can be achieved with PoL on how low a latency another peer has to another unless it is calculated yourself by a process you control. Even in this case, the proofs would need constant updating and would at most have a minimum trusted latency roughly equal to the blocktime. This doesn't leave many chains out there at the time of writing that have the capability to do this, and even them would maybe have to introduce some localized consensus to decrease latency even more.
+This can be mitigated somewhat by requiring peers to renew their proofs regularly, using witnesses or a verifiable source of randomness. Also, trusted computing modules could be used to verify that the software configuration hasn't been changed, removing most of the possibility for side channel attacks against using witnesses.
 
-% TODO: WTF LOL, mietippä uudelleen
-
-While this sounds bad, if the protocol were to be enforced in a way that it required a proof to be generated between an advertiser and every advertised peer, these sybil, dishonest peers would not propagate falsely to the rest of the network but would remain a separate blob.
+A way to protect against coordinated proof spoofing is to introduce an unbiased third party to the protocol. Since the soundness of the proof depends largely on the generator and its setup, the proof can be improved by requiring it to be salted by a random input from an unbiased party. How to achieve this? Introduce a salt pool to which a group of PoL witnesses post random salts from which the PoL provers then pick randomly. The witnesses listen for usage of the salts they have generated, and upon receiving the Proof of Latency inspect if their salt has been used or not, and decide to sign or discard the proof based on that.
 
 \subsection{Performance Matching}
 Both versions suffer from the same issue, let's call it performance matching, which is a timing attack. Timing attacks are a family of attacks against computer systems called side-channel attacks, which attack the fact that although software is abstract and can be very well fit against any attacks on the software level, outer factors still affect the hardware it runs on. Timing attacks rely on gathering of timing data from the target.~\cite{noauthor_undated-mp} In performance matching, this means connecting to the targeted peer by another protocol or comparing existing proofs of latencies from all peers that have calculated their latency with the target.
@@ -73,21 +71,14 @@ Performance matching enables attackers to perform an eclipse attack on low-perfo
 Zero-knowledge proofs could be used to protect against performance matching. If the publicized proof didn't include both the VDF results and iterations, but just included the iteration difference, an attacker would have less info on each peer. This would make attacking more difficult, requiring more queries and PoL runs on average before finding a vulnerable peer.
 
 \subsection{Web of Trust}
-There's also a possibility of introducing a web of trust in parallel to PoL to recognize and shut out malicious peers more effectively. An example of such a system is SybilLimit, which adds a construction called trusted routes to DHT-based routing.~\cite{Yu2008-xl} I see that trusted routes in conjunction with Proof of Latency would be a great couple. The problem of advertising dishonest peers could also be tackled with a trust-based system. Introducing too much trust into the system could also make PoL useless, since there could be a simple ping protocol with a time-based latency instead.
+There's also a possibility of introducing a web of trust in parallel to PoL to recognize and shut out malicious peers more effectively. An example of such a system is SybilLimit, which adds a construction called trusted routes to DHT based routing.~\cite{Yu2008-xl} I see that trusted routes in conjunction with Proof of Latency would be a great couple. The problem of advertising dishonest peers could also be tackled with a trust based system. Introducing too much trust into the system could also make PoL useless, since there could be a simple ping protocol with a millisecond measurement latency instead.
 ~
 \subsection{Peer Scoring}
 Peer scoring is used regularly in P2P networks, 
 Proof of Latency serves as a peer scoring metric by itself, and can be used in various ways. To hinder any attacks, peers with the lowest latencies would be kept for a longer time even in the case of the peer not being online, and favoring new ephemeral connections that are farther. 
 
-\subsection{Switch Responsibilities}
-This remedy aims to improve PoL version 1 by flipping the responsibilities of the prover and the verifier. The calculating party wants to prove its latency to the verifier by actually calculating the VDF itself, requiring the verifier to respond as fast as it can to the prover's messages. This way, only a proof of one VDF is needed, which the prover then advertises to the network, telling connecting peers exatly the number of calculations it got to calculate before the verifier responded to it. 
-
-There's a catch, though. The prover can still lie to other peers by slowing down their VDF calculation. By flipping the responsibilities the protocol becomes trustless for the prover, but not for others. The flip felt promising at first glance, but I soon realized there's no better way to do this than the second version, where trust is shared and not assumed.
-
-\subsection{Results}
-Since the network peers are trying to compete with each other for the least latency, they win the game by calculating the least amount of VDF iterations. In the first version of the algorithm, this soon becomes a problem. There's no way to tell how fast another computer is, so in this case spoofed results of 1 iteration would win every time.
-
-This version only works if the peers can trust each other, but in that case we could also resort to using ping. Ways of introducing trust would be using a trusted computing platform, but even that could be vulnerable to undervolting or other physical tampering. This problem drove me to revert back to my original idea, which I'm calling the version two of Proof of Latency.
+\subsection{Using a Witness}
+A way to make Proof of Latency fully trustless is to introduce an unbiased third party to the protocol. Since the soundness of the proof depends largely on the generator and its setup, the proof can be improved by requiring it to be salted by a random input from an unbiased party. How to achieve this? Introduce a salt pool to which a group of PoL witnesses post random salts from which the PoL provers then pick randomly. The witnesses listen for usage of the salts they have generated, and upon receiving the Proof of Latency inspect if their salt has been used or not, and 
 
 \chapter{Proof of Concept}
 \label{Proof of Concept}
@@ -98,26 +89,26 @@ William Borgeaud's blog post~\cite{Borgeaud2019-wk} from November 2019 in partic
 First of all, I knew I had to make the VDF run asynchronously, or if possible, in another thread, because it would be one of two VDFs needed in the protocol. There needs to be a separate task for listening to the other party's input, and to make it possible to test locally without networking. For the VDF that is used in Proof of Latency it was also needed that the prover's calculation could be ran indefinitely and ended abruptly by a received "cap" prime number from the verifier. No previous VDF library seemed to have this option, because the difficulty parameter T is usually predetermined in contrast to Proof of Latency.
 
 The code is structured as follows: A runnable binary demo (main.rs) and the reusable library it also uses (lib.rs) resides in the top crate. They both depend on the subcrates "P2P" and "vdf". Here is an example output of Proof of Latency run:
-\begin{listing}[H]
-	\caption{Proof of Latency }
+\begin{longlisting}[H]
+	\caption{Proof of Latency test run}
 	\inputminted
 	[
 		frame=lines,
 		framesep=2mm,
 		baselinestretch=1.2,
-		fontsize=\footnotesize,
+                breaklines=true,
+                fontsize=\footnotesize,
 		tabsize=2,
 	]
-	{Rust}{./parts/code/vdfiteration.rs}
-	\label{lst:vdfevaluation.rs}
-\end{listing}
+	{text}{./parts/code/samplerun.txt}
+	\label{lst:samplerun.txt}
+\end{longlisting}
 
 To achieve a better algorithm design, the library itself is described as a state machine, which also helps in thinking of the algorithm in TLA+. Variable names have been converted into more readable non-mathematical forms.
 % TODO: Diagram of the state machine, generated by "sm"?
 
 The following is a code example of the threaded evaluation part of a VDF inside proof of latency, containing evaluation stop logic for both the prover and the verifier:
-\begin{listing}[H]
-	\caption{VDF iteration logic}
+\begin{longlisting}[H]
 	\inputminted
 	[
 		frame=lines,
@@ -127,12 +118,12 @@ The following is a code example of the threaded evaluation part of a VDF inside 
 		tabsize=2,
 	]
 	{Rust}{./parts/code/vdfiteration.rs}
+        \caption{VDF iteration logic}
 	\label{lst:vdfiteration.rs}
-\end{listing}
+\end{longlisting}
 
-% TODO: Show code!
+The following is a code example of the proof generation of a VDF:
 \begin{listing}[H]
-	The following is a code example of the proving part of a single VDF:
 	\inputminted
 	[
 		frame=lines,
@@ -142,11 +133,12 @@ The following is a code example of the threaded evaluation part of a VDF inside 
 		tabsize=2,
 	]
 	{Rust}{./parts/code/proofgeneration.rs}
+        \caption{VDF proof generation}
 	\label{lst:proofgeneration.rs}
 \end{listing}
 
+The following is a code example of the verification of a VDF proof:
 \begin{listing}[H]
-	The following is a code example of the verification of a VDF proof:
 	\inputminted
 	[
 		frame=lines,
@@ -156,6 +148,7 @@ The following is a code example of the threaded evaluation part of a VDF inside 
 		tabsize=2,
 	]
 	{Rust}{./parts/code/verifyvdf.rs}
+        \caption{VDF proof verification}
 	\label{lst:verifyvdf.rs}
 \end{listing}
 

@@ -6,7 +6,7 @@ pub fn run_vdf_worker(
   let (worker_sender, caller_receiver) = channel();
 
   thread::spawn(move || {
-      let mut result = self.base.clone();
+      let mut result = self.generator.clone();
       let two = Int::from(2);
       let mut iterations: u32 = 0;
       loop {
@@ -14,7 +14,8 @@ pub fn run_vdf_worker(
           iterations += 1;
 
           if iterations == self.upper_bound || iterations == u32::MAX {
-              // Upper bound reached, stops iteration and calculates the proof
+              // Upper bound reached, stops iteration
+              // and calculates the proof
               debug!(
                   "Upper bound of {:?} reached, generating proof.",
                   iterations
@@ -38,7 +39,7 @@ pub fn run_vdf_worker(
               let vdf_result = VDFResult { result, iterations };
               let proof = VDFProof::new(
                   &self.modulus,
-                  &self.base,
+                  &self.generator,
                   &vdf_result,
                   &self_cap,
               );
@@ -51,7 +52,8 @@ pub fn run_vdf_worker(
 
               break;
           } else {
-              // Try receiving a cap from the other participant on each iteration
+              // Try receiving a cap from the other participant
+              // on each iteration
               if let Ok(cap) = worker_receiver.try_recv() {
                   // Cap received
                   debug!("Received the cap {:?}, generating proof.", cap);
@@ -62,7 +64,7 @@ pub fn run_vdf_worker(
                       let vdf_result = VDFResult { result, iterations };
                       let proof = VDFProof::new(
                           &self.modulus,
-                          &self.base,
+                          &self.generator,
                           &vdf_result,
                           &cap,
                       );

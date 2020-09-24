@@ -47,6 +47,8 @@
 \usepackage{listings}
 \usepackage{minted}
 \usemintedstyle{trac}
+\renewcommand\listoflistingscaption{List of Program Code}
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
 % load fancyheaders package
 %   - the actual headers and footers are set later
@@ -128,7 +130,7 @@
 \listoffigures 
 \clearpage
 \setcounter{page}{0}
-\listoftables
+\listoflistings
 
 % possibly insert 'list of acronyms'
 %
