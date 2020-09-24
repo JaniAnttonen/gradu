@@ -42,6 +42,7 @@ Proof of Latency is made to improve the performance of current P2P networking so
 	\caption{Protocol Diagram, Proof of Latency}
 	\label{PoL Diagram 2}
 \end{figure}
+Proof of Latency is an interactive public-coin protocol that produces a publicly verifiable non-interactive proof by publishing the parameters with the proof, signed by the participants. The protocol cannot be made non-interactive because of the requirements involved with 
 The most important part when calculating any VDF is the setup. If a prover wants to create a valid proof, it needs a previously unknown starting point at first, so that it can prove for certain that it cannot have calculated the VDF in advance. Proof of Latency tackles this problem with a two-way RSA Diffie-Hellman key setup with random ephemeral prime numbers, which is an industry standard to achieve a previously unknown key with large certainty. 
 
 The proof generation removes trust between the two peers by introducing a race between them. The two participants are called the prover and the verifier, although they both are actively proving and verifying their VDFs. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two.
