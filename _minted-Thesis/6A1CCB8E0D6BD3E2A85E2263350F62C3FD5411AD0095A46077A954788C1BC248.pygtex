@@ -1,0 +1,80 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{l+s+sd}{// A worker that does the actual calculation in a VDF. Returns a VDFProof based on initial}
+\PYG{l+s+sd}{// parameters in the VDF.}
+\PYG{k}{ub}\PYG{+w}{ }\PYG{k}{fn} \PYG{n+nf}{run\PYGZus{}vdf\PYGZus{}worker}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{+w}{ }\PYGZhy{}\PYGZgt{} \PYG{p}{(}\PYG{n}{Sender}\PYG{o}{\PYGZlt{}}\PYG{n}{Int}\PYG{o}{\PYGZgt{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Receiver}\PYG{o}{\PYGZlt{}}\PYG{n+nb}{Result}\PYG{o}{\PYGZlt{}}\PYG{n}{VDFProof}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{InvalidCapError}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{k+kd}{let}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{caller\PYGZus{}sender}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{worker\PYGZus{}receiver}\PYG{p}{)}: \PYG{p}{(}\PYG{n}{Sender}\PYG{o}{\PYGZlt{}}\PYG{n}{Int}\PYG{o}{\PYGZgt{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Receiver}\PYG{o}{\PYGZlt{}}\PYG{n}{Int}\PYG{o}{\PYGZgt{}}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{channel}\PYG{p}{();}
+\PYG{k+kd}{let}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{worker\PYGZus{}sender}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{caller\PYGZus{}receiver}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{channel}\PYG{p}{();}
+\PYG{+w}{		}
+\PYG{n}{thread}::\PYG{n}{spawn}\PYG{p}{(}\PYG{k}{move}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{	}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{base}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{();}
+\PYG{+w}{	}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{two}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Int}::\PYG{n}{from}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{+w}{	}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{iterations}: \PYG{k+kt}{u32} \PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{	}\PYG{k}{loop}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{iter\PYGZus{}vdf}\PYG{p}{(}\PYG{n}{result}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{two}\PYG{p}{);}
+\PYG{+w}{		}\PYG{n}{iterations}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{						}
+\PYG{+w}{		}\PYG{k}{if}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{upper\PYGZus{}bound}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{k+kt}{u32}::\PYG{n}{MAX}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{			}\PYG{c+c1}{// Upper bound reached, stops iteration and calculates the proof}
+\PYG{+w}{			}\PYG{n}{debug}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Upper bound of \PYGZob{}:?\PYGZcb{} reached, generating proof.\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iterations}\PYG{p}{);}
+\PYG{+w}{								}
+\PYG{+w}{			}\PYG{c+c1}{// Copy pregenerated cap}
+\PYG{+w}{			}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{self\PYGZus{}cap}: \PYG{n+nc}{Int}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{cap}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{();}
+\PYG{+w}{								}
+\PYG{+w}{			}\PYG{c+c1}{// Check if default, check for primality if else}
+\PYG{+w}{			}\PYG{k}{if}\PYG{+w}{ }\PYG{n}{self\PYGZus{}cap}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{				}\PYG{n}{self\PYGZus{}cap}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Generator}::\PYG{n}{new\PYGZus{}safe\PYGZus{}prime}\PYG{p}{(}\PYG{l+m+mi}{128}\PYG{p}{);}
+\PYG{+w}{				}\PYG{n}{debug}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Cap generated: \PYGZob{}:?\PYGZcb{}\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{self\PYGZus{}cap}\PYG{p}{);}
+\PYG{+w}{				}\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{o}{!}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{validate\PYGZus{}cap}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{self\PYGZus{}cap}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iterations}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{				}\PYG{k}{if}\PYG{+w}{ }\PYG{n}{worker\PYGZus{}sender}\PYG{p}{.}\PYG{n}{send}\PYG{p}{(}\PYG{n+nb}{Err}\PYG{p}{(}\PYG{n}{InvalidCapError}\PYG{p}{)).}\PYG{n}{is\PYGZus{}err}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{					}\PYG{n}{error}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Predefined cap was not a prime or its length is below upper\PYGZus{}bound! Check the implementation!\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{				}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{				}\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{			}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{								}
+\PYG{+w}{			}\PYG{c+c1}{// Generate the VDF proof}
+\PYG{+w}{			}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{vdf\PYGZus{}result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFResult}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{result}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{p}{\PYGZcb{};}
+\PYG{+w}{			}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFProof}::\PYG{n}{new}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{base}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{vdf\PYGZus{}result}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{self\PYGZus{}cap}\PYG{p}{);}
+\PYG{+w}{			}\PYG{n}{debug}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Proof generated! \PYGZob{}:?\PYGZcb{}\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{proof}\PYG{p}{);}
+\PYG{+w}{								}
+\PYG{+w}{			}\PYG{c+c1}{// Send proof to caller}
+\PYG{+w}{			}\PYG{k}{if}\PYG{+w}{ }\PYG{n}{worker\PYGZus{}sender}\PYG{p}{.}\PYG{n}{send}\PYG{p}{(}\PYG{n+nb}{Ok}\PYG{p}{(}\PYG{n}{proof}\PYG{p}{)).}\PYG{n}{is\PYGZus{}err}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{				}\PYG{n}{error}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Failed to send the proof to caller!\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{			}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{								}
+\PYG{+w}{			}\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{			}\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{			}\PYG{c+c1}{// Try receiving a cap from the other participant on each iteration}
+\PYG{+w}{			}\PYG{k}{if}\PYG{+w}{ }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n+nb}{Ok}\PYG{p}{(}\PYG{n}{cap}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{worker\PYGZus{}receiver}\PYG{p}{.}\PYG{n}{try\PYGZus{}recv}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{				}\PYG{c+c1}{// Cap received}
+\PYG{+w}{				}\PYG{n}{debug}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Received the cap \PYGZob{}:?\PYGZcb{}, generating proof.\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{cap}\PYG{p}{);}
+\PYG{+w}{										}
+\PYG{+w}{				}\PYG{c+c1}{// Check for primality}
+\PYG{+w}{				}\PYG{k}{if}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{validate\PYGZus{}cap}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{cap}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iterations}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{					}\PYG{c+c1}{// Generate the VDF proof}
+\PYG{+w}{					}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{vdf\PYGZus{}result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFResult}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{result}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iterations}\PYG{+w}{ }\PYG{p}{\PYGZcb{};}
+\PYG{+w}{					}\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VDFProof}::\PYG{n}{new}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{base}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{vdf\PYGZus{}result}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{cap}\PYG{p}{);}
+\PYG{+w}{					}\PYG{n}{debug}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Proof generated! \PYGZob{}:?\PYGZcb{}\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{proof}\PYG{p}{);}
+\PYG{+w}{												}
+\PYG{+w}{					}\PYG{c+c1}{// Send proof to caller}
+\PYG{+w}{					}\PYG{k}{if}\PYG{+w}{ }\PYG{n}{worker\PYGZus{}sender}\PYG{p}{.}\PYG{n}{send}\PYG{p}{(}\PYG{n+nb}{Ok}\PYG{p}{(}\PYG{n}{proof}\PYG{p}{)).}\PYG{n}{is\PYGZus{}err}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{						}\PYG{n}{error}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Failed to send the proof to caller!\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{					}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{					}\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{					}\PYG{n}{error}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Received cap was not a prime!\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{					}\PYG{c+c1}{// Received cap was not a prime, send error to caller}
+\PYG{+w}{					}\PYG{k}{if}\PYG{+w}{ }\PYG{n}{worker\PYGZus{}sender}\PYG{p}{.}\PYG{n}{send}\PYG{p}{(}\PYG{n+nb}{Err}\PYG{p}{(}\PYG{n}{InvalidCapError}\PYG{p}{)).}\PYG{n}{is\PYGZus{}err}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{						}\PYG{n}{error}\PYG{o}{!}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Error sending InvalidCapError to caller!\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{					}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{				}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{				}\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{				}\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{				}\PYG{k}{continue}\PYG{p}{;}
+\PYG{+w}{			}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{		}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{});}
+\PYG{+w}{		}
+\PYG{p}{(}\PYG{n}{caller\PYGZus{}sender}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{caller\PYGZus{}receiver}\PYG{p}{)}
+
+
+\end{Verbatim}

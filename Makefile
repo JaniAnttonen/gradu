@@ -1,6 +1,6 @@
 pdf: 
 	bibtex Thesis
-	pdflatex Thesis
+	pdflatex -synctex=1 -interaction=nonstopmode --shell-escape Thesis
 
 diagrams:
 	./build_diagrams.sh

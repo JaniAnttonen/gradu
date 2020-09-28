@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{pub}\PYG{+w}{ }\PYG{k}{fn} \PYG{n+nf}{verify}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{+w}{ }\PYGZhy{}\PYGZgt{} \PYG{k+kt}{bool} \PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{c+c1}{// Check first that the result isn\PYGZsq{}t larger than the RSA modulus}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{k}{return}\PYG{+w}{ }\PYG{k+kc}{false}\PYG{p}{;}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{r}\PYG{+w}{ }\PYG{o}{=}
+\PYG{+w}{      }\PYG{n}{Int}::\PYG{n}{from}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{).}\PYG{n}{pow\PYGZus{}mod}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{Int}::\PYG{n}{from}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{output}\PYG{p}{.}\PYG{n}{iterations}\PYG{p}{),}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{cap}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{output}\PYG{p}{.}\PYG{n}{result}
+\PYG{+w}{      }\PYG{o}{==}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{proof}\PYG{p}{.}\PYG{n}{pow\PYGZus{}mod}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{cap}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{p}{)}
+\PYG{+w}{          }\PYG{o}{*}\PYG{+w}{ }\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{generator}\PYG{p}{.}\PYG{n}{pow\PYGZus{}mod}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{r}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}\PYG{p}{))}
+\PYG{+w}{          }\PYG{o}{\PYGZpc{}}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n+nb+bp}{self}\PYG{p}{.}\PYG{n}{modulus}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

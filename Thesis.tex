@@ -43,7 +43,12 @@
 
 % load listings package
 %   - handle inclusion of source code
+% Use listings-rust from ./thesis/listings-rust.sty
 \usepackage{listings}
+\usepackage{minted}
+\usemintedstyle{trac}
+\renewcommand\listoflistingscaption{List of Program Code}
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
 % load fancyheaders package
 %   - the actual headers and footers are set later
@@ -125,7 +130,7 @@
 \listoffigures 
 \clearpage
 \setcounter{page}{0}
-\listoftables
+\listoflistings
 
 % possibly insert 'list of acronyms'
 %

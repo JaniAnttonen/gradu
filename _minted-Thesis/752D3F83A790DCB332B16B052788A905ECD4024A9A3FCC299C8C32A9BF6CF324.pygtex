@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{pub}\PYG{+w}{ }\PYG{k}{fn} \PYG{n+nf}{new}\PYG{p}{(}
+\PYG{+w}{  }\PYG{n}{modulus}: \PYG{k+kp}{\PYGZam{}}\PYG{n+nc}{Int}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n}{generator}: \PYG{k+kp}{\PYGZam{}}\PYG{n+nc}{Int}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n}{result}: \PYG{k+kp}{\PYGZam{}}\PYG{n+nc}{VDFResult}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n}{cap}: \PYG{k+kp}{\PYGZam{}}\PYG{n+nc}{Int}\PYG{p}{,}
+\PYG{p}{)}\PYG{+w}{ }\PYGZhy{}\PYGZgt{} \PYG{n+nc}{Self}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Int}::\PYG{n}{one}\PYG{p}{();}
+\PYG{+w}{  }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{r}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Int}::\PYG{n}{one}\PYG{p}{();}
+\PYG{+w}{  }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{k}{mut}\PYG{+w}{ }\PYG{n}{b}: \PYG{n+nc}{Int}\PYG{p}{;}
+\PYG{+w}{  }\PYG{k+kd}{let}\PYG{+w}{ }\PYG{n}{two}: \PYG{k+kp}{\PYGZam{}}\PYG{n+nc}{Int}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{Int}::\PYG{n}{from}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{k}{for}\PYG{+w}{ }\PYG{n}{\PYGZus{}}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{..}\PYG{n}{result}\PYG{p}{.}\PYG{n}{iterations}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{b}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{two}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{r}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{cap}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{r}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{two}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{r}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZpc{}}\PYG{+w}{ }\PYG{n}{cap}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{proof}\PYG{p}{.}\PYG{n}{pow\PYGZus{}mod}\PYG{p}{(}\PYG{n}{two}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{modulus}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{generator}\PYG{p}{.}\PYG{n}{pow\PYGZus{}mod}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{b}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{modulus}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n}{proof}\PYG{+w}{ }\PYG{o}{\PYGZpc{}=}\PYG{+w}{ }\PYG{n}{modulus}\PYG{p}{;}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{n}{VDFProof}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{modulus}: \PYG{n+nc}{modulus}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{(),}
+\PYG{+w}{      }\PYG{n}{generator}: \PYG{n+nc}{generator}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{(),}
+\PYG{+w}{      }\PYG{n}{output}: \PYG{n+nc}{result}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{(),}
+\PYG{+w}{      }\PYG{n}{cap}: \PYG{n+nc}{cap}\PYG{p}{.}\PYG{n}{clone}\PYG{p}{(),}
+\PYG{+w}{      }\PYG{n}{proof}\PYG{p}{,}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
