@@ -1,11 +1,11 @@
 %!PS-Adobe-3.0 EPSF-2.0
-%%BoundingBox: 0 0 420 477
+%%BoundingBox: 0 0 420 556
 %%Creator: mscgen 0.20
 %%EndComments
 0.700000 0.700000 scale
 0 0 moveto
-0 681 lineto
-600 681 lineto
+0 794 lineto
+600 794 lineto
 600 0 lineto
 closepath
 clip
@@ -17,7 +17,7 @@ setfont
 /Helvetica findfont
 12 scalefont
 setfont
-0 681 translate
+0 794 translate
 /mtrx matrix def
 /ellipse
   { /endangle exch def
@@ -48,11 +48,11 @@ newpath 450 -22 moveto 450 -39 lineto stroke
 [2] 0 setdash
 newpath 75 -27 moveto 525 -27 lineto stroke
 [] 0 setdash
-(Set up RSA divider, upper_bound for verifier) dup stringwidth
+(Negotiate used modulus N, the difficulty T) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 183 -32 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 189 -32 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-183 -32 moveto show
+189 -32 moveto show
 newpath 150 -39 moveto 150 -56 lineto stroke
 newpath 450 -39 moveto 450 -56 lineto stroke
 newpath 150 -56 moveto 150 -73 lineto stroke
@@ -60,196 +60,225 @@ newpath 450 -56 moveto 450 -73 lineto stroke
 [2] 0 setdash
 newpath 75 -61 moveto 525 -61 lineto stroke
 [] 0 setdash
-(Start Diffie-Hellman with random primes) dup stringwidth
+(Create the shared generator g = hash\(h1 + h2\) with random data) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 194 -66 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 128 -66 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-194 -66 moveto show
-newpath 150 -73 moveto 150 -101 lineto stroke
-newpath 450 -73 moveto 450 -101 lineto stroke
-newpath 150 -84 moveto 450 -84 lineto stroke
-newpath 450 -84 moveto 440 -90 lineto stroke
-(Key exchange) dup stringwidth
+128 -66 moveto show
+newpath 150 -73 moveto 150 -90 lineto stroke
+newpath 450 -73 moveto 450 -90 lineto stroke
+newpath 150 -90 moveto 150 -118 lineto stroke
+newpath 450 -90 moveto 450 -118 lineto stroke
+newpath 150 -101 moveto 450 -101 lineto stroke
+newpath 450 -101 moveto 440 -107 lineto stroke
+(Send Verifier a random hash h1) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 262 -83 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 216 -100 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-262 -83 moveto show
-newpath 150 -101 moveto 150 -129 lineto stroke
-newpath 450 -101 moveto 450 -129 lineto stroke
-newpath 450 -112 moveto 150 -112 lineto stroke
-newpath 150 -112 moveto 160 -118 lineto stroke
-(Key exchange) dup stringwidth
-1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 262 -111 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
-0.000000 0.000000 0.000000 setrgbcolor
-262 -111 moveto show
-newpath 150 -129 moveto 150 -146 lineto stroke
-newpath 450 -129 moveto 450 -146 lineto stroke
+216 -100 moveto show
+newpath 150 -118 moveto 150 -135 lineto stroke
+newpath 450 -118 moveto 450 -135 lineto stroke
+newpath 150 -135 moveto 150 -152 lineto stroke
+newpath 450 -135 moveto 450 -152 lineto stroke
 [2] 0 setdash
-newpath 75 -134 moveto 525 -134 lineto stroke
+newpath 75 -140 moveto 525 -140 lineto stroke
 [] 0 setdash
-(Shared root g created) dup stringwidth
+(Shared generator g created) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 242 -139 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 227 -145 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-242 -139 moveto show
-newpath 150 -146 moveto 150 -163 lineto stroke
-newpath 450 -146 moveto 450 -163 lineto stroke
-newpath 150 -163 moveto 150 -180 lineto stroke
-newpath 450 -163 moveto 450 -180 lineto stroke
-[2] 0 setdash
-newpath 75 -168 moveto 525 -168 lineto stroke
-[] 0 setdash
-(Both start VDF calculation) dup stringwidth
+227 -145 moveto show
+newpath 150 -152 moveto 150 -169 lineto stroke
+newpath 450 -152 moveto 450 -169 lineto stroke
+newpath 150 -169 moveto 150 -197 lineto stroke
+newpath 450 -169 moveto 450 -197 lineto stroke
+newpath 450 -180 300 12 270 90 ellipse stroke
+newpath 450 -186 moveto 460 -192 lineto stroke
+(Start VDF\(g, T=1\)) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 231 -173 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 353 -179 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-231 -173 moveto show
-newpath 150 -180 moveto 150 -197 lineto stroke
-newpath 450 -180 moveto 450 -197 lineto stroke
+353 -179 moveto show
 newpath 150 -197 moveto 150 -225 lineto stroke
 newpath 450 -197 moveto 450 -225 lineto stroke
-newpath 150 -208 296 12 90 270 ellipse stroke
-newpath 150 -214 moveto 140 -220 lineto stroke
-(VDF\(g, T=1\)) dup stringwidth
+newpath 450 -208 moveto 150 -208 lineto stroke
+newpath 150 -208 moveto 160 -214 lineto stroke
+(Send Prover a random hash h2 and cap c1) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 152 -207 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 186 -207 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-152 -207 moveto show
+186 -207 moveto show
 newpath 150 -225 moveto 150 -253 lineto stroke
 newpath 450 -225 moveto 450 -253 lineto stroke
-newpath 450 -236 300 12 270 90 ellipse stroke
-newpath 450 -242 moveto 460 -248 lineto stroke
-(VDF\(g, T=1\)) dup stringwidth
+newpath 150 -236 296 12 90 270 ellipse stroke
+newpath 150 -242 moveto 140 -248 lineto stroke
+(Start VDF\(g, T=1\)) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 382 -235 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 152 -235 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-382 -235 moveto show
+152 -235 moveto show
 newpath 150 -253 moveto 150 -270 lineto stroke
 newpath 450 -253 moveto 450 -270 lineto stroke
-[2] 0 setdash
 newpath 150 -270 moveto 150 -287 lineto stroke
-[] 0 setdash
-[2] 0 setdash
 newpath 450 -270 moveto 450 -287 lineto stroke
+[2] 0 setdash
+newpath 75 -275 moveto 525 -275 lineto stroke
 [] 0 setdash
+(Both have started VDF calculation) dup stringwidth
+1.000000 1.000000 1.000000 setrgbcolor
+pop dup newpath 210 -280 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+0.000000 0.000000 0.000000 setrgbcolor
+210 -280 moveto show
 newpath 150 -287 moveto 150 -304 lineto stroke
 newpath 450 -287 moveto 450 -304 lineto stroke
 newpath 150 -304 moveto 150 -332 lineto stroke
 newpath 450 -304 moveto 450 -332 lineto stroke
-newpath 150 -315 296 12 90 270 ellipse stroke
-newpath 150 -321 moveto 140 -327 lineto stroke
+newpath 450 -315 300 12 270 90 ellipse stroke
+newpath 450 -321 moveto 460 -327 lineto stroke
 (VDF\(g^\(2*\(upper_bound\)\), T=upper_bound\)) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 152 -314 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 214 -314 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-152 -314 moveto show
-newpath 150 -332 moveto 150 -360 lineto stroke
-newpath 450 -332 moveto 450 -360 lineto stroke
-newpath 450 -343 300 12 270 90 ellipse stroke
-newpath 450 -349 moveto 460 -355 lineto stroke
-(VDF\(g^\(2*\(upper_bound\)\), T=upper_bound\)) dup stringwidth
+214 -314 moveto show
+[2] 0 setdash
+newpath 150 -332 moveto 150 -349 lineto stroke
+[] 0 setdash
+[2] 0 setdash
+newpath 450 -332 moveto 450 -349 lineto stroke
+[] 0 setdash
+newpath 150 -349 moveto 150 -377 lineto stroke
+newpath 450 -349 moveto 450 -377 lineto stroke
+newpath 150 -360 296 12 90 270 ellipse stroke
+newpath 150 -366 moveto 140 -372 lineto stroke
+(Stop VDF\(g^\(2*\(upper_bound\)\), T=upper_bound\)) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 214 -342 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 152 -359 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-214 -342 moveto show
-newpath 150 -360 moveto 150 -377 lineto stroke
-newpath 450 -360 moveto 450 -377 lineto stroke
+152 -359 moveto show
 newpath 150 -377 moveto 150 -394 lineto stroke
 newpath 450 -377 moveto 450 -394 lineto stroke
-[2] 0 setdash
-newpath 75 -382 moveto 525 -382 lineto stroke
-[] 0 setdash
-(Verifier VDF completed) dup stringwidth
-1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 238 -387 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
-0.000000 0.000000 0.000000 setrgbcolor
-238 -387 moveto show
 newpath 150 -394 moveto 150 -411 lineto stroke
 newpath 450 -394 moveto 450 -411 lineto stroke
-newpath 150 -411 moveto 150 -439 lineto stroke
-newpath 450 -411 moveto 450 -439 lineto stroke
-newpath 450 -422 300 12 270 90 ellipse stroke
-newpath 450 -428 moveto 460 -434 lineto stroke
-(Generate random prime cap, prove own VDF with it) dup stringwidth
-1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 175 -421 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
-0.000000 0.000000 0.000000 setrgbcolor
-175 -421 moveto show
-newpath 150 -439 moveto 150 -467 lineto stroke
-newpath 450 -439 moveto 450 -467 lineto stroke
 [2] 0 setdash
-newpath 450 -450 moveto 150 -450 lineto stroke
+newpath 75 -399 moveto 525 -399 lineto stroke
 [] 0 setdash
-newpath 150 -450 moveto 160 -456 lineto 160 -444 lineto closepath fill
-(Verifier sends VDF proof to prover with cap) dup stringwidth
+(Prover VDF completed \(T=upper_bound reached\)) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 186 -449 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 168 -404 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-186 -449 moveto show
-newpath 150 -467 moveto 150 -495 lineto stroke
-newpath 450 -467 moveto 450 -495 lineto stroke
-newpath 150 -478 296 12 90 270 ellipse stroke
-newpath 150 -484 moveto 140 -490 lineto stroke
-(Verify verifier's VDF as correct) dup stringwidth
+168 -404 moveto show
+newpath 150 -411 moveto 150 -428 lineto stroke
+newpath 450 -411 moveto 450 -428 lineto stroke
+newpath 150 -428 moveto 150 -456 lineto stroke
+newpath 450 -428 moveto 450 -456 lineto stroke
+newpath 150 -439 296 12 90 270 ellipse stroke
+newpath 150 -445 moveto 140 -451 lineto stroke
+(Generate proof of VDF with cap c1) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 152 -477 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 152 -438 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-152 -477 moveto show
-newpath 150 -495 moveto 150 -523 lineto stroke
-newpath 450 -495 moveto 450 -523 lineto stroke
-newpath 150 -506 296 12 90 270 ellipse stroke
-newpath 150 -512 moveto 140 -518 lineto stroke
-(VDF\(g^\(2*n\), T=n\)) dup stringwidth
-1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 152 -505 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
-0.000000 0.000000 0.000000 setrgbcolor
-152 -505 moveto show
-newpath 150 -523 moveto 150 -540 lineto stroke
-newpath 450 -523 moveto 450 -540 lineto stroke
-newpath 150 -540 moveto 150 -557 lineto stroke
-newpath 450 -540 moveto 450 -557 lineto stroke
+152 -438 moveto show
 [2] 0 setdash
-newpath 75 -545 moveto 525 -545 lineto stroke
+newpath 150 -456 moveto 150 -473 lineto stroke
 [] 0 setdash
-(Prover VDF completed) dup stringwidth
+[2] 0 setdash
+newpath 450 -456 moveto 450 -473 lineto stroke
+[] 0 setdash
+newpath 150 -473 moveto 150 -501 lineto stroke
+newpath 450 -473 moveto 450 -501 lineto stroke
+newpath 150 -484 moveto 450 -484 lineto stroke
+newpath 450 -484 moveto 440 -490 lineto stroke
+(Send cap c2 to Verifier with proof of VDF) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 240 -550 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 192 -483 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-240 -550 moveto show
-newpath 150 -557 moveto 150 -574 lineto stroke
-newpath 450 -557 moveto 450 -574 lineto stroke
-newpath 150 -574 moveto 150 -602 lineto stroke
-newpath 450 -574 moveto 450 -602 lineto stroke
-newpath 150 -585 296 12 90 270 ellipse stroke
-newpath 150 -591 moveto 140 -597 lineto stroke
-(Cap off VDF with verifier's cap, generate proof of VDF) dup stringwidth
+192 -483 moveto show
+newpath 150 -501 moveto 150 -529 lineto stroke
+newpath 450 -501 moveto 450 -529 lineto stroke
+newpath 450 -512 300 12 270 90 ellipse stroke
+newpath 450 -518 moveto 460 -524 lineto stroke
+(Stop VDF\(g^\(2*n\), T=n\)) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 152 -584 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 322 -511 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-152 -584 moveto show
-newpath 150 -602 moveto 150 -630 lineto stroke
-newpath 450 -602 moveto 450 -630 lineto stroke
-newpath 150 -613 296 12 90 270 ellipse stroke
-newpath 150 -619 moveto 140 -625 lineto stroke
+322 -511 moveto show
+newpath 150 -529 moveto 150 -546 lineto stroke
+newpath 450 -529 moveto 450 -546 lineto stroke
+newpath 150 -546 moveto 150 -563 lineto stroke
+newpath 450 -546 moveto 450 -563 lineto stroke
+[2] 0 setdash
+newpath 75 -551 moveto 525 -551 lineto stroke
+[] 0 setdash
+(Verifier got cap c2 from Prover, VDF stopped) dup stringwidth
+1.000000 1.000000 1.000000 setrgbcolor
+pop dup newpath 181 -556 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+0.000000 0.000000 0.000000 setrgbcolor
+181 -556 moveto show
+newpath 150 -563 moveto 150 -580 lineto stroke
+newpath 450 -563 moveto 450 -580 lineto stroke
+newpath 150 -580 moveto 150 -608 lineto stroke
+newpath 450 -580 moveto 450 -608 lineto stroke
+newpath 450 -591 300 12 270 90 ellipse stroke
+newpath 450 -597 moveto 460 -603 lineto stroke
+(Generate proof of VDF with cap c2) dup stringwidth
+1.000000 1.000000 1.000000 setrgbcolor
+pop dup newpath 263 -590 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+0.000000 0.000000 0.000000 setrgbcolor
+263 -590 moveto show
+newpath 150 -608 moveto 150 -625 lineto stroke
+newpath 450 -608 moveto 450 -625 lineto stroke
+newpath 150 -625 moveto 150 -642 lineto stroke
+newpath 450 -625 moveto 450 -642 lineto stroke
+[2] 0 setdash
+newpath 75 -630 moveto 525 -630 lineto stroke
+[] 0 setdash
+(Verifier has both VDF proofs) dup stringwidth
+1.000000 1.000000 1.000000 setrgbcolor
+pop dup newpath 225 -635 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+0.000000 0.000000 0.000000 setrgbcolor
+225 -635 moveto show
+newpath 150 -642 moveto 150 -659 lineto stroke
+newpath 450 -642 moveto 450 -659 lineto stroke
+newpath 150 -659 moveto 150 -687 lineto stroke
+newpath 450 -659 moveto 450 -687 lineto stroke
+newpath 450 -670 300 12 270 90 ellipse stroke
+newpath 450 -676 moveto 460 -682 lineto stroke
 (Calculate difference between the two VDFs, defining latency in iterations) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 152 -612 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 63 -669 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-152 -612 moveto show
-newpath 150 -630 moveto 150 -647 lineto stroke
-newpath 450 -630 moveto 450 -647 lineto stroke
-newpath 150 -647 moveto 150 -664 lineto stroke
-newpath 450 -647 moveto 450 -664 lineto stroke
-[2] 0 setdash
-newpath 75 -652 moveto 525 -652 lineto stroke
-[] 0 setdash
-(Proof available to the network) dup stringwidth
+63 -669 moveto show
+newpath 150 -687 moveto 150 -715 lineto stroke
+newpath 450 -687 moveto 450 -715 lineto stroke
+newpath 450 -698 moveto 150 -698 lineto stroke
+newpath 150 -698 moveto 160 -704 lineto stroke
+(Send signed Proof of Latency to Prover) dup stringwidth
 1.000000 1.000000 1.000000 setrgbcolor
-pop dup newpath 221 -657 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+pop dup newpath 196 -697 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
 0.000000 0.000000 0.000000 setrgbcolor
-221 -657 moveto show
-newpath 150 -664 moveto 150 -681 lineto stroke
-newpath 450 -664 moveto 450 -681 lineto stroke
-newpath 150 -675 moveto 150 -681 lineto stroke
-newpath 450 -675 moveto 450 -681 lineto stroke
+196 -697 moveto show
+newpath 150 -715 moveto 150 -743 lineto stroke
+newpath 450 -715 moveto 450 -743 lineto stroke
+newpath 150 -726 moveto 450 -726 lineto stroke
+newpath 450 -726 moveto 440 -732 lineto stroke
+(Send signature to Verifier) dup stringwidth
+1.000000 1.000000 1.000000 setrgbcolor
+pop dup newpath 233 -725 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+0.000000 0.000000 0.000000 setrgbcolor
+233 -725 moveto show
+newpath 150 -743 moveto 150 -760 lineto stroke
+newpath 450 -743 moveto 450 -760 lineto stroke
+newpath 150 -760 moveto 150 -777 lineto stroke
+newpath 450 -760 moveto 450 -777 lineto stroke
+[2] 0 setdash
+newpath 75 -765 moveto 525 -765 lineto stroke
+[] 0 setdash
+(Proof of Latency available to the network) dup stringwidth
+1.000000 1.000000 1.000000 setrgbcolor
+pop dup newpath 192 -770 moveto 0 rlineto 0 9 rlineto neg 0 rlineto closepath fill
+0.000000 0.000000 0.000000 setrgbcolor
+192 -770 moveto show
+newpath 150 -777 moveto 150 -794 lineto stroke
+newpath 450 -777 moveto 450 -794 lineto stroke
+newpath 150 -788 moveto 150 -794 lineto stroke
+newpath 450 -788 moveto 450 -794 lineto stroke
