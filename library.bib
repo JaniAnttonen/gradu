@@ -2980,6 +2980,13 @@
   keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
+@MISC{noauthor_undated-nn,
+  title        = "Shortest paths",
+  howpublished = "\url{https://www.sci.unich.it/~francesc/teaching/network/geodesic.html}",
+  note         = "Accessed: 2020-9-29",
+  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
 @MISC{Mitchell2020-hn,
   title        = "What Is {Front-Running} in Stocks?",
   author       = "Mitchell, Cory",
@@ -3106,6 +3113,46 @@
   year        =  2012,
   address     = "Gaithersburg, MD",
   keywords    = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
+@ARTICLE{Mao2020-ee,
+  title         = "Perigee: Efficient {Peer-to-Peer} Network Design for
+                   Blockchains",
+  author        = "Mao, Yifan and Deb, Soubhik and Venkatakrishnan, Shaileshh
+                   Bojja and Kannan, Sreeram and Srinivasan, Kannan",
+  abstract      = "A key performance metric in blockchains is the latency
+                   between when a transaction is broadcast and when it is
+                   confirmed (the so-called, confirmation latency). While
+                   improvements in consensus techniques can lead to lower
+                   confirmation latency, a fundamental lower bound on
+                   confirmation latency is the propagation latency of messages
+                   through the underlying peer-to-peer (p2p) network
+                   (inBitcoin, the propagation latency is several tens of
+                   seconds). The de facto p2p protocol used by Bitcoin and
+                   other blockchains is based on random connectivity: each node
+                   connects to a random subset of nodes. The induced p2p
+                   network topology can be highly suboptimal since it neglects
+                   geographical distance, differences in bandwidth, hash-power
+                   and computational abilities across peers. We present
+                   Perigee, a decentralized algorithm that automatically learns
+                   an efficient p2p topology tuned to the aforementioned
+                   network heterogeneities, purely based on peers' interactions
+                   with their neighbors. Motivated by the literature on the
+                   multi-armed bandit problem, Perigee optimally balances the
+                   tradeoff between retaining connections to known
+                   well-connected neighbors, and exploring new connections to
+                   previously-unseen neighbors. Experimental evaluations show
+                   that Perigee reduces the latency to broadcast by $33\%$.
+                   Lastly Perigee is simple, computationally lightweight,
+                   adversary-resistant, and compatible with the selfish
+                   interests of peers, making it an attractive p2p protocol for
+                   blockchains.",
+  month         =  jun,
+  year          =  2020,
+  keywords      = "Zotero Import (May 18)/My Library/VDF-Gradu",
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.NI",
+  eprint        = "2006.14186"
 }
 
 @ARTICLE{Uri_Klarman_Soumya_Basu_Aleksandar_Kuzmanovic_Emin_Gun_Sirer_undated-lq,
@@ -4793,4 +4840,69 @@
   pages     = "140--155",
   year      =  2014,
   keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
+@ARTICLE{Aoki2019-ty,
+  title         = "Proximity Neighbor Selection in Blockchain Networks",
+  author        = "Aoki, Yusuke and Shudo, Kazuyuki",
+  abstract      = "Blockchains have attracted a great deal of attention as a
+                   technology for the distributed management of register
+                   information at multiple nodes without a centralized system.
+                   However, they possess the drawbacks of low transaction
+                   throughput and long approval time. These problems can be
+                   addressed by shortening the block generation interval;
+                   however, shortening this interval alone has the effect of
+                   increasing the frequency of forks. In this study, we aim to
+                   shorten the block generation interval without increasing the
+                   fork generation rate by improving the network topology of
+                   the nodes and shortening the propagation time. We propose a
+                   neighbor node selection method forming a network topology
+                   with a short block propagation time. A blockchain simulator
+                   is used to demonstrate the effect of the proposed neighbor
+                   node selection method on the propagation delay of the
+                   network. This result indicates that the proposed method
+                   improves block propagation time.",
+  month         =  jun,
+  year          =  2019,
+  keywords      = "Zotero Import (May 18)/My Library/VDF-Gradu",
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.DC",
+  eprint        = "1906.00719"
+}
+
+@ARTICLE{Vyzovitis2020-vg,
+  title         = "{GossipSub}: {Attack-Resilient} Message Propagation in the
+                   Filecoin and {ETH2.0} Networks",
+  author        = "Vyzovitis, Dimitris and Napora, Yusef and McCormick, Dirk
+                   and Dias, David and Psaras, Yiannis",
+  abstract      = "Permissionless blockchain environments necessitate the use
+                   of a fast and attack-resilient message propagation protocol
+                   for Block and Transaction messages to keep nodes
+                   synchronised and avoid forks. We present GossipSub, a
+                   gossip-based pubsub protocol, which, in contrast to past
+                   pubsub protocols, incorporates resilience against a wide
+                   spectrum of attacks. Firstly, GossipSub's mesh construction
+                   implements an eager push model keeps the fan-out of the
+                   pubsub delivery low and balances excessive bandwidth
+                   consumption and fast message propagation throughout the
+                   mesh. Secondly, through gossip dissemination, GossipSub
+                   realises a lazy-pull model to reach nodes far-away or
+                   outside the mesh. Thirdly, through constant observation,
+                   nodes maintain a score profile for the peers they are
+                   connected to, allowing them to choose the most well-behaved
+                   nodes to include in the mesh. Finally, and most importantly,
+                   a number of tailor-made mitigation strategies designed
+                   specifically for these three components make GossipSub
+                   resilient against the most challenging Sybil-based attacks.
+                   We test GossipSub in a testbed environment involving more
+                   than 5000 VM nodes deployed on AWS and show that it stays
+                   immune to all considered attacks. GossipSub is currently
+                   being integrated as the main messaging layer protocol in the
+                   Filecoin and the Ethereum 2.0 (ETH2.0) blockchains.",
+  month         =  jul,
+  year          =  2020,
+  keywords      = "Zotero Import (May 18)/My Library/VDF-Gradu",
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.NI",
+  eprint        = "2007.02754"
 }

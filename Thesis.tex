@@ -32,6 +32,9 @@
 \usepackage{ifpdf}
 \usepackage{graphicx}
 
+% Allows for full text citations
+\usepackage{bibentry}
+
 % load tocbibind package 
 %   - do not include table of contents in itself
 %   - convert the name of bibliography to references
@@ -93,7 +96,7 @@
 
 % Set the type of your thesis (Diplomityö, TkK -tutkielma, etc.) and
 % laboratory or field of study below
-\worktype{Master's Thesis}{M.Sc.} 
+\worktype{Master's Thesis}{M.Sc.}
 \deptinfo{Department of Future Technologies}
 
 % Generate the title page 
@@ -127,7 +130,7 @@
 \tableofcontents
 \clearpage
 \setcounter{page}{0}
-\listoffigures 
+\listoffigures
 \clearpage
 \setcounter{page}{0}
 \listoflistings
@@ -156,7 +159,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{parts/Introduction}
-\input{parts/Technologies}
+\input{parts/Cryptography}
+\input{parts/PeerToPeer}
 \input{parts/VDF}
 \input{parts/ProofOfLatency}
 \input{parts/Conclusion}
