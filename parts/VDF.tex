@@ -39,12 +39,44 @@ There are multiple variations on the security principles used, since a VDF can u
 Since I am using the Wesolowski proof in Proof of Latency, I will concentrate on it the most here, but will also explain differences between the most known ones. For the group of unknown order I will use the RSA group in the examples.
 
 \subsection{Wesolowski's Efficient Verifiable Delay Function}
-The "Efficient" in the name of this VDF construct by Benjamin Wesolowski means that the proof it generates is efficient to verify by a third party, in this case \( \log _{2} T \) multiplications, with \( T \) being the total amount of modular multiplications proven. The following is a description of the algorithm and its phases.
+The "Efficient" in the name of this VDF protocol by Benjamin Wesolowski means that the proof it generates is efficient to verify by a third party, in this case \( \log _{2} T \) multiplications, with \( T \) being the total amount of modular multiplications proven. The following is a description of the non-interactive\footnote{Requiring no messages to be sent --- no interaction} variant of the protocol and its phases.
 
-Let \( N = RSA-2048 \)
-Let \( \mathbb{G} \) be the multiplicative group of integers modulo \( N \)
-Let \( x \) be a random input and \( H \) a hash function
-Let generator \( g = H(x) \to \mathbb{G}\)
+\( let \: N = RSA-2048, \mathbb{G} \; = \: multiplicative \: group \: of \: integers \: modulo \: N \)
+
+\( let \: x \: = random \: input,  \: H \: = hash \: function, \text{for example} \: BLAKE3 \)
+
+\( let \: generator \: g = H(x) \to \mathbb{G}, T = difficulty \)
+\begin{enumerate}
+  \item{Evaluation}
+
+  To evaluate the VDF, one must calculate T repeated modular squarings. This means raising the generator $g$ to the power of 2 and taking the remainder of that result divided by $N$, $T$ times.
+
+  As an equation the evaluation output is the following:
+
+  \( output = g^{2^{T} \mod N } \) 
+
+  \item{Proof Generation}
+
+  \( let \: L = random \: prime \: number \)
+
+  \( let \: q \in \mathbb{Z}, q = 2^T/L, \: \text{(quotient)} \)
+
+  \( let \: r \in \mathbb{Z}, r = 2^T\mod L, \: \text{(remainder)} \)
+
+  \( let \: proof = g^q \) 
+
+  Now that the proof has been calculated, a verifier needs $N$, $output$, $g$, $L$, $r$ and $proof$ to verify that the proof is correct and the prover has actually calculated $g^{2^{T} \mod N }$.
+
+  \item{Verification}
+
+  To be sure that the prover has calculated the output correctly, a verifier must check the following equation:
+
+  \( output = proof^L * g^r \:, where \: r = 2^T \mod L \)
+
+  If the two sides are equal, the VDF has been verified as being correct!
+\end{enumerate}
+
+In the Proof of Latency chapter under the section Proof of Concept I will demonstrate the Wesolowski VDF as a computer program, programmed in Rust.
 
 % TODO: NOT DONE YET
 
