@@ -1,0 +1,9 @@
+msc {
+  a [label="P2P lib"],b [label="main.rs"],c [label="State Machine"];
+  a->b [ label = "receive" ];
+  b->c [ label = "serialize" ];
+  c->c [ label = "transition state machine" ];
+  c->c [ label = "return next message" ];
+  b<-c [ label = "deserialize" ];
+  a<-b [ label = "send" ];
+}

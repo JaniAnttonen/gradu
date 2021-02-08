@@ -9,8 +9,7 @@
 
 Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by peering with peers that have the lowest latency to you, thus establishing a more optimal network than achieved simply by peering at random. PoL also makes network bootstrapping faster, making it easier to find performant, close-by peers on first interaction with PoL-enabled network. PoL can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
 
-% TODO: Trustless: research the meaning of the word and really put in effort in defining the protocol as trustless or not. It's public, but not necessarily completely trustless.
-The protocol is trustless and requires no specific hardware from the participants, while a trusted computing platform would make it fairer and more reliable by not discriminating based on processing performance.
+The protocol is trustless between the two computing parties and requires no specific hardware from the participants, while a trusted computing platform would make it fairer and more reliable by not discriminating based on processing performance.
 
 Aside from constructing P2P networks with better routes, the protocol could be used as a benchmark query or a proof of geographical location. A proof of a geographical location could prove useful, since GPS coordinates along with IP addresses can be spoofed.
 
@@ -65,8 +64,7 @@ The most important part when calculating any VDF is the setup. If a prover wants
 
 The protocol removes trust between the two peers by introducing a race between them. The two participants are called the prover and the verifier, although they both are actively proving and verifying their VDFs. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two.
 
-%TODO: Update with latest protocol definition, outdated
-First the prover and the verifier do an interactive key exchange to construct a previously unknown key. Then, they both start calculating a VDF in parallel. The prover only calculates the VDF up to a predefined threshold, and then sends the proof with a signature back to the verifier. The verifier then stops its own calculation, generates a proof of it, and then calculates the absolute difference between the amount of iterations between its own VDF and the prover's.
+First the prover and the verifier send their generator parts to themselves to construct a preimage resistant generator, or the starting point, for the VDF. Then, they both start calculating the same VDF independently. The prover will calculates the VDF up to a predefined threshold, and then sends the result at that threshold to the verifier, and starts calculating the proof. Proof is only sent after this, because since the VDFs the two parties calculate have the same input that was defined at roughly the same time, the parties can be sure that the result couldn't have been computed beforehand. The verifier stops its own calculation upon receiving the prover's result, and generates a proof of its own VDF. Then, it waits until it receives the proof from the verifier and then calculates the absolute difference between the amount of iterations between its own VDF and the prover's.
 
 Since calculating a VDF is relatively fast for modern processors, a VDF over as little as a few milliseconds of time can be a valid way of measuring latency. Still, without an ASIC chip for calculating VDFs faster than any other available processor, these protocols are also a measurement of processing performance. This might introduce an unfortunate barrier for entry for mobile and IoT devices. The network topology results in a gradient that is defined by geographical location and the similarity in performance. This means that connectedness between mobile and IoT devices is going to be better than between devices that have a huge performance difference.
 
@@ -108,7 +106,15 @@ William Borgeaud's blog post~\cite{Borgeaud2019-wk} from November 2019 in partic
 
 First of all, I knew I had to make the VDF run asynchronously, or if possible, in another thread, because it would be one of two VDFs needed in the protocol. There needs to be a separate task for listening to the other party's input, and to make it possible to test locally without networking. For the VDF that is used in Proof of Latency it was also needed that the prover's calculation could be ran indefinitely and ended abruptly by a received "cap" prime number from the verifier. No previous VDF library seemed to have this option, because the difficulty parameter T is usually predetermined in contrast to Proof of Latency.
 
-The code is structured as follows: A runnable binary demo (main.rs) and the reusable library it also uses (lib.rs) resides in the top crate. They both depend on the subcrates "P2P" and "vdf". Here is an example output of Proof of Latency run:
+The code is structured as follows: A runnable binary demo (main.rs) and the reusable library it also uses (lib.rs) resides in the top crate. They both depend on the subcrates "P2P" and "vdf".
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{pictures/PoL_software_roles.pdf}
+	\caption{Software roles}
+	\label{software_roles}
+\end{figure}
+
+Here is an example output of Proof of Latency run:
 \begin{longlisting}[H]
 	\caption{Proof of Latency test run}
 	\inputminted
@@ -124,8 +130,14 @@ The code is structured as follows: A runnable binary demo (main.rs) and the reus
 	\label{lst:samplerun.txt}
 \end{longlisting}
 
-To achieve a better protocol design, the protocol itself is described as a state machine, which also helps checking the protocol with model checkers, like TLA+. Variable names have been converted into more readable non-mathematical forms.
+To achieve a better protocol design, the protocol itself is implemented as a state machine, which also helps checking the protocol with model checkers, like TLA+. Variable names have been converted into more readable non-mathematical forms.
 % TODO: Diagram of the state machine, generated by "sm"? sm doesn't generate these, unfortunately.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{pictures/message_flow.eps}
+	\caption{Information flow through the software}
+	\label{message_flow}
+\end{figure}
 
 The following is a code example of the threaded valuation part of a VDF inside proof of latency, containing evaluation stop logic for both the prover and the verifier:
 \begin{longlisting}[H]
