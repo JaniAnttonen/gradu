@@ -49,8 +49,7 @@ Network hops in P2P systems are introduced when two peers are not directly conne
 While the randomness is great for preventing eclipse attacks, they can introduce unnecessary geographical hops between two peers. If two peers are in the same WAN, for example, in Kademlia they might still connect to each other through a network hop going through another continent. This makes individual connections less efficient.
 Now, if we were to rely on IP address geolocation, we could more efficiently connect to peers that are close-by. This is unfortunately impossible in privacy-oriented P2P networks, like mixnets, which aim to hide as much of the packet routing information as possible, by routing individual packets through different peers and hiding IP addresses of two connected peers from each other.~\cite{Harry_Halpin_undated-sq}
 
-Proof of Latency is made to improve the performance of current P2P networking solutions and make them future-proof, even for hops between planets, while still being compatible with some privacy-preserving P2P protocols, since it is agnostic of the addressing method used. Still, PoL trades security by obfuscation for speed.
-%TODO: Väite: "compatible with some", selvitä pitääkö paikkansa tai vedä vesurilla vittuun
+Proof of Latency is made to improve the performance of current P2P networking solutions and make them future-proof. Still, PoL trades security by obfuscation for speed.
 
 \section{Protocol Description}
 \begin{figure}
