@@ -53,6 +53,20 @@
 \renewcommand\listoflistingscaption{List of Program Code}
 \newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
+\lstdefinestyle{mystyle}{
+  numberstyle=\tiny,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bold,
+  breakatwhitespace=false,
+  breaklines=true,
+  keepspaces=true,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+
+\lstset{style=mystyle}
+
 % load fancyheaders package
 %   - the actual headers and footers are set later
 \usepackage{fancyhdr}
