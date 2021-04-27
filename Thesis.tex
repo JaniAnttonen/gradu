@@ -21,8 +21,8 @@
 
 % load url package for urls, specifically in references
 % Use hyphenation
-\usepackage[hyphenbreaks]{breakurl}
 \usepackage[hyphens]{url}
+\usepackage{hyperref}
 
 % JH: modified latin to UTF-8 encoding cues to make Scandinavian characters works
 \usepackage[utf8]{inputenc}
@@ -48,10 +48,6 @@
 %   - handle inclusion of source code
 % Use listings-rust from ./thesis/listings-rust.sty
 \usepackage{listings}
-\usepackage{minted}
-\usemintedstyle{trac}
-\renewcommand\listoflistingscaption{List of Program Code}
-\newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
 % load fancyheaders package
 %   - the actual headers and footers are set later
@@ -76,9 +72,9 @@
 %    \vskip 40\p@
 %  }}
 %\makeatother
+
 \begin{document}
 
-% Select language here by removing comment from one of the two rows below
 \selectlanguage{english}
 
 % Set some names based on selected language; no modification required
@@ -90,7 +86,7 @@
 {Proof of Latency Using a Verifiable Delay Function}
 {Jaakko Järvi}
 {Najmul Islam}
-{2020}
+{2021}
 {May}
 {Toukokuu}
 
@@ -103,7 +99,7 @@
 \gentitle
 
 % Include the abstract
-\input{Tiivistelma}
+% \input{Tiivistelma} BROKEN ATM
 
 % empty pagestyle for table of contents etc. 
 %
@@ -133,7 +129,7 @@
 \listoffigures
 \clearpage
 \setcounter{page}{0}
-\listoflistings
+\lstlistoflistings
 
 % possibly insert 'list of acronyms'
 %

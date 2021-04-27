@@ -70,11 +70,14 @@
 % setup linespacings to suit to the (stupid) requirement of double spacing
 %
 % � fake 1.5 linespacing
-%    \renewcommand{\baselinestretch}{1.241}
+% \renewcommand{\baselinestretch}{1.241}
 %
 % � fake 2 linespacing
 %
-\renewcommand{\baselinestretch}{1.655}
+% \renewcommand{\baselinestretch}{1.655}
+
+% Fonts for XeTeX
+\usepackage[OT1]{fontenc}
 
 % local temporary width
 % 
@@ -165,8 +168,7 @@
 \begin{tabular}{p{78 mm}p{72 mm}}            \\
  & \usebox{\wt}                              \\
  & University of Turku                       \\
- & Department of Future Technologies         \\
- \usebox{\di}                                \\
+ & \usebox{\di}                              \\
  & \usebox{\eyear}                           \\
  & \usebox{\eauthor}                         \\
  &                                           \\

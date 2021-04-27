@@ -1,6 +1,9 @@
+install-tectonic:
+	sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
+	cargo install tectonic
+
 pdf: 
-	bibtex Thesis
-	pdflatex -synctex=1 -interaction=nonstopmode --shell-escape Thesis
+	tectonic Thesis.tex 
 
 diagrams:
 	./build_diagrams.sh
