@@ -48,6 +48,7 @@
 %   - handle inclusion of source code
 % Use listings-rust from ./thesis/listings-rust.sty
 \usepackage{listings}
+\usepackage{thesis/listings-rust}
 
 \lstdefinestyle{mystyle}{
   numberstyle=\tiny,
@@ -70,6 +71,11 @@
 % load itpackage 
 %   - additional defines and stuff
 \usepackage{thesis/itpackage}
+
+\usepackage{hyperref}
+
+% \lstset{language=Rust, style=boxed}
+\lstset{basicstyle=\tiny,style=mystyle}
 
 % uncomment the following snippet to get rid of Luku/Chapter text at the
 % beginning of each Chapter... 
