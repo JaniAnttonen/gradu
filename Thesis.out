@@ -1,42 +1,42 @@
 \BOOKMARK [0][-]{chapter*.2}{List of Figures}{}% 1
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 2
 \BOOKMARK [0][-]{chapter.2}{Cryptography}{}% 3
-\BOOKMARK [1][-]{section.2.1}{Groups of Unknown Order}{chapter.2}% 4
-\BOOKMARK [2][-]{subsection.2.1.1}{RSA}{section.2.1}% 5
-\BOOKMARK [1][-]{section.2.2}{Proofs}{chapter.2}% 6
-\BOOKMARK [0][-]{chapter.3}{Peer-to-Peer Networking}{}% 7
-\BOOKMARK [1][-]{section.3.1}{Ad Hoc and Zero Configuration Networking}{chapter.3}% 8
-\BOOKMARK [1][-]{section.3.2}{Distributed Hash Tables}{chapter.3}% 9
-\BOOKMARK [2][-]{subsection.3.2.1}{Kademlia}{section.3.2}% 10
-\BOOKMARK [1][-]{section.3.3}{Eclipse Attacks}{chapter.3}% 11
-\BOOKMARK [0][-]{chapter.4}{Verifiable Delay Functions}{}% 12
-\BOOKMARK [1][-]{section.4.1}{Background}{chapter.4}% 13
-\BOOKMARK [1][-]{section.4.2}{History}{chapter.4}% 14
-\BOOKMARK [1][-]{section.4.3}{Variations}{chapter.4}% 15
-\BOOKMARK [2][-]{subsection.4.3.1}{Wesolowski's Efficient Verifiable Delay Function}{section.4.3}% 16
-\BOOKMARK [1][-]{section.4.4}{Similar Constructs}{chapter.4}% 17
-\BOOKMARK [2][-]{subsection.4.4.1}{Proto-VDF}{section.4.4}% 18
-\BOOKMARK [2][-]{subsection.4.4.2}{Classic Slow Functions}{section.4.4}% 19
-\BOOKMARK [1][-]{section.4.5}{Use Cases}{chapter.4}% 20
-\BOOKMARK [1][-]{section.4.6}{Hardware Developments}{chapter.4}% 21
-\BOOKMARK [0][-]{chapter.5}{Proof of Latency}{}% 22
-\BOOKMARK [1][-]{section.5.1}{Use Cases}{chapter.5}% 23
-\BOOKMARK [2][-]{subsection.5.1.1}{Dynamic P2P Routing}{section.5.1}% 24
-\BOOKMARK [2][-]{subsection.5.1.2}{Benchmark Queries}{section.5.1}% 25
-\BOOKMARK [1][-]{section.5.2}{Role of Latency in Distributed Systems}{chapter.5}% 26
-\BOOKMARK [1][-]{section.5.3}{Network Hops Increase Latency}{chapter.5}% 27
-\BOOKMARK [1][-]{section.5.4}{Protocol Description}{chapter.5}% 28
-\BOOKMARK [1][-]{section.5.5}{Attack Vectors}{chapter.5}% 29
-\BOOKMARK [2][-]{subsection.5.5.1}{Advertising Dishonest Peers and Proof Spoofing}{section.5.5}% 30
-\BOOKMARK [2][-]{subsection.5.5.2}{Performance Matching}{section.5.5}% 31
-\BOOKMARK [1][-]{section.5.6}{Protecting Against Performance Matching}{chapter.5}% 32
-\BOOKMARK [2][-]{subsection.5.6.1}{Hiding Information of VDF Results}{section.5.6}% 33
-\BOOKMARK [2][-]{subsection.5.6.2}{Web of Trust}{section.5.6}% 34
-\BOOKMARK [2][-]{subsection.5.6.3}{Peer Scoring}{section.5.6}% 35
-\BOOKMARK [2][-]{subsection.5.6.4}{Using a Witness}{section.5.6}% 36
-\BOOKMARK [0][-]{chapter.6}{Proof of Concept}{}% 37
-\BOOKMARK [1][-]{section.6.1}{Tests}{chapter.6}% 38
-\BOOKMARK [2][-]{subsection.6.1.1}{Unit Tests}{section.6.1}% 39
-\BOOKMARK [2][-]{subsection.6.1.2}{End to End Tests}{section.6.1}% 40
-\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 41
-\BOOKMARK [1][-]{section.7.1}{Future Considerations}{chapter.7}% 42
+\BOOKMARK [1][-]{subsection.2.0.1}{RSA}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.1}{Proofs}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{Peer-to-Peer Networking}{}% 6
+\BOOKMARK [1][-]{section.3.1}{Ad Hoc and Zero Configuration Networking}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.2}{Distributed Hash Tables}{chapter.3}% 8
+\BOOKMARK [2][-]{subsection.3.2.1}{Kademlia}{section.3.2}% 9
+\BOOKMARK [1][-]{section.3.3}{Eclipse Attacks}{chapter.3}% 10
+\BOOKMARK [0][-]{chapter.4}{Verifiable Delay Functions}{}% 11
+\BOOKMARK [1][-]{section.4.1}{Background}{chapter.4}% 12
+\BOOKMARK [1][-]{section.4.2}{History}{chapter.4}% 13
+\BOOKMARK [1][-]{section.4.3}{Variations}{chapter.4}% 14
+\BOOKMARK [2][-]{subsection.4.3.1}{Wesolowski's Efficient Verifiable Delay Function}{section.4.3}% 15
+\BOOKMARK [1][-]{section.4.4}{Similar Constructs}{chapter.4}% 16
+\BOOKMARK [2][-]{subsection.4.4.1}{Proto-VDF}{section.4.4}% 17
+\BOOKMARK [2][-]{subsection.4.4.2}{Classic Slow Functions}{section.4.4}% 18
+\BOOKMARK [1][-]{section.4.5}{Use Cases}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.6}{Hardware Developments}{chapter.4}% 20
+\BOOKMARK [0][-]{chapter.5}{Proof of Latency}{}% 21
+\BOOKMARK [1][-]{section.5.1}{Use Cases}{chapter.5}% 22
+\BOOKMARK [2][-]{subsection.5.1.1}{Dynamic P2P Routing}{section.5.1}% 23
+\BOOKMARK [2][-]{subsection.5.1.2}{Benchmark Queries}{section.5.1}% 24
+\BOOKMARK [1][-]{section.5.2}{Role of Latency in Distributed Systems}{chapter.5}% 25
+\BOOKMARK [1][-]{section.5.3}{Network Hops Increase Latency}{chapter.5}% 26
+\BOOKMARK [1][-]{section.5.4}{Protocol Description}{chapter.5}% 27
+\BOOKMARK [1][-]{section.5.5}{Attack Vectors}{chapter.5}% 28
+\BOOKMARK [2][-]{subsection.5.5.1}{Advertising Dishonest Peers and Proof Spoofing}{section.5.5}% 29
+\BOOKMARK [2][-]{subsection.5.5.2}{Performance Matching}{section.5.5}% 30
+\BOOKMARK [1][-]{section.5.6}{Protecting Against Performance Matching}{chapter.5}% 31
+\BOOKMARK [2][-]{subsection.5.6.1}{Hiding Information of VDF Results}{section.5.6}% 32
+\BOOKMARK [2][-]{subsection.5.6.2}{Web of Trust}{section.5.6}% 33
+\BOOKMARK [2][-]{subsection.5.6.3}{Peer Scoring}{section.5.6}% 34
+\BOOKMARK [2][-]{subsection.5.6.4}{Using a Witness}{section.5.6}% 35
+\BOOKMARK [0][-]{chapter.6}{Proof of Concept}{}% 36
+\BOOKMARK [1][-]{section.6.1}{Tests}{chapter.6}% 37
+\BOOKMARK [2][-]{subsection.6.1.1}{Unit Tests}{section.6.1}% 38
+\BOOKMARK [2][-]{subsection.6.1.2}{End to End Tests}{section.6.1}% 39
+\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 40
+\BOOKMARK [1][-]{section.7.1}{Future Considerations}{chapter.7}% 41
+\BOOKMARK [0][-]{chapter*.4}{References}{}% 42
