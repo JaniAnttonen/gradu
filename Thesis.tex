@@ -50,19 +50,12 @@
 \usepackage{listings}
 \usepackage{thesis/listings-rust}
 
-\lstdefinestyle{mystyle}{
-  numberstyle=\tiny,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\bfseries,
-  breakatwhitespace=false,
-  breaklines=true,
-  keepspaces=true,
-  showstringspaces=false,
-  showtabs=false,
-  tabsize=2
+\lstset{showstringspaces=false,
+  columns=fullflexible,
+  escapechar=@,
+  basicstyle=\small\sffamily\linespread{0.8},
+  commentstyle=\mdseries
 }
-
-\lstset{style=mystyle}
 
 % load fancyheaders package
 %   - the actual headers and footers are set later
@@ -75,7 +68,7 @@
 \usepackage{hyperref}
 
 % \lstset{language=Rust, style=boxed}
-\lstset{basicstyle=\tiny,style=mystyle}
+% \lstset{basicstyle=\tiny,style=mystyle}
 
 % uncomment the following snippet to get rid of Luku/Chapter text at the
 % beginning of each Chapter... 
