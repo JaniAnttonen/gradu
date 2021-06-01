@@ -37,8 +37,9 @@ Verifiable delay functions are based on time-lock puzzles. Like VDF's, time-lock
 
 Verifiable delay functions fall under the same category, but introduce a publicly verifiable proof that is much faster to verify than the puzzle was to solve. The original motivation for verifiable delay functions was to enable someone to pick off where somebody else had left when calculating a time puzzle --- to make it possible to create checkpoints in the calculation that could be trusted. Around the same time, VDFs found use in blockchain applications as a way to achieve unspoofable randomness in elections and smart contract input.
 
+% TODO: Proofs of Sequential Work or PoSW
+
 \section{Variations}
-% TODO: Add a footnote for groups of unknown order, add groups of unknown order to cryptography chapter? Describe Wesolowski's and the other's differences
 There are multiple variations on the security principles used, since a VDF can use any group of unknown order as a basis for its unpredictability. Known solutions use RSA, elliptic curves and class groups as their cryptographic basis.
 
 % TODO ADD MATH, DEFINITIONS, Explain how VDF works!
@@ -102,6 +103,8 @@ Many have shown that there are more use cases for verifiable delay functions tha
 In the front-running use case, this property can be used to restrict front-running in both centralized and decentralized exchanges.~\cite{Khalil2019-sl} Front-running is a term used in both stock trading and cryptocurrency trading which means using inside knowledge, or just a faster connection, of a future transaction to trade the asset with a better price or deny the other transaction from happening.~\cite{Robinson2020-ve} The issue is pronounced in trustless P2P networks like the Ethereum blockchain, where pending transactions are for all to see and can be overtook by promising the network validators a bigger reward, since there's no synchronization before consensus is achieved.~\cite{Mitchell2020-hn} In a centralized exchange, preventing front-running with a VDF means that the exchange waits for a specified time before it starts the fulfilling the trade. The VDF serves as a receipt for the order taker that there was no reordering and the take orders were processed in a FIFO\footnote{First in, first out} fashion.~\cite{Cline2020-wb} In a decentralized exchange the same holds, if there exists only one peer that can fulfill the order. The peer then functions exactly like the centralized exchange mentioned before.
 
 Spam prevention and rate limiting in the context of VDFs mean roughly the same thing. This is because spam prevention with VDFs is done with rate limiting. If a network application requires peers to perform some sort of Proof-of-Work in a form of a VDF, by defining the difficulty parameter T they can set a time boundary for subsequent requests, also called a rate limit. If all the peers need to perform a challenge to request resources from the requestee, a performance-based limit is created for the time between each individual request, thus limiting spam. In similar fashion, the deterministic nature of VDFs can be used to make more power-efficient proof-of-work algorithms, by changing the requirement from finding a solution to a random challenge to a predetermined challenge with an exact number of steps. This results in better power efficiency, because it cannot be sped up with parallellism, thus limiting the use of power hungry GPUs or highly parallel ASIC chips for the job.
+
+% TODO: Why the original motivation was left out? Mention Chia's Proof of Space Time, Solana etc PoS type stuff
 
 \section{Hardware Developments}
 VDF applications can be made faster with hardware, and it has been estimated that with an ASIC\footnote{Application-Specific Integrated Circuit. A purpose-built chip for a single algorithm.} chip a VDF can be evaluated more than ten times faster than with a GPU.~\cite{Stanford_Video2020-ap}

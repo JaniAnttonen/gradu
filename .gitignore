@@ -8,10 +8,10 @@
 *.blg
 *.lof
 *.lol
-*.out
 *.lot
 *.dvi
 *.lol
 *.out
+*.pdf
 _minted-Thesis
 
