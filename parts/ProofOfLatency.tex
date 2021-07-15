@@ -24,6 +24,28 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier are made public} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
 The most important part of a VDF is the setup. If a prover wants to create a valid proof, it needs a previously unknown starting point at first, so that it can prove for certain that it cannot have calculated the VDF in advance. Proof of Latency tackles this problem with a two-way generator/seed setup with random numbers from which a multiple is taken and hashed to be in the \(group\, G\, integers\, modulo\, N\).
 
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{ c|c  }
+		Symbol     & Description                                             \\
+		\hline
+		\[ p \]    & Prover                                                  \\
+		\[ v \]    & Verifier                                                \\
+		\[ c \]    & Vector commitment                                       \\
+		\[ T \]    & The difficulty of a VDF (the number of squarings)       \\
+		\[ g \]    & The generator of a VDF. Formally, \[c_p c_v\].          \\
+		\[ l \]    & A random prime number                                   \\
+		\[ VDF \]  & A verifiable delay function                             \\
+		\[ x \]    & The result of a VDF                                     \\
+		\[\pi \]   & The proof of a VDF                                      \\
+		\[\Delta\] & The measured latency. Formally, \[T(VDF_v) - T(VDF_p)\] \\
+	\end{tabular}
+	\caption{Symbols used in Proof of Latency}
+	\label{table:1}
+\end{table}
+
+
 The protocol removes trust between the two peers by introducing a race between them. The two participants are called the prover and the verifier, although they both are actively proving and verifying their VDFs. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two. Also, the verifier has a head start in the VDF calculation, which results in the measured latency being the round trip time. Due to this, the verifier ends the protocol, and has more power over the measured latency. This is a bearable consequence, as the prover can dispute the proof and refrain from signing it. Also, if the verifier deliberately was to slow down the proof generation by even a small amount, it would probably work against its incentives of receiving a closer connection.
 
 First the prover and the verifier send their generator parts to themselves to construct a generator, or the starting point, for the VDF. Then, they both start calculating the same VDF independently. The prover will calculates the VDF up to a predefined threshold, and then sends the result at that threshold to the verifier, and starts calculating the proof. Proof is only sent after this, because since the VDFs the two parties calculate have the same input that was defined at roughly the same time, the parties can be sure that the result couldn't have been computed beforehand. The verifier stops its own calculation upon receiving the prover's result, and generates a proof of its own VDF. Then, it waits until it receives the proof from the verifier and then calculates the absolute difference between the amount of iterations between its own VDF and the prover's.
