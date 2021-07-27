@@ -1,7 +1,7 @@
 % !TeX root = ./Thesis.tex
 \section{Cryptography}
 
-Cryptography is a field of mathematics that uses computationally difficult problems to obfuscate, hide, split and verify data. Starting in the ancient times with the famous Caesar cipher, which relied on shifting the letters in a message in coordination to an alphabet, there are multiple cryptographic protocols today for a variety of use cases, which are used in both public and private messaging. As mentioned earlier, while the familiar connotation of cryptography as a word brings secrecy and secure communications into mind, it can also be used to verify data, and to prove that something has happened. I will go over cryptography subjects that are relevant to the Proof of Latency protocol in this chapter, like groups of unknown order, RSA and cryptographic proofs. 
+Cryptography is a field of mathematics that uses computationally difficult problems to obfuscate, hide, split and verify data. Starting in the ancient times with the famous Caesar cipher, which relied on shifting the letters in a message in coordination to an alphabet, there are multiple cryptographic protocols today for a variety of use cases, which are used in both public and private messaging. As mentioned earlier, while the familiar connotation of cryptography as a word brings secrecy and secure communications into mind, it can also be used to verify data, and to prove that something has happened. I will go over cryptography subjects that are relevant to the Proof of Latency protocol in this chapter, like groups of unknown order, RSA and cryptographic proofs.
 
 Modern cryptography is based on relatively few mathematical fundamentals. The most dominant one during the age of computers has been prime numbers with modular multiplication, but elliptic curve cryptography is used widely today because of its easy and less resource-intensive key generation method when compared to the prime number based RSA cryptosystem. They both use modular arithmetic in their operations.
 
@@ -18,7 +18,7 @@ The company formed by the RSA algorithm's inventors, RSA Security LLC, published
 
 Given that the RSA numbers are said to have been created with a machine that was completely destroyed after their creation and the primes were never apparent to anyone, you need to trust the company's claims if you ever use these public challenge numbers. Fortunately, usually they are not used for encrypting large swathes of personal data, but in a more ephemeral context like Proof of Latency, which wouldn't cause a huge stir if the cryptosystem was broken and needed changing.
 
-\subsection{Cryptographic Proofs and Their Soundness} % TODO: Proofs of knowledge? Not all proofs are dependant on the trapdoor nature of crypto, and they're not really dependant at that, rather creating the trapdoor nature rather than depending on it.
+\subsection{Cryptographic Proofs and Their Soundness}
 Cryptographic proofs are proofs that depend on the trapdoor nature of cryptographic functions. The most well-known proofs, which are not necessarily thought of as such, are cryptographic signatures. Given a public key, a computer in posession of its corresponding private key can produce a signature of any given data, implying together with the data that the computer has seen and processed the data without revealing the private key to the third party, retaining unique access to the identity that is the public key. These proofs are called proofs of knowledge.
 
 Proofs can be private or public. A cryptographic proof can be categorized as public, if a verifier can gather all information required to verify the proof from the transcript of the proof itself, and verify the proof to be correct. Now, since classical cryptography is based on the fact that a computation is asymmetric --- being harder to compute the other way around, a cryptographic proof is still probabilistic in nature, and the security of it based not only on the algorithm but also the parameters used.
@@ -26,10 +26,11 @@ Proofs can be private or public. A cryptographic proof can be categorized as pub
 Proofs need to be tested for soundness to be called as such. Soundness means that a prover cannot make a verifier accept a false statement with reasonable probability. This means that a proof is dependent on context, the verifier. If a proof holds statistically, it's a proof. If it instead holds only computationally, it's instead called an argument.
 
 
-
 \subsection{Commitment Schemes}
-% TODO: Use cryptographically 'cool' values for the variables
-Commitment schemes are a way to lock causality in a cryptographic protocol, an are among the most used primitives in cryptography. Commitments usually come in the form of commit-reveal, when at a later stage of the protocol the committee reveals the original value x they made their commitment C on. This has a great property -- a prover cannot change their committed value after revealing their commitment to the verifier, because the commitment would not hold for a new value.
+Commitment schemes are a way to lock causality in a cryptographic protocol, an are among the most used primitives in cryptography. Commitments usually come in the form of commit-reveal, when at a later stage of the protocol the committee reveals the original value \(x\) they made their commitment \(C\) on. This has a great property --- a prover cannot change their committed value after revealing their commitment to the verifier, because the commitment would not hold for a new value. Commitment schemes are usually used when an interactive protocol requires for a value to be hidden until the termination of the protocol.
 
 \subsubsection{Vector Commitments}
-Vector commitments are a relatively new primitive consisting of a vector V that as you guessed it, is filled with commitments. Simplest form of a vector commitment is a merkle tree. When proofs are based on vector commitments, the commitments guarantee that the proofs' order can't change, unless all the proofs created with the commitments are recalculated.
+Vector commitments are a relatively new primitive consisting of a vector \(V\) that as you guessed it, is filled with commitments. Simplest form of a vector commitment is a merkle tree. When proofs are based on vector commitments, the commitments guarantee that the proofs' order can't change, unless the whole vector with all associated proofs are unvalidated.
+
+A Merkle tree is a data structure and a cryptographic accumulator in which you can traverse to the tree's root from any leaf node on it, as a node is always linked to the previous node by a hash that has been calculated with the hash of the previous node. That's right, a blockchain is a Merkle tree, but with added steps.
+
