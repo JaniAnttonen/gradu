@@ -21,18 +21,18 @@ Aside from constructing P2P networks with better routes, the protocol could be u
   \begin{tabular}{ c|c  }
     Symbol     & Description                                             \\
     \hline
-    \[ p \]    & Prover                                                  \\
-    \[ v \]    & Verifier                                                \\
-    \[ c \]    & Vector commitment                                       \\
-    \[ N \]    & The modulus used a VDF. \[RSA-2048\]~in this context.   \\
+    \( p \)    & Prover                                                  \\
+    \( v \)    & Verifier                                                \\
+    \( c \)    & Vector commitment                                       \\
+    \( N \)    & The modulus used a VDF. \(RSA-2048\)~in this context.   \\
 
-    \[ T \]    & The difficulty of a VDF (the number of squarings)       \\
-    \[ g \]    & The generator of a VDF. Formally, \[c_p c_v\].          \\
-    \[ l \]    & A random prime number                                   \\
-    \[ VDF \]  & A verifiable delay function                             \\
-    \[ x \]    & The result of a VDF                                     \\
-    \[\pi \]   & The proof of a VDF                                      \\
-    \[\Delta\] & The measured latency. Formally, \[T(VDF_v) - T(VDF_p)\] \\
+    \( T \)    & The difficulty of a VDF (the number of squarings)       \\
+    \( g \)    & The generator of a VDF. Formally, \(c_p c_v\).          \\
+    \( l \)    & A random prime number                                   \\
+    \( VDF \)  & A verifiable delay function                             \\
+    \( x \)    & The result of a VDF                                     \\
+    \(\pi \)   & The proof of a VDF                                      \\
+    \(\Delta\) & The measured latency. Formally, \(T(VDF_v) - T(VDF_p)\) \\
   \end{tabular}
   \caption{Symbols used in Proof of Latency}
   \label{table:1}
