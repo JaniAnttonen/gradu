@@ -3,7 +3,7 @@ install-tectonic:
 	cargo install tectonic
 
 pdf: 
-	tectonic -X build
+	tectonic -X build && sudo rm -rf _minted-Thesis
 
 diagrams:
 	./build_diagrams.sh
