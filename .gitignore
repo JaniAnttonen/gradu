@@ -12,7 +12,6 @@
 *.dvi
 *.lol
 *.out
-*.pdf
 *:Zone.Identifier
 _minted-Thesis
 *_temp.tex
