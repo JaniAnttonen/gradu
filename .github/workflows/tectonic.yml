@@ -15,9 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
+      run: curl -L https://nixos.org/nix/install | sh
     - name: Install tectonic
-      run: cargo install tectonic
+      run: nix-env -f '<nixpkgs>' -iA tectonic
     - name: Build
       run: mkdir public && tectonic --outdir public Thesis.tex
       # Publish to gh-pages
