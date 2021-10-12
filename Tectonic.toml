@@ -1,8 +1,8 @@
 [doc]
-name = Proof of Latency Using a Verifiable Delay Function
-bundle = Thesis.tex
+name = "Proof of Latency Using a Verifiable Delay Function"
+bundle = "https://purl.prod.archive.org/net/pkgwpub/tectonic-default"
 
 [[output]]
-name = ProofOfLatency  # the output's name
-type = pdf  # the output's type
+name = "ProofOfLatency"
+type = "pdf"
 

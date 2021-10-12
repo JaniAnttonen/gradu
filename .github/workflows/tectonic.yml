@@ -23,9 +23,9 @@ jobs:
     - name: Install tectonic
       run: wget -c https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.8.0/tectonic-0.8.0-x86_64-unknown-linux-gnu.tar.gz -O - | tar -xz
     - name: Build
-      run: mkdir public && ./tectonic --outdir public Thesis.tex
+      run: ./tectonic -X build
       # Publish to gh-pages
     - uses: maxheld83/ghpages@v0.3.0
       env:
-        BUILD_DIR: public/
+        BUILD_DIR: build/ProofOfLatency
         GH_PAT: ${{ secrets.GH_PAT }}

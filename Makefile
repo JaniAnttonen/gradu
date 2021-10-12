@@ -3,7 +3,7 @@ install-tectonic:
 	cargo install tectonic
 
 pdf: 
-	tectonic Thesis.tex 
+	tectonic -X build
 
 diagrams:
 	./build_diagrams.sh

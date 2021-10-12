@@ -1,0 +1,328 @@
+%
+% Package to use with the gradu.tex template for masters thesis in
+% University of Turku Laboratory of Electronics and Information
+% Technology.
+%
+% Consult the file gradu.tex for some documentation
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{thesis/itpackage}[2016/9/21 v. 1.3 Sami Nuuttila samnuutt@utu.fi (minor additions by jjholv@utu.fi)]
+\typeout{itpackage.sty -- additional definitions for it-dept...}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% handle things based on language
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% setup document appearance
+%
+
+% change default font to times-roman
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\rmdefault}{ptm}
+\renewcommand{\ttdefault}{pcr}
+
+% fix page size
+%
+%  � page width: 
+%     1inch             +
+%      \hoffset         +
+%      \oddsidemargin   +
+%      \textwidth       +
+%      \marginsep       +
+%      \marginparwidth
+%
+%  � page height: 
+%     1inch             +
+%      \voffset         +
+%      \topmargin       +
+%      \headheight      +
+%      \headsep         +
+%      \textheight      +
+%      \footnotesep     +
+%      \footheigth 
+%
+%  � 1 pt == 1/72 inch == 0.35 mm
+%
+% page width... left margin 4cm, right 2cm
+%
+\setlength{\hoffset}{0mm}
+\setlength{\marginparsep}{0mm}
+\setlength{\marginparwidth}{0mm}
+\setlength{\textwidth}{\paperwidth}
+\addtolength\textwidth{-60 mm}
+\setlength{\oddsidemargin}{-1 in}
+\addtolength\oddsidemargin{40 mm}
+%
+% page height... textheight starts at ~4cm from top, 
+% i.e. 1 in + 12 pt + 24 pt = 1.5 in 
+%
+\setlength{\voffset}{0 mm}
+\setlength{\topmargin}{0 mm}
+\setlength{\headheight}{12 pt}
+\setlength{\headsep}{24 pt}
+\setlength{\textheight}{230mm}
+\setlength{\footnotesep}{12 pt}
+
+ 
+% setup linespacings to suit to the (stupid) requirement of double spacing
+%
+% � fake 1.5 linespacing
+% \renewcommand{\baselinestretch}{1.241}
+%
+% � fake 2 linespacing
+%
+% \renewcommand{\baselinestretch}{1.655}
+
+% Fonts for XeTeX
+\usepackage[OT1]{fontenc}
+
+% local temporary width
+% 
+\newlength{\etttmpwidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% provide the entry environment
+%
+
+\newenvironment{entry}[1]
+{\begin{list}{}{%
+      \renewcommand{\makelabel}[1]{\textrm{##1:}\hfil}%
+      \settowidth{\labelwidth}{\textrm{#1:}}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \addtolength{\leftmargin}{\labelsep}}}
+{\end{list}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% define \figcaption and \tblcaption for use with non-floating figures and 
+% tables
+%
+
+\makeatletter
+  \newcommand\figcaption{\def\@captype{figure}\caption}
+  \newcommand\tblcaption{\def\@captype{table}\caption}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% define \workinfo which collects various bits of info for later use
+%
+\newcommand{\workinfo}[7]{
+        \newsavebox{\eauthor}
+        \sbox{\eauthor}{#1}
+        \newsavebox{\esauthor}
+        \sbox{\esauthor}{\textsc{#1}}
+        \newsavebox{\etitle}
+        \newlength{\authorwidth}
+        \setlength{\etttmpwidth}{\linewidth}
+        \renewcommand{\baselinestretch}{1}\normalsize
+        \settowidth{\authorwidth}{\textsc{#1:\space}}
+        \addtolength{\etttmpwidth}{-\authorwidth}
+        \sbox{\etitle}{\parbox[t]{\etttmpwidth}{#2}}
+        \renewcommand{\baselinestretch}{1.655}\normalsize
+        \newsavebox{\ehtitle}
+        \sbox{\ehtitle}{\parbox[b]{\linewidth}{\flushright\Huge{#2}}}
+        \newsavebox{\erevrone}
+        \sbox{\erevrone}{#3}
+        \newsavebox{\erevrtwo}
+        \sbox{\erevrtwo}{#4}
+        \newsavebox{\eyear}
+        \sbox{\eyear}{#5}
+        \newsavebox{\emonth}
+        \sbox{\emonth}{#6}
+        \newsavebox{\emonthfi}
+        \sbox{\emonthfi}{#7}
+}
+
+\newcommand{\worktype}[2]{
+  \newsavebox{\wt}\sbox{\wt}{#1}
+  \newsavebox{\wtfi}\sbox{\wtfi}{#2}
+}
+
+\newcommand{\deptinfo}[2]{
+  \newsavebox{\di}\sbox{\di}{#1}
+  \newsavebox{\difi}\sbox{\difi}{#2}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% define the \gentitle command
+%
+\newcommand{\gentitle}{%
+\clearpage 
+\thispagestyle{empty}
+\vspace*{\stretch{1}}
+\noindent 
+\rule{\linewidth}{1 mm}
+\begin{flushright}
+\usebox{\ehtitle}
+\end{flushright}
+\rule{\linewidth}{1 mm}
+\vspace*{\stretch{4}}
+\\
+\renewcommand{\baselinestretch}{1}\normalsize
+\begin{tabular}{p{78 mm}p{72 mm}}            \\
+ & \usebox{\wt}                              \\
+ & University of Turku                       \\
+ & \usebox{\di}                              \\
+ & \usebox{\eyear}                           \\
+ & \usebox{\eauthor}                         \\
+ &                                           \\
+ % JH: Supervisors generally not stated as part of
+ % the thesis at IT / TT Dept. Uncomment below to show
+ %\iffin
+ %& Tarkastajat:                              \\ 
+ %\else
+ %& Supervisors:                              \\
+ %\fi
+ %& \hspace*{4 ex} \usebox{\erevrone}         \\
+ %& \hspace*{4 ex} \usebox{\erevrtwo}         \\[4ex]
+\end{tabular}
+\vspace*{\stretch{1}}\\
+\begin{minipage}[b]{\textwidth}
+\scriptsize The originality of this thesis has been checked in
+accordance with the University of Turku quality assurance system using
+the Turnitin OriginalityCheck service. 
+\end{minipage}
+\renewcommand{\baselinestretch}{1.655}\normalsize
+\clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define itabstract environment for abstract page
+%
+\newenvironment{itabstract}[1]{%
+\selectlanguage{english}
+\newsavebox{\keywords}
+\newlength{\keywordswidth}
+\settowidth{\keywordswidth}{\textrm{Keywords:}}
+\setlength{\etttmpwidth}{\linewidth}
+\addtolength{\etttmpwidth}{-\keywordswidth}
+\addtolength{\etttmpwidth}{-\labelsep}
+\addtolength{\etttmpwidth}{-1mm}
+\sbox{\keywords}{\parbox[t]{\etttmpwidth}{#1}}
+\setlength{\headheight}{0 pt}
+\setlength{\headsep}{0 pt}
+\addtolength\topmargin{-1 in}
+\addtolength\topmargin{2.0 cm}
+\renewcommand{\baselinestretch}{1}\normalsize
+\clearpage
+\thispagestyle{empty}
+\noindent
+\begin{minipage}[\textheight]{\linewidth}
+UNIVERSITY OF TURKU\\
+Department of Information Technology
+\begin{entry}{\usebox{\eauthor}}
+\item[\usebox{\esauthor}] \usebox{\etitle}
+\end{entry}
+
+\usebox{\wt}, \pageref{endofpages} p., \pageref{endofappendices} app. p. \\
+\usebox{\di}\\
+\usebox{\emonth} \usebox{\eyear} \\
+\rule{\linewidth}{1 pt}
+\\
+}
+{
+\bigskip
+\\
+\begin{entry}{Keywords}
+\item[Keywords] \usebox{\keywords}
+\end{entry}
+\end{minipage}
+\clearpage
+\setcounter{page}{0}
+\setlength{\headheight}{12 pt}
+\setlength{\headsep}{24 pt}
+\setlength{\topmargin}{0 mm}
+\renewcommand{\baselinestretch}{1.655}\normalsize
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define \startpages
+%
+\newcommand{\startpages}{%
+        \clearpage
+        \pagenumbering{arabic}
+        \setcounter{page}{1}
+        \renewcommand{\baselinestretch}{1.655}
+
+        \pagestyle{fancy}
+        \renewcommand{\chaptermark}[1]{
+          \markboth{
+            \MakeUppercase{\chaptername\ \thechapter.\ ##1}}
+          {}
+        }
+        \lhead{\leftmark}
+        \chead{}
+        \rhead{\thepage}
+        \fancyfoot{}
+}       
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define \eofpages 
+%
+\makeatletter
+\def\eof@pages{%
+        \immediate\write\@auxout{\string
+        \newlabel{endofpages}{{}{\arabic{page}}}}%
+}
+\newcommand{\eofpages}{\eof@pages}
+\makeatother
+
+%
+% 
+%
+\newcommand{\appname}{foo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define \appendices
+%
+\newcommand{\appendices}{%
+  \addtocontents{toc}{\protect\contentsline{chapter}{\appname}{}\relax}
+  \newpage
+  \appendix
+  \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\appendixname\ \thechapter.\ ##1}}{}}
+  \lhead{\leftmark}
+  \chead{}
+  \rhead{\thepage}
+  \fancyfoot{}
+  \renewcommand{\thepage}{\thechapter-\arabic{page}}
+  \setcounter{page}{1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define \appchapter
+%
+\newcounter{apppage}
+\setcounter{apppage}{0}
+\newcommand{\appchapter}[1]{%
+        \addtocounter{apppage}{\value{page}}
+        \clearpage
+        \setcounter{page}{1}
+        \chapter{#1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define \eofapppages
+%
+\makeatletter
+\def\eof@apppages{%
+        \immediate\write\@auxout{\string
+        \newlabel{endofappendices}{{}{\arabic{apppage}}}}%
+}
+\newcommand{\eofapppages}{%
+        \addtocounter{apppage}{\value{page}}
+        \addtocounter{apppage}{-1}
+        \eof@apppages
+}
+\makeatother

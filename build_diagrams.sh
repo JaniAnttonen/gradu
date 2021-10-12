@@ -1,5 +1,5 @@
 #!/bin/bash
-for filename in pictures/*.mscgen; do
-    mscgen -T eps -o "pictures/$(basename "$filename" .mscgen).eps" -i "$filename"
-    mscgen -T png -o "pictures/$(basename "$filename" .mscgen).png" -i "$filename"
+for filename in src/pictures/*.mscgen; do
+    mscgen -T eps -o "src/pictures/$(basename "$filename" .mscgen).eps" -i "$filename"
+    mscgen -T png -o "src/pictures/$(basename "$filename" .mscgen).png" -i "$filename"
 done
