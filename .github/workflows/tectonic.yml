@@ -1,4 +1,4 @@
-name: Rust
+name: Tectonic
 
 on:
   push:
@@ -11,9 +11,7 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
@@ -21,4 +19,9 @@ jobs:
     - name: Install tectonic
       run: cargo install tectonic
     - name: Build
-      run: tectonic Thesis.tex
+      run: mkdir public && tectonic --outdir public Thesis.tex
+      # Publish to gh-pages
+    - uses: maxheld83/ghpages@v0.3.0
+      env:
+        BUILD_DIR: public/
+        GH_PAT: ${{ secrets.GH_PAT }}
