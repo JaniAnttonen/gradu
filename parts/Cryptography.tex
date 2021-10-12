@@ -48,6 +48,20 @@ Vector commitments are a recently formalized primitive consisting of a vector \(
 
 Like regular commitment schemes, vector commitments meet the two requirements of commitment schemes --- hiding and binding. Additionally, vector commitments need to be position-binding, so that once a commitment has been made at an index, no other commitment can reside at that given index.
 
+\subsubsubject{Formal Definition}
+Vector commitments are a tuple of four algorithms: VC.Setup, VC.Com, VC.Open, VC.Verify.
+
+\begin{enumerate}
+
+  \item VC.Setup(\(\lambda\), n, M) \rightarrow pp Given security parameter \lambda, length \(n\) of the vector, and message space of vector components \(M\), output public parameters pp, which are implicit inputs to all the following algorithms
+
+  \item VC.Com
+
+  \item VC.Open
+
+  \item VC.Verify
+
+\end{enumerate}
 %TODO: Add a formal definition of vector commitments and regular commitments (use an example like Pedersen commitments)
 
 Like regular commitment schemes, vector commitments are used to enforce causality. While regular commitment schemes make sure that a user of a protocol can't change an input or "skip the line" after the start, vector commitments create a causal relationship for multiple proofs. To wrap it up, if proofs are based on vector commitments, the commitments guarantee that the proofs' order can't change, unless the whole vector with all associated proofs are unvalidated.
