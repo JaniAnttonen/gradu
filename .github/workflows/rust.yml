@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
     - name: Install tectonic
       run: cargo install tectonic
     - name: Build
