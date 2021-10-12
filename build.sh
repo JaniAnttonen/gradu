@@ -3,11 +3,6 @@
 
 set -euo pipefail
 
-if [ "$#" -eq 0 ]; then
-  echo "usage: bash $0 main.tex" >&2
-  exit 1
-fi
-
 # We use $DEPLOY_URL to detect the Netlify environment.
 if [ -v DEPLOY_URL ]; then
   : ${NETLIFY_BUILD_BASE="/opt/buildhome"}
@@ -73,33 +68,6 @@ else
 fi
 
 export PATH="$TEXLIVE_BIN:$PATH"
-
-python "$TEXLIVEONFLY" -c latexmk -a "-g -pdf -synctex=1 -interaction=nonstopmode" "$@"
-
-mkdir -p dist
-cp *.pdf dist
-
-# used to url encode the filename, which can includes special characters that
-# conflict with the _redirects file syntax
-urlencode() {
-  local string="${1}"
-  local strlen="${#string}"
-  local encoded=""
-  local pos c o
-
-  for (( pos=0 ; pos<strlen ; pos++ )); do
-    c="${string:$pos:1}"
-    case "$c" in
-      [-_.~a-zA-Z0-9] ) o="${c}" ;;
-      * ) printf -v o '%%%02x' "'$c"
-    esac
-    encoded+="${o}"
-  done
-
-  echo "${encoded}"
-}
-
-echo "/ /$(urlencode "${1/%.tex/.pdf}") 302" > dist/_redirects
 
 rustup default stable
 cargo install tectonic
