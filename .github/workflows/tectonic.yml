@@ -14,14 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Install Nix
-      uses: cachix/install-nix-action@v14
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
+    # - name: Install Nix
+    #   uses: cachix/install-nix-action@v14
+    #   with:
+    #     nix_path: nixpkgs=channel:nixos-unstable
+    # - name: Install tectonic
+    #   run: nix-env -f '<nixpkgs>' -iA tectonic
     - name: Install tectonic
-      run: nix-env -f '<nixpkgs>' -iA tectonic
+      run: wget -c https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.8.0/tectonic-0.8.0-x86_64-unknown-linux-gnu.tar.gz -O - | tar -xz
     - name: Build
-      run: mkdir public && tectonic --outdir public Thesis.tex
+      run: mkdir public && ./tectonic --outdir public Thesis.tex
       # Publish to gh-pages
     - uses: maxheld83/ghpages@v0.3.0
       env:
