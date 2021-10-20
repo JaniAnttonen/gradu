@@ -7,13 +7,14 @@
   \label{PoL Example Topology}
 \end{figure}
 
-Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by peering with peers that have the lowest latency to you, thus establishing a more optimal network than achieved simply by peering at random. PoL also makes network bootstrapping faster, making it easier to find performant, close-by peers on first interaction with PoL-enabled network. PoL can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
+Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by peering with peers that have the lowest latency to you, thus establishing a more optimal network than achieved simply by peering at random. PoL aims to make network bootstrapping better, making it easier to find performant, physically close-by peers on first interaction with PoL-enabled network. When using PoL for peer discovery, it can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
 
-Distance bounding protocols, as previously described, are a way of measuring latency between two participants in a relatively unspoofable manner. Unfortunately, they can only provide a valid proof between the prover and the verifier, and not a third party. This is because a distance bound could have been calculated at any point in the past, and the prover and the verifier could quite easily craft a proof of 0 latency between them. The motivation for PoL was to try to fix this with its use of verifiable delay functions, but further research revealed that it required some additional logic to cater to a decentralized setting.
+Distance bounding protocols, as previously described, are a way of measuring latency between two participants in a relatively unspoofable manner. Unfortunately, they can only provide a valid proof between the prover and the verifier, and not a third party. This is because a distance bound could have been calculated at any point in the past, and the prover and the verifier could quite easily craft a proof of 0 latency between them. The motivation for PoL was to try to fix this with its use of verifiable delay functions, but further research revealed that some additional logic was needed to cater to a decentralized setting.
 
 The protocol is trustless between the two computing parties and requires no specific hardware from the participants. This said, special hardware for speeding up its evaluation and proving could make it a better protocol at distance bounding, as difference in the processing powers cause measurement error.
 
 Aside from constructing P2P networks with better routes, the protocol could be used as a benchmark query or a proof of geographical location. A proof of a geographical location could prove useful, since GPS coordinates along with IP addresses can be spoofed.
+% TODO: Add a related work section under introduction? FOAM has done something similar together with the GoAT paper
 
 \section{Protocol Description}
 \begin{table}[h!]
@@ -40,10 +41,14 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 
 Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier are made public} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
 
-The protocol consists of two distinctive parts, beginning with the use of a vector commitment, after which comes the distance bounding part. I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
+The protocol is a tuple of two algorithms, beginning with the use of a vector commitment, after which comes the distance bounding part. I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
 
-\subsection{Commitment}
+\subsection{Setup}
+When a peer wants to use PoL, it must first make a commitment. The commitment must be a vector commitment, which makes sure that once the first commitment has been made, the parameters cannot be changed. Thus, whenever a peer's setup changes, all previously calculated proofs of latency are invalidated, as its processing power has changed.
 
+The vector commitment has one input: the committer's processing power measured in squarings achieved during a security parameter. This means that the committer measures how fast it can run the VDF, and commits to this speed before calculating any proofs with other peers. This is public, as a verifier needs to know the original committed processing power to measure if the prover did performance matching, thus invalidating the proof.
+
+All subsequent proofs of latency are committed on the same vector commitment, compounding trust.
 
 \subsection{Distance Bounding}
 The distance bound is computed by a race between two VDFs which reduces the communication cost when compared with regular distance bounding protocols. The two participants are called the prover and the verifier, although they both are actively proving and verifying their VDFs. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two. Also, the verifier has a head start in the VDF calculation, which results in the measured latency being the round trip time. Due to this, the verifier ends the protocol, and has more power over the measured latency. This is a bearable consequence, as the prover can dispute the proof and refrain from signing it. Also, if the verifier deliberately was to slow down the proof generation by even a small amount, it would probably work against its incentives of receiving a closer connection.
@@ -122,7 +127,7 @@ Now, if we were to rely on IP address geolocation, we could more efficiently con
 
 The motivation behind Proof of Latency is to improve the performance of current P2P networking solutions and make them future-proof.
 
-\section{Attack Vectors}
+\section{Security Analysis}
 Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. Proof of Latency is not meant to be a one-stop shop towards a safer network, but rather an add-on to make things more efficient while still keeping security in mind. The following attack vectors are a product of prior knowledge, research and the writer's thought process, and none have been tested out in practice, yet.
 
 \subsection{Advertising Dishonest Peers and Proof Spoofing}
