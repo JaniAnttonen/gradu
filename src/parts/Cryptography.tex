@@ -44,9 +44,9 @@ The function that is used to transform a message to a commitment could, for exam
 
 
 \subsubsection{Vector Commitments}
-Vector commitments are a recently formalized primitive consisting of a vector \(V\) that as you guessed it, is filled with commitments. The simplest form of a vector commitment most already know is a merkle tree. Unfortunately, merkle proof size grows with input, but newer forms of vector commitments have been discovered after its formalization in 2013. For example, Catalano-Fiore vector commitments improve upon the proof size, introducing a fixed size proof. In addition to the fixed size, the verifier only needs to know the proof and the digest, or the latest output, to verify the proof. In layman's terms, vector commitments enable a prover to prove that a commitment \(V_n\) has been made at the index \(n\) of vector \(V\).
+Vector commitments are a recently formalized primitive consisting of a vector \(V\) that as you guessed it, is filled with commitments. The simplest form of a vector commitment most already know is a merkle tree. Unfortunately, merkle proof size grows with input, but newer forms of vector commitments have been discovered after its formalization in 2013. For example, Catalano-Fiore vector commitments improve upon the proof size, introducing a fixed size proof.~\cite{Catalano2013-jn} In addition to the fixed size, the verifier only needs to know the proof and the digest, or the latest output, to verify the proof. In layman's terms, vector commitments enable a prover to prove that a commitment \(V_n\) has been made at the index \(n\) of vector \(V\).
 
-Like regular commitment schemes, vector commitments meet the two requirements of commitment schemes --- hiding and binding. Additionally, vector commitments need to be position-binding, so that once a commitment has been made at an index, no other commitment can reside at that given index.
+Vector commitments meet the two requirements of commitment schemes --- hiding and binding. Additionally, vector commitments need to be position-binding, so that once a commitment has been made at an index, no other commitment can reside at that given index.
 
 \subsubsection{Formal Definition}
 Vector commitments are a tuple of four algorithms: VC.Setup, VC.Com, VC.Open, VC.Verify.~\cite{Boneh2019-tk}
