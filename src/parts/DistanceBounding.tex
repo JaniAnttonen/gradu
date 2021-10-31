@@ -12,9 +12,19 @@ A way to infer physical distance \(d\) from the measured round trip time \(\Delt
   d = \frac{1}{2}\Delta t \frac{2}{3}c
 \end{equation*}
 
-Even when not using distance bounding for geolocation one can use the aforementioned method to pick sane parameters for each application, like attack prevention in point of sale systems and RFID lock tags. For the measurement to be as close to ground truth as possible, there needs to be sufficient computing power and a good software implementation to minimize any processing delay introduced between receiving a challenge and sending the response, as this delay lowers the maximum measured resolution achieved by the protocol. For point of sale systems, this delay can be crucial, as we only want the point of sale system to be used by the customer next to it.
+Even when not using distance bounding for geolocation one can use the aforementioned method to pick sane parameters for each application, like attack prevention in point of sale systems and RFID lock tags. For the measurement to be as close to ground truth as possible, there needs to be sufficient computing power and a good software implementation to minimize any processing delay introduced between receiving a challenge and sending the response, as this delay lowers the maximum measured resolution achieved by the protocol. For point of sale systems, this delay can be crucial, as we only want the point of sale system to be used by the customer right next to it.
 
 When distance bounding is used in other ways than highly local applications like car keys, e.g. in digital rights management, it can reveal too much of the user's location. Usually distance bounding protocols have assumed that both the prover and the verifier are willing to disclose their locations. Some newer protocols have tried to introduce a cloaking region by reducing measurement resolution by adding a delay to the challenge responses.~\cite{Molina-Martinez2018-nw} This is a welcome solution in instances where a verifier only needs to know a rough estimate of the prover's location instead of a tight bound, for example in content delivery networks.
 
 \subsection{Attacks}
-As distance bounding protocols were originally made to solve the problem of relay attacks, they are usually not an issue. That said, most RFID implementations do not use distance bounding protocols to require a maximum distance to the tag, and are vulnerable to so called mafia attacks.~\cite{Nikov_undated-vv}
+As distance bounding protocols were originally made to solve the problem of relay attacks, they are usually not an issue anymore, as distance bounding is used widely in RFID readers nowadays.~\cite{Nikov_undated-vv} There are still potential attacks that could affect distance bounding. Historically, the attacks against distance bounding have been categorized into 5 different categories~\cite{Boureanu_undated-bn}:
+
+\begin{itemize}
+  \item Distance fraud, where a far-away prover tries to pass the protocol by itself.
+  \item Mafia fraud, which is a man-in-the-middle attack where a malicious peer in between an honest prover and a verifier tries to get the verifier to accept the far-away prover's proof.
+  \item Terrorist fraud, where with a help of a temporary adversary a malicious far-away prover tries to make the verifier accept its proof without revealing any secrets to the adversary.
+  \item Impersonation fraud, where a close-by adversary impersonates a prover.
+  \item Distance hijacking, where a far-away prover takes advantage of honest provers to make the verifier accept its proof.
+\end{itemize}
+
+Inferring from the categories one can deduce that requiring the participants to digitally sign the passed messages in a cryptographically secure manner will render the most of these attacks unfeasible, unless a prover has been hacked or in some other way it has leaked its secrets to a malicious third party.
