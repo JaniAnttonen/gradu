@@ -1,4 +1,4 @@
-% !TeX root = ./Thesis.tex
+% !TeX root = ../index.tex
 \section{Cryptography}
 
 Cryptography is a field of mathematics that uses computationally difficult problems to obfuscate, hide, split and verify data. Starting in the ancient times with the famous Caesar cipher, which relied on shifting the letters in a message in coordination to an alphabet, there are multiple cryptographic protocols today for a variety of use cases, which are used in both public and private messaging. As mentioned earlier, while the familiar connotation of cryptography as a word brings secrecy and secure communications into mind, it can also be used to verify data, and to prove that something has happened. I will go over cryptography subjects that are relevant to the Proof of Latency protocol in this chapter, like groups of unknown order, RSA and cryptographic proofs.
@@ -44,9 +44,9 @@ The function that is used to transform a message to a commitment could, for exam
 
 
 \subsubsection{Vector Commitments}
-Vector commitments are a recently formalized primitive consisting of a vector \(V\) that as you guessed it, is filled with commitments. The simplest form of a vector commitment most already know is a merkle tree. Unfortunately, merkle proof size grows with input, but newer forms of vector commitments have been discovered after its formalization in 2013. For example, Catalano-Fiore vector commitments improve upon the proof size, introducing a fixed size proof.~\cite{Catalano2013-jn} In addition to the fixed size, the verifier only needs to know the proof and the digest, or the latest output, to verify the proof. In layman's terms, vector commitments enable a prover to prove that a commitment \(V_n\) has been made at the index \(n\) of vector \(V\).
+Vector commitments are a recently formalized primitive consisting of a vector \(V\) that as you guessed it, is filled with commitments. The simplest form of a vector commitment most already know is a merkle tree. Unfortunately, merkle proof size grows with input, but newer forms of vector commitments have been discovered after its formalization in 2013. For example, Catalano-Fiore vector commitments improve upon the proof size, introducing a fixed size proof. These type of vector commitments are called concise..~\cite{Catalano2013-jn} In addition to the fixed size, the verifier only needs to know the proof and the digest\footnote{latest output} to verify the proof. In layman's terms, vector commitments enable a prover to prove that a commitment \(V_n\) has been made at the index \(n\) of vector \(V\).
 
-Vector commitments meet the two requirements of commitment schemes --- hiding and binding. Additionally, vector commitments need to be position-binding, so that once a commitment has been made at an index, no other commitment can reside at that given index.
+Vector commitments need to be binding, but are not required to be hiding. Additionally, vector commitments need to be position-binding, so that once a commitment has been made at an index, no other commitment can reside at that given index.
 
 \subsubsection{Formal Definition}
 Vector commitments are a tuple of four algorithms: VC.Setup, VC.Com, VC.Open, VC.Verify.~\cite{Boneh2019-tk}
@@ -62,7 +62,6 @@ Vector commitments are a tuple of four algorithms: VC.Setup, VC.Com, VC.Open, VC
   \item VC.Verify(\(com, m, i, \pi\)) \(\rightarrow\) \(0/1\quad\) On input commitment \(com\), an index \(i \in [n]\), and an opening proof \(\pi\) output \(1\) (accept) or \(0\) (reject).
 
 \end{enumerate}
-%TODO: Add a formal definition of regular commitments (use an example like Pedersen commitments)
 
 Like regular commitment schemes, vector commitments are used to enforce causality. While regular commitment schemes make sure that a user of a protocol can't change an input or "skip the line" after the start, vector commitments create a causal relationship for multiple proofs. To wrap it up, if proofs are based on vector commitments, the commitments guarantee that the proofs' order can't change, unless the whole vector with all associated proofs are unvalidated.
 
