@@ -2,13 +2,13 @@
 \section{Verifiable Delay Functions}
 
 % TODO: Reduce vagueness, more oomph
-A verifiable delay function is a function that calculates sequential calculations that cannot be significantly sped up by parallellisation or skipped, and creates a proof of the calculations that is faster to verify than the calculations are to fully re-evaluate. The computation of a VDF can be split into three distinct parts: Evaluation, proof generation, and verification. The evaluation is the hard sequential calculation from which a proof is generated.  
+A verifiable delay function is a function that calculates sequential calculations that cannot be significantly sped up by parallellisation or skipped, and creates a proof of the calculations that is faster to verify than the calculations are to fully re-evaluate. The computation of a VDF can be split into three distinct parts: Evaluation, proof generation, and verification. The evaluation is the hard sequential calculation from which a proof is generated.
 
 The common parameters in VDF calculation are random input x, it's hash which is called the generator, the group G, and the amount of sequential operations, also called the difficulty, T.
 
 Verifiable delay functions are a peculiar bunch of cryptographic proofs, since they are not proving that something has happened or something has been seen, but that a certain amount of time has been spent to compute the result. Like other cryptographic proofs, for the proof to be publicly verifiable it must at least in part be based on public parameters. If a VDF is going to be calculated between two parties, these parties decide the starting parameters between themselves, in a way giving the parameters to each other. This is to prevent possible precomputation --- meaning that the peer that provides a VDF proof could have computed it earlier, separately from the current transaction. If a participant or participants can decide the parameters of the computation by themselves, there's no restriction for how far back the computation has occurred.
 
-There's no known way to reduce computation costs sublinearly to the bit length of the exponent used.~\cite{Boneh2018-sm} This means that there's no algorithm-based solution to make VDF computation faster that is not related to other factors like efficiency. Despite this, there is a growing effort in developing faster hardware for VDF evaluation, especially for doing repeated modular squarings, which would speed up both the evaluation and the proof phases of a VDF. 
+There's no known way to reduce computation costs sublinearly to the bit length of the exponent used.~\cite{Boneh2018-sm} This means that there's no algorithm-based solution to make VDF computation faster that is not related to other factors like efficiency. Despite this, there is a growing effort in developing faster hardware for VDF evaluation, especially for doing repeated modular squarings, which would speed up both the evaluation and the proof phases of a VDF.
 % This is a bit abrupt, add info on the different requirements of different parts of VDF calculation
 
 While proof of work is the most widely used consensus algorithm in public distributed ledgers, its use can result in wasteful use of computation resources, especially when there's significant latency between the participating peers. While many other consensus algorithms have been proposed and even applied to distributed ledgers, they come with their own set of problems to tackle. In Proof of Stake network nodes participate in the voting of new blocks by staking a part of their assets as a pawn. Concretely this means that a peer hands the control of some of its cryptocurrency to the consensus algorithm. If a voter gets labeled as malicious, faulty, or absent by a certain majority, its stake can get slashed, losing all or a part of the staked asset in the process. This serves as an incentive for honest co-operation, with sufficient computation resources.
@@ -27,7 +27,7 @@ VDFs could see usage in many things not directly related to blockchains or distr
 Verifiable delay functions are based on time-lock puzzles. Like VDF's, time-lock puzzles are computational sequential puzzles that require a certain amount of time to solve.\cite{Rivest_undated-qr} Time-lock puzzles were originally created to encrypt information in a manner that could only be opened after a certain amount of computation. Functionally, this is a cryptographic time capsule. Ronald L. Rivest, Adi Shamir, and David A. Wagner classify time-lock puzzles generally under the term timed-release crypto in their 1996 paper.~\cite{Rivest_undated-qr} They describe the envisioned use cases for timed-release crypto as being the following, and they're very similar with the general concept of sending information into the future:
 
 \begin{itemize}
-	\item A bidder in an auction wants to seal his bid so that it can only be opened after the bidding period is closed 
+	\item A bidder in an auction wants to seal his bid so that it can only be opened after the bidding period is closed
 	\item A homeowner wants to give his mortgage holder a series of encrypted mortgage payments. These might be encrypted digital cash with different decryption dates so that one payment becomes decryptable and thus usable by the bank at the beginning of each successive month
 	\item An individual wants to encrypt his diaries so that they are only decryptable after fifty years.
 	\item A key escrow scheme can be based on timed-release crypto so that the government can get the message keys but only after a fixed period, say one year
@@ -44,7 +44,7 @@ There are multiple variations on the security principles used, since a VDF can u
 
 Since I am using the Wesolowski proof in Proof of Latency, I will concentrate on it the most here, but will also explain differences between the most known ones. For the group of unknown order I will use the RSA group in the examples.
 
-\subsection{Wesolowski's Efficient Verifiable Delay Function}
+\subsubsection{Wesolowski's Efficient Verifiable Delay Function}
 The "Efficient" in the name of this VDF protocol by Benjamin Wesolowski means that the proof it generates is efficient to verify by a third party, in this case \( \log _{2} T \) multiplications, with \( T \) being the total amount of modular multiplications proven. The following is a description of the non-interactive\footnote{Requiring no messages to be sent --- no interaction} variant of the protocol and its phases.
 
 \( let \: N = RSA-2048, \mathbb{G} \; = \: multiplicative \: group \: of \: integers \: modulo \: N \)
@@ -54,32 +54,32 @@ The "Efficient" in the name of this VDF protocol by Benjamin Wesolowski means th
 \( let \: generator \: g = H(x) \to \mathbb{G}, T = difficulty \)
 \begin{enumerate}
 	\item{Evaluation}
-																	
-	To evaluate the VDF, one must calculate T repeated modular squarings. This means raising the generator $g$ to the power of 2 and taking the remainder of that result divided by $N$, $T$ times.
-																	
-	As an equation the evaluation output is the following:
-																	
-	\( output = g^{2^{T} \mod N } \) 
-																	
+
+	      To evaluate the VDF, one must calculate T repeated modular squarings. This means raising the generator $g$ to the power of 2 and taking the remainder of that result divided by $N$, $T$ times.
+
+	      As an equation the evaluation output is the following:
+
+	      \( output = g^{2^{T} \mod N } \)
+
 	\item{Proof Generation}
-																	
-	\( let \: L = random \: prime \: number \)
-																	
-	\( let \: q \in \mathbb{Z}, q = 2^T/L, \: \text{(quotient)} \)
-																	
-	\( let \: r \in \mathbb{Z}, r = 2^T\mod L, \: \text{(remainder)} \)
-																	
-	\( let \: proof = g^q \) 
-																	
-	Now that the proof has been calculated, a verifier needs $N$, $output$, $g$, $L$, $r$ and $proof$ to verify that the proof is correct and the prover has actually calculated $g^{2^{T} \mod N }$.
-																	
+
+	      \( let \: L = random \: prime \: number \)
+
+	      \( let \: q \in \mathbb{Z}, q = 2^T/L, \: \text{(quotient)} \)
+
+	      \( let \: r \in \mathbb{Z}, r = 2^T\mod L, \: \text{(remainder)} \)
+
+	      \( let \: proof = g^q \)
+
+	      Now that the proof has been calculated, a verifier needs $N$, $output$, $g$, $L$, $r$ and $proof$ to verify that the proof is correct and the prover has actually calculated $g^{2^{T} \mod N }$.
+
 	\item{Verification}
-																	
-	To be sure that the prover has calculated the output correctly, a verifier must check the following equation:
-																	
-	\( output = proof^L * g^r \:, where \: r = 2^T \mod L \)
-																	
-	If the two sides are equal, the VDF has been verified as being correct!
+
+	      To be sure that the prover has calculated the output correctly, a verifier must check the following equation:
+
+	      \( output = proof^L * g^r \:, where \: r = 2^T \mod L \)
+
+	      If the two sides are equal, the VDF has been verified as being correct!
 \end{enumerate}
 
 Different VDF constructs, like the most well known ones, Wesolowski and Pietrzak, make computational trade offs on different parts of the proof. In a Wesolowski VDF the proof generation is a significant part of the whole VDF calculation, comparable in time to the evaluation itself unless optimized in any way. A Pietrzak VDF is faster to prove, but a lot slower to verify. A Wesolowski VDF produces a proof that can be verified in O(1) time.
@@ -110,4 +110,4 @@ The three different parts of a VDF calculation are different in terms of the har
 
 If or when hardware specifically optimized for sequential squarings is commercialized, VDFs can become much more mainstream, and suffer less from computational differences, thus requiring less trust between the calculating parties. It's a race against time, since if an attacker put a considerable amount of resources in the development of such a chip themselves, they could potentially compromise the security of some blockchains, due to an assumption that's made generally in all blockchains: When competing chains are proposed as the truth, the one with the most work is regarded as the winner. By creating blocks faster than the majority of the network, one could attack proof of stake systems relying on this assumption with a proprietary chip.
 
-Besides the development of an ASIC driven by vdfresearch.org~\cite{noauthor_undated-hk}, there's been development on CPU instructions by Intel, aiming to help the specific operation of modular exponentiation, which is used not only in VDFs, but also in classical RSA, DSA\footnote{Digital signature algorithm}, and DH\footnote{Diffie-Hellman key exchange} algorithms, not to mention homomorphic encryption\footnote{Homomorphically encrypted data is data that can be done calculations with without revealing it's contents to the calculator.}.~\cite{Drucker2019-cx} 
+Besides the development of an ASIC driven by vdfresearch.org~\cite{noauthor_undated-hk}, there's been development on CPU instructions by Intel, aiming to help the specific operation of modular exponentiation, which is used not only in VDFs, but also in classical RSA, DSA\footnote{Digital signature algorithm}, and DH\footnote{Diffie-Hellman key exchange} algorithms, not to mention homomorphic encryption\footnote{Homomorphically encrypted data is data that can be done calculations with without revealing it's contents to the calculator.}.~\cite{Drucker2019-cx}

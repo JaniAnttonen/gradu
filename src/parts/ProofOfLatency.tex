@@ -2,9 +2,9 @@
 \chapter{Design and Architecture}
 \label{Proof of Latency}
 \begin{figure}
-  \includegraphics[width=\textwidth]{pictures/pol_topology.pdf}
-  \caption{Example PoL network topology. Localized and highly connected clusters with high performance bridges, resulting in optimal routing}
-  \label{PoL Example Topology}
+	\includegraphics[width=\textwidth]{pictures/pol_topology.pdf}
+	\caption{Example PoL network topology. Localized and highly connected clusters with high performance bridges, resulting in optimal routing}
+	\label{PoL Example Topology}
 \end{figure}
 
 Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by peering with peers that have the lowest latency to you, thus establishing a more optimal network than achieved simply by peering at random. PoL aims to make network bootstrapping better, making it easier to find performant, physically close-by peers on first interaction with PoL-enabled network. When using PoL for peer discovery, it can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
@@ -17,26 +17,26 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 
 \section{Protocol Description}
 \begin{table}[h!]
-  \centering
-  \begin{tabular}{ c|c  }
-    Symbol        & Description                                             \\
-    \hline
-    \( p \)       & Prover                                                  \\
-    \( v \)       & Verifier                                                \\
-    \( \lambda \) & Processing power                                        \\
-    \( c \)       & Vector commitment                                       \\
-    \( N \)       & The modulus used a VDF. \(RSA-2048\)~in this context.   \\
+	\centering
+	\begin{tabular}{ c|c  }
+		Symbol        & Description                                             \\
+		\hline
+		\( p \)       & Prover                                                  \\
+		\( v \)       & Verifier                                                \\
+		\( \lambda \) & Processing power                                        \\
+		\( c \)       & Vector commitment                                       \\
+		\( N \)       & The modulus used a VDF. \(RSA-2048\)~in this context.   \\
 
-    \( T \)       & The difficulty of a VDF (the number of squarings)       \\
-    \( g \)       & The generator of a VDF. Formally, \(c_p c_v\).          \\
-    \( l \)       & A random prime number                                   \\
-    \( VDF \)     & A verifiable delay function                             \\
-    \( x \)       & The result of a VDF                                     \\
-    \(\pi \)      & The proof of a VDF                                      \\
-    \(\Delta\)    & The measured latency. Formally, \(T(VDF_v) - T(VDF_p)\) \\
-  \end{tabular}
-  \caption{Symbols used in Proof of Latency}
-  \label{table:1}
+		\( T \)       & The difficulty of a VDF (the number of squarings)       \\
+		\( g \)       & The generator of a VDF. Formally, \(c_p c_v\).          \\
+		\( l \)       & A random prime number                                   \\
+		\( VDF \)     & A verifiable delay function                             \\
+		\( x \)       & The result of a VDF                                     \\
+		\(\pi \)      & The proof of a VDF                                      \\
+		\(\Delta\)    & The measured latency. Formally, \(T(VDF_v) - T(VDF_p)\) \\
+	\end{tabular}
+	\caption{Symbols used in Proof of Latency}
+	\label{table:1}
 \end{table}
 
 Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier are made public} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
@@ -61,9 +61,9 @@ The distance bound is computed by a race between two VDFs which reduces the comm
 The most important part of a VDF is the setup. If a prover wants to create a valid proof, it needs a provably priorly unknown starting point at first, so that it can prove for certain that it cannot have calculated the VDF in advance. Proof of Latency tackles this problem with a two-way generator/seed setup with random numbers from which a multiple is taken and hashed to be in the \(group\, G\, integers\, modulo\, N\).
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{pictures/pol2_diagram-eps-converted-to.pdf}
-  \caption{Protocol Diagram, Proof of Latency}
-  \label{PoL Diagram 2}
+	\includegraphics[width=\textwidth]{pictures/pol2_diagram-eps-converted-to.pdf}
+	\caption{Protocol Diagram, Proof of Latency}
+	\label{PoL Diagram 2}
 \end{figure}
 
 First the prover and the verifier send their generator parts to themselves to construct a generator, or the starting point, for the VDF. Then, they both start calculating the same VDF independently. The prover then calculates the VDF up to a predefined threshold, and then sends the result at that threshold to the verifier, and starts calculating the proof. Proof is only sent after this, because since the VDFs the two parties calculate have the same input that was defined at roughly the same time, the parties can be sure that the result couldn't have been computed beforehand. The verifier stops its own calculation upon receiving the prover's result, and generates a proof of its own VDF. Then, it waits until it receives the proof from the verifier and then calculates the absolute difference between the amount of iterations between its own VDF and the prover's.
@@ -74,13 +74,13 @@ The distance bounding algorithm can be thought of as a state machine, or in fact
 
 \begin{figure}[htp]
 
-  \centering
-  \includegraphics[width=.3\textwidth]{pictures/mermaid-diagram-20210505012010.png}\hfill
-  \includegraphics[width=.3\textwidth]{pictures/mermaid-diagram-20210505014229.png}\hfill
-  \includegraphics[width=.3\textwidth]{pictures/mermaid-diagram-20210505015712.png}
+	\centering
+	\includegraphics[width=.3\textwidth]{pictures/mermaid-diagram-20210505012010.png}\hfill
+	\includegraphics[width=.3\textwidth]{pictures/mermaid-diagram-20210505014229.png}\hfill
+	\includegraphics[width=.3\textwidth]{pictures/mermaid-diagram-20210505015712.png}
 
-  \caption{Possible states for the state machines.}
-  \label{Protocol States}
+	\caption{Possible states for the state machines.}
+	\label{Protocol States}
 
 \end{figure}
 
@@ -88,9 +88,9 @@ The distance bounding algorithm can be thought of as a state machine, or in fact
 
 \section{Use Cases}
 \begin{figure}
-  \includegraphics[width=\textwidth]{pictures/random_routing.pdf}
-  \caption{Example suboptimal routes achieved by randomly selecting peers.}
-  \label{Subobtimal Topology}
+	\includegraphics[width=\textwidth]{pictures/random_routing.pdf}
+	\caption{Example suboptimal routes achieved by randomly selecting peers.}
+	\label{Subobtimal Topology}
 \end{figure}
 The section Peer-to-peer Networking described some problems Proof of Latency is meant to help with. While the use in P2P routing might be a no-brainer, the same protocol can be used for computation performance benchmarking, VDF calculation using the latency proofs themselves, and to prove a geographical location. In the next sections I will describe these use cases more thoroughly.
 
@@ -113,24 +113,6 @@ Assuming the soundness of the proofs created by Proof of Latency holds, given a 
 
 \subsection{Proving Geographical Locations}
 GPS coordinates or geohashes or any widely used geolocating method do not contain a proof of the reporter's proximity to the reported location. At first, Proof of Latency was called Proof of Proximity, but since it also measures processing power, I decided to go with latency instead, as there's many types of latencies that account for latency in P2P communication. Still, in roughly the same way as in dynamic P2P routing a proof could be created that the prover is close to the verifier, and when
-
-
-%TODO: Move the next two sections under P2P?
-\section{Role of Latency in Distributed Systems}
-It's hardly a surprise, but latency is a huge factor in distributed systems, especially trustless, decentralized ones. Latency is first constrained by the speed of light, and then by hardware and software along the way. In 2012, the global average round-trip delay time to Google's servers was around 100ms.~\cite{Grigorik_undated-mc}
-% TODO: Tie this in in some way
-
-In the new space age the maximum possible latency grows very fast, as there could be peers joining to a distributed network from other planets, space ships or stations. This might seem unnecessary to think about in the distributed P2P context for now, but before all that, we have global satellite mesh internet providers, like Starlink. Elon Musk, the founder of SpaceX, which deploys the Starlink network of satellites, claims that there's going to be a round-trip\footnote{Including the user's initial request and received response} latency of about 20 milliseconds between a single satellite and the user.~\cite{Tung_undated-ny} In legacy satellite internet access, the round-trip time even in perfect conditions is about 550 milliseconds.~\cite{noauthor_undated-zc} This difference between legacy and newer satellite internet comes from the difference in their orbits and the sheer amount of satellites involved. Legacy satellite internet uses geostationary orbits, which are very high, beaming on a single face of the earth at a time with limited bandwidth. Newer systems, like Starlink, use a low-earth-orbit, which requires more satellites, since they zoom by at such a speed that constantly changing which satellite you're connected to is a must. The low orbit also means less distance between the satellites and the user. The 20 millisecond latency claimed by Starlink at first seems like a stretch, but is believable when you take into account that inter-satellite links are done by laser, and light can travel about 31 percent faster in a vacuum than in fiber optics.~\cite{Finley2013-wt} Intercontinental latencies can become much lower because of this.
-
-In blockchains, latency plays a role in the efficiency of the power used to achieve consensus. Miners waste energy on a previous block as long as they don't receive information on the winner of the previous block race. It's a waste to drag behind the latest block in terms of information. Simulations by Wei Bi, Huawei Yang, and Maolin Zheng in their paper An Accellerated Method for Message Propagation in Blockchain Networks have shown that if you calculate the round-trip time between the peers that are connected to each other and dropping the ones with larger latencies in favor of lower ones, you can achieve 50\% improvement in average latency with 1 to 2 peers connected. When connectedness grows from the degree of just 1-2 peers up to 20 connected peers, the average latency improvements achieved drop to about 20\%.~\cite{Bi_undated-is} You can't keep multiplexing connections\footnote{Having multiple concurrent stateful connections.} forever, though, and there's a Goldilocks zone for the most effective amount of connections. When connectedness increases, there's shorter routes simply by chance to peers you're not directly connected to, and protocols like publish-subscribe schemes work faster, propagating their messages to the whole network more reliably because there's less relaying happening. There are hardware and software related limitations to the amount of peers. On IPFS, for example, the protocol has been breaking user's routers~\cite{Whyrusleeping2016-ej} because of the high number of incoming connections that need to be routed through NAT\footnote{Network address translation. Hides the local area network from the internet under a different subnet address.}.
-
-\section{Network Hops Increase Latency}
-Network hops in P2P systems are introduced when two peers are not directly connected to each other, but rather through one or many relays. There are network hops that cannot be easily avoided, like the hops between network routers in the internet. Most of the P2P routing protocols used today are oblivious to the problem of introducing large hops to communications between two peers, trading network performance for network robustness and decentralization. Some DHT-based protocols, like Kademlia, make the assumption that their users have fast internet access, and minimize the average latency by selecting connected peers basically at random.
-
-While the randomness is great for preventing eclipse attacks, they can introduce unnecessary geographical hops between two peers. If two peers are in the same WAN, for example, in Kademlia they might still connect to each other through a network hop going through another continent. This makes routing data between peers inefficient, resulting in preventable lag when sending or receiving data to peers you are not directly connected to.
-Now, if we were to rely on IP address geolocation, we could more efficiently connect to peers that are close-by. This is unfortunately impossible in privacy-oriented P2P networks, like mixnets, which aim to hide as much of the packet routing information as possible, by routing individual packets through different peers and hiding IP addresses of two connected peers from each other.~\cite{Harry_Halpin_undated-sq} Obviously, this also has implications on routing and thus Proof of Latency. Optimizing for privacy makes it difficult, if not impossible, to measure and advertise latencies between peers reliably and correctly while obfuscating packet routes.
-
-The motivation behind Proof of Latency is to improve the performance of current P2P networking solutions and make them future-proof.
 
 \section{Security Analysis}
 Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. Proof of Latency is not meant to be a one-stop shop towards a safer network, but rather an add-on to make things more efficient while still keeping security in mind. The following attack vectors are a product of prior knowledge, research and the writer's thought process, and none have been tested out in practice, yet.
@@ -172,18 +154,18 @@ First of all, I knew I had to make the VDF run asynchronously, or if possible, i
 The code is structured as follows: A runnable binary demo (main.rs) and the reusable library it also uses (lib.rs) resides in the top crate. They both depend on the subcrates "P2P" and "vdf".
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{pictures/PoL_software_roles.pdf}
-  \caption{Software roles}
-  \label{software_roles}
+	\includegraphics[width=\textwidth]{pictures/PoL_software_roles.pdf}
+	\caption{Software roles}
+	\label{software_roles}
 \end{figure}
 
 To achieve a better protocol design, the protocol itself is implemented as a state machine, which also helps checking the protocol with model checkers, like TLA+. Variable names have been converted into more readable non-mathematical forms.
 % TODO: Diagram of the state machine, generated by "sm"? sm doesn't generate these, unfortunately.
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{pictures/message_flow-eps-converted-to.pdf}
-  \caption{Information flow through the software}
-  \label{message_flow}
+	\includegraphics[width=\textwidth]{pictures/message_flow-eps-converted-to.pdf}
+	\caption{Information flow through the software}
+	\label{message_flow}
 \end{figure}
 
 The following is a code example of the threaded valuation part of a VDF inside Proof of Latency, containing evaluation stop logic for both the prover and the verifier:
@@ -191,32 +173,32 @@ The following is a code example of the threaded valuation part of a VDF inside P
 
 The following is a code example of the proof generation of a VDF:
 \begin{listing}
-  \inputminted
-  [
-    frame=lines,
-    framesep=2mm,
-    baselinestretch=1.2,
-    fontsize=\footnotesize,
-    tabsize=2,
-  ]
-  {Rust}{./parts/code/proofgeneration.rs}
-  \caption{VDF proof generation}
-  \label{lst:proofgeneration.rs}
+	\inputminted
+	[
+		frame=lines,
+		framesep=2mm,
+		baselinestretch=1.2,
+		fontsize=\footnotesize,
+		tabsize=2,
+	]
+	{Rust}{./parts/code/proofgeneration.rs}
+	\caption{VDF proof generation}
+	\label{lst:proofgeneration.rs}
 \end{listing}
 
 The following is a code example of the verification of a VDF proof:
 \begin{listing}
-  \inputminted
-  [
-    frame=lines,
-    framesep=2mm,
-    baselinestretch=1.2,
-    fontsize=\footnotesize,
-    tabsize=2,
-  ]
-  {Rust}{./parts/code/verifyvdf.rs}
-  \caption{VDF proof verification}
-  \label{lst:verifyvdf.rs}
+	\inputminted
+	[
+		frame=lines,
+		framesep=2mm,
+		baselinestretch=1.2,
+		fontsize=\footnotesize,
+		tabsize=2,
+	]
+	{Rust}{./parts/code/verifyvdf.rs}
+	\caption{VDF proof verification}
+	\label{lst:verifyvdf.rs}
 \end{listing}
 
 The proof of concept is made as a library, so that it can be imported and used in other projects. To make it into a library in addition to a stand-alone binary, I used structs for logical instances of a single VDF, for example. This is mainly to keep program state in instances of these structs, removing possible side effects.
