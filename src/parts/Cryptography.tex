@@ -20,6 +20,7 @@ The company formed by the RSA algorithm's inventors, RSA Security LLC, published
 
 Using these factoring challenge RSA numbers requires the user to assume that nobody has access to the parameters. Given that the RSA numbers are said to have been created with a machine that was completely destroyed after their creation and the primes were never apparent to anyone, you need to trust the company's claims if you ever use these public challenge numbers. Fortunately, usually they are not used for encrypting large swathes of personal data, but in a more ephemeral context like Proof of Latency, which wouldn't cause a huge stir if the cryptosystem was broken and needed changing. Also, groups of unknown order work similarly to each other, so in most cases they are relatively interchangeable if not for the trusted setup.
 
+
 \subsection{Cryptographic Proofs and Their Soundness}
 Cryptographic proofs are proofs that depend on the trapdoor nature of cryptographic functions. In other words, cryptographic proofs are arguments that can be trusted if the cryptographic assumptions they depend on are valid and not broken. The most well-known proofs, which are not necessarily thought of as such, are digital signatures. Given a public key, a prover in possession of its corresponding private key can produce a signature of any given data, given to a verifier together with the original data that the prover has seen and processed the data. If the private key pertaining to the public key gets leaked to a third party, its security is broken, and the unique identity is lost.
 
@@ -27,6 +28,10 @@ Proofs can be private or public. A cryptographic proof can be categorized as pub
 
 Proofs need to be tested for soundness to be called as such. Soundness means that a prover cannot make a verifier accept a false statement with reasonable probability. This means that a proof is dependent on context, the verifier. If a proof holds statistically, it's a proof. If it instead holds only computationally, it should be instead called an argument.
 
+\subsection{RSA Accumulators}
+An RSA accumulator is a set built from cryptographic assumptions in groups of unknown order, like \(\mathbb{Z}^*_N\). It enables a prover to prove to a verifier that an element belongs, or doesn't belong to a set by providing a succinct digest.~\cite{Tomescu2020-wq, Konstantopoulos2019-ls} The digest is the latest state of the accumulator, and can thus be called the accumulator as well. This digest can be used to prove any previously accumulated elements' membership, or any non-membership.
+
+For the scheme to work, an RSA accumulator needs a function that can hash arbitrary input to a prime number. This is because every accumulated element needs to be unique for the proofs to work. In terms of code, this roughly means creating random odd numbers as fast as you can and taking a primality check of them until a prime number has been generated. Sounds bad performance-wise, but with modern processors and multithreading the problem isn't as hard as it might seem, as guesswork can be highly parallellized. The generated prime \(l\) needs to be larger than the modulus \(N\) of the accumulated set, \(l \notin \mathbb{Z}^*_N\), for the proofs to be secure.
 
 \subsection{Commitment Schemes}
 Commitment schemes are a way to lock causality in a cryptographic protocol, and are among the most used primitives in cryptography. Commitments usually come in the form of commit-reveal, when at a later stage of the protocol the committer reveals the original message \(m\) they made their commitment \(C_m\) on. This has a great property --- a committer cannot change their committed message after revealing their commitment to the verifier, because the commitment would not hold for a new message. Commitment schemes are usually used when an interactive protocol requires for a message to be hidden until the termination of the protocol.
@@ -45,6 +50,7 @@ The function that is used to transform a message to a commitment could, for exam
 
 \subsubsection{Vector Commitments}
 Vector commitments are a recently formalized primitive consisting of a vector \(V\) that as you guessed it, is filled with commitments. The simplest form of a vector commitment most already know is a merkle tree. Unfortunately, merkle proof size grows with input, but newer forms of vector commitments have been discovered after its formalization in 2013. For example, Catalano-Fiore vector commitments improve upon the proof size, introducing a fixed size proof. These type of vector commitments are called concise..~\cite{Catalano2013-jn} In addition to the fixed size, the verifier only needs to know the proof and the digest\footnote{latest output} to verify the proof. In layman's terms, vector commitments enable a prover to prove that a commitment \(V_n\) has been made at the index \(n\) of vector \(V\).
+% TODO: Add mention of RSA accumulators, check math
 
 Vector commitments need to be binding, but are not required to be hiding. Additionally, vector commitments need to be position-binding, so that once a commitment has been made at an index, no other commitment can reside at that given index.
 
