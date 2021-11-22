@@ -41,10 +41,10 @@ The requirements for a commitment scheme are that it is hiding and binding. Hidi
 The function that is used to transform a message to a commitment could, for example, be a cryptographically secure hash function. In this case, a commit-reveal scheme works as follows:
 
 \begin{enumerate}
-  \item Committer hashes the message m with a hash function H(m)
-  \item Committer publishes the hash H(m)
-  \item Third parties see the commitment, meaning that the committer cannot change the message and convince the third parties with another input, locking its decision without revealing m.
-  \item Committer publishes the original message m, convincing the third parties that the commitment was correct.
+  \item Committer hashes the message \(m\) with a hash function \(H(m)\)
+  \item Committer publishes the hash \(H(m)\)
+  \item Third parties see the commitment, meaning that the committer cannot change the message and convince the third parties with another input, locking its decision without revealing \(m\).
+  \item Committer publishes the original message \(m\), convincing the third parties that the commitment was correct.
 \end{enumerate}
 
 

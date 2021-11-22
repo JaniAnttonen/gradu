@@ -1,7 +1,7 @@
 \section{Distance Bounding Protocols}
 
 Distance bounding protocols are interactive protocols that aim to measure the physical distance or latency between two participants, the prover and the verifier. They are solutions to problems where a simple ping will not suffice, as either party could quite easily craft a false measurement. Distance bounding is used in applications like IP geolocation, wireless access control, and routing in P2P (ad-hoc) networks.
-
+% TODO: Add a diagram of a distance bounding protocol
 The first distance bounding protocol was designed by Brands and Chaum in 1993 to counter so-called relay attacks.~\cite{Boureanu_undated-bn, Brands1994-hz} A commonly used example of a relay attack is that if the signals between a credit or a debit card and a point of sale system were to be relayed over a distance, two attackers could pay with the relayed info in a totally different country, for example. A distance bounding protocol is safe if information never gets passed faster than the speed of light, and if causality holds due to the prover not able to create a valid response to a challenge before it has received it.~\cite{Boureanu_undated-bn}
 
 The original definition of a distance bounding protocol consisted of three phases: initial phase, critical phase, and a verification phase.~\cite{Brands1994-hz, Mauw2018-uz} During the initial phase the two peers agree on the parameters used. After that, the critical phase is executed, where the two peers do multiple challenge/response rounds. The final phase, the verification phase, is optional, because the verifier can also verify the proofs during the critical phase.
@@ -20,11 +20,11 @@ When distance bounding is used in other ways than highly local applications like
 As distance bounding protocols were originally made to solve the problem of relay attacks, they are usually not an issue anymore, as distance bounding is used widely in RFID readers nowadays.~\cite{Nikov_undated-vv} There are still potential attacks that could affect distance bounding. Historically, the attacks against distance bounding have been categorized into 5 different categories~\cite{Boureanu_undated-bn}:
 
 \begin{itemize}
-  \item Distance fraud, where a far-away prover tries to pass the protocol by itself.
-  \item Mafia fraud, which is a man-in-the-middle attack where a malicious peer in between an honest prover and a verifier tries to get the verifier to accept the far-away prover's proof.
-  \item Terrorist fraud, where with a help of a temporary adversary a malicious far-away prover tries to make the verifier accept its proof without revealing any secrets to the adversary.
-  \item Impersonation fraud, where a close-by adversary impersonates a prover.
-  \item Distance hijacking, where a far-away prover takes advantage of honest provers to make the verifier accept its proof.
+  \item \emph{Distance fraud}, where a far-away prover tries to pass the protocol by itself.
+  \item \emph{Mafia fraud}, which is a man-in-the-middle attack where a malicious peer in between an honest prover and a verifier tries to get the verifier to accept the far-away prover's proof.
+  \item \emph{Terrorist fraud}, where with a help of a temporary adversary a malicious far-away prover tries to make the verifier accept its proof without revealing any secrets to the adversary.
+  \item \emph{Impersonation fraud}, where a close-by adversary impersonates a prover.
+  \item \emph{Distance hijacking}, where a far-away prover takes advantage of honest provers to make the verifier accept its proof.
 \end{itemize}
 
 Inferring from the categories one can deduce that requiring the participants to digitally sign the passed messages in a cryptographically secure manner will render the most of these attacks unfeasible, unless a prover has been hacked or in some other way it has leaked its secrets to a malicious third party.
