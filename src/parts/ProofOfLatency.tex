@@ -97,8 +97,6 @@ The section Peer-to-peer Networking described some problems Proof of Latency is 
 \subsection{Dynamic P2P Routing}
 The use case that drove me to begin working on Proof of Latency is an idea that there could be a trustless way of telling to other peers how much latency you have to another peer. In current P2P systems, if one peer were to tell you that it had a 10ms latency to another peer, there would be no quarantees of the 10ms latency holding true. If we could make a proof of that latency using cryptography, you could tell that the reported latency is true, and some work has been done to calculate it. This kind of proof could also make eclipse attacks harder to accomplish regardless of the protocol's structured nature by requiring a closer distance or more resources to reach a lower latency to the targeted peer.
 
-% TODO: Explain this idea WAAAAAY further
-
 Although DHTs like Kademlia do peer distribution basically at random based on identifier closeness, there are no guarantees that when a peer connects to peers it has received from an another peer are also random, and thus the promise of random peer walk is lost. With Proof of Latency, new connections are formed in a hybrid manner together with a peer discovery mechanism that can provide protection against sybil attacks by introducing as random peers as possible, which helps in finding an approximate set of connected peers that are close to the possible minimum latency. Stochastic gradient descent works as a nice parallel from the machine learning field to describe randomness' use as an optimization tool.
 
 \subsection{Benchmark Queries}
@@ -117,8 +115,8 @@ GPS coordinates or geohashes or any widely used geolocating method do not contai
 \section{Security Analysis}
 Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. Proof of Latency is not meant to be a one-stop shop towards a safer network, but rather an add-on to make things more efficient while still keeping security in mind. The following attack vectors are a product of prior knowledge, research and the writer's thought process, and none have been tested out in practice, yet.
 % TODO: More stuff on the basic security assumptions of the protocol
+
 \subsection{Advertising Dishonest Peers and Proof Spoofing}
-% Sybil network participants are called sybil because of their sybil attacks, these peers are not sybil, but malicious.
 A malicious network participant can spawn an arbitrarily large number of new identities and network peers that are close-by in terms of latency, create multiple Proofs of Latency with them, and only advertise these peers to the rest of the network on their DHT. Two peers can also fake the proof if they co-operate by using VDFs they have already calculated and matched their outputs to be as close as possible.
 
 This can be mitigated somewhat by requiring peers to renew their proofs regularly, using third party validators or a verifiable source of randomness, like a random beacon or a public timestamping service with signed requests. Also, trusted computing modules could be used to verify that the software configuration hasn't been changed, removing most of the possibility for side channel attacks against using witnesses.
@@ -138,6 +136,8 @@ There's also a possibility of introducing a web of trust in parallel to PoL to r
 
 \subsection{Peer Scoring and Usage Optimizations}
 Peer scoring is used regularly in P2P networks, and Proof of Latency serves as a peer scoring metric by itself, which can be used in various ways. To hinder eclipse attacks, peers with the lowest latencies would be kept for a longer time even in the case of the peer not being online, and favoring new ephemeral connections that are farther. This would require the attacker to pursue multiple attack vectors at once to totally eclipse a peer.
+
+% TODO: What about punishing peers if they advertize two squaring speeds for themselves without devalidating the old one?
 
 \subsection{Using a Third Party Validator}
 A way to make Proof of Latency more trustless is to introduce a randomly elected third party to the protocol. Since the soundness of the proof depends largely on the generator and its setup, the proof can be improved by requiring it to be salted\footnote{A value that gets added to data by contract before hashing.} by a random input from an unbiased party. This could be done by introducing a salt pool to which a group of PoL validators post random salts from which the PoL provers then pick randomly. The validators listen for usage of the salts they have generated, and upon receiving the Proof of Latency inspect if their salt has been used or not, and sign the proof if it is found to be correct. A way to protect against coordinated proof spoofing is to introduce an unbiased third party to the protocol. Since the soundness of the proof depends largely on the generator and its setup, the proof can be improved by requiring it to be salted by a random input from an unbiased party.
@@ -164,7 +164,6 @@ The code is structured as follows: A runnable binary demo (main.rs) and the reus
 \end{figure}
 
 To achieve a better protocol design, the protocol itself is implemented as a state machine, which also helps checking the protocol with model checkers, like TLA+. Variable names have been converted into more readable non-mathematical forms.
-% TODO: Diagram of the state machine, generated by "sm"? sm doesn't generate these, unfortunately.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/message_flow-eps-converted-to.pdf}
