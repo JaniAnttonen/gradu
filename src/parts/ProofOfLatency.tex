@@ -7,11 +7,11 @@
 	\label{PoL Example Topology}
 \end{figure}
 % TODO: Add a Figma-drawed image overarching the whole protocol, not just the distance bounding part
-Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by peering with peers that have the lowest latency to you, thus establishing a more optimal network than achieved simply by peering at random. PoL aims to make network bootstrapping better, making it easier to find performant, physically close-by peers on first interaction with PoL-enabled network. When using PoL for peer discovery, it can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
+Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by connecting with peers that have the lowest latency between each other, thus establishing a more optimal network than achieved simply by peering at random. PoL aims to make network bootstrapping better, making it easier to find performant, physically close-by peers on the first interaction with a PoL-enabled network. When using PoL for peer discovery, it can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
 
 Distance bounding protocols, as previously described, are a way of measuring latency between two participants in a relatively unspoofable manner. Unfortunately, they can only provide a valid proof between the prover and the verifier, and not a third party. This is because a distance bound could have been calculated at any point in the past, and the prover and the verifier could quite easily craft a proof of 0 latency between them. The motivation for PoL was to try to fix this with its use of verifiable delay functions, but further research revealed that some additional logic was needed to cater to a decentralized setting.
 
-The protocol is trustless between the two computing parties and requires no specific hardware from the participants. This said, special hardware for speeding up its evaluation and proving could make it a better protocol at distance bounding, as difference in the processing powers cause measurement error.
+The protocol is trustless between the two computing parties and it requires no specific hardware from the participants. This said, special hardware for speeding up its evaluation and proving could make it a better protocol at distance bounding, as difference in the processing powers cause measurement error.
 
 Aside from constructing P2P networks with better routes, the protocol could be used as a benchmark query or a proof of geographical location. A proof of a geographical location could prove useful, since GPS coordinates along with IP addresses can be spoofed.
 
@@ -25,7 +25,7 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 		\( v \)       & Verifier                                                \\
 		\( \lambda \) & Processing power                                        \\
 		\( c \)       & Vector commitment                                       \\
-		\( N \)       & The modulus used a VDF. \(RSA-2048\)~in this context.   \\
+		\( N \)       & The modulus used in a VDF. \(RSA-2048\)~in this context.   \\
 
 		\( T \)       & The difficulty of a VDF (the number of squarings)       \\
 		\( g \)       & The generator of a VDF. Formally, \(c_p c_v\).          \\
@@ -39,34 +39,38 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 	\label{table:1}
 \end{table}
 
-Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier are made public} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
+Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier is made public.} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
 
 The protocol is a tuple of three algorithms, beginning with the use of a vector commitment, after which comes the distance bounding part. I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
 
+% TODO: "parameters cannot be changed" - What parameters? Specify the setup (and the protocol for that matter) in a more specific manner
 \subsection{Setup}
 When a peer wants to use PoL, it must first make a commitment. The commitment must be a vector commitment, which makes sure that once the first commitment has been made, the parameters cannot be changed. Thus, whenever a peer's setup changes, all previously calculated proofs of latency are invalidated, as its processing power has changed.
 
-The vector commitment has one input: the committer's processing power measured in squarings achieved during a security parameter. This means that the committer measures how fast it can run the VDF, and commits to this speed before calculating any proofs with other peers. This is public, as a verifier needs to know the original committed processing power to measure if the prover did performance matching, thus invalidating the proof.
+% TODO: The VC opening?
+The vector commitment has one input: the committer's processing power measured in squarings achieved during a predefined delay that is defined by a parameter that should be sufficiently large to mitigate any startup lag or other processing performance fluctuations. This means that the committer measures how fast it can run the VDF, committing to this speed before calculating any proofs with other peers. This is public, as a verifier needs to know the original committed processing power to measure if the prover did performance matching, which would lead to invalidating the proof.
 
 All subsequent proofs of latency are committed on the same vector commitment, compounding trust.
 
-The setup is done by first measuring the computer's ability in doing modular squarings in the RSA group. This measurement is done by doing as many modular squarings as possible in a protocol-defined timeframe which should be large enough to account for undervolting and other types of performance and battery life optimizations especially in mobile devices. This measurement and the peer's public key then gets committed to the first index of the vector commitment. For additional security, this first commitment could be submitted to a public blockchain.
+The setup is done by first measuring the computer's ability in doing modular squarings in the RSA group. This measurement is done by doing as many modular squarings as possible in a protocol-defined timeframe, which should be large enough to account for undervolting and other types of performance and battery life optimizations especially in mobile devices. This measurement and the peer's public key then gets committed to the first index of the vector commitment. For additional security, this first commitment could be submitted to a public blockchain.
 
+% TODO: Opening. (Can be called commitment though, but vector commitment opening is the right term here.
 \subsection{Commitment}
 Whenever a new Proof of Latency is calculated, a new vector commitment needs to be opened by both parties. Each party opens this commitment by using the opposing party's public key as the message. This way, a single peer can be included in the vector commitment only in one index. This commitment's output is then used as the generator part advertized to the other peer.
 
 \subsection{Distance Bounding}
-The distance bound is computed by a race between two VDFs which reduces the communication cost when compared with regular distance bounding protocols. The two participants are called the prover and the verifier, although they both are actively proving and verifying their VDFs. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two. Also, the verifier has a head start in the VDF calculation, which results in the measured latency being the round trip time. Due to this, the verifier ends the protocol, and has more power over the measured latency. This is a bearable consequence, as the prover can dispute the proof and refrain from signing it. Also, if the verifier deliberately was to slow down the proof generation by even a small amount, it would probably work against its incentives of receiving a closer connection.
+The distance bound is computed by a race between two VDFs, which reduces the communication cost when compared with regular distance bounding protocols. The two participants are called the prover and the verifier, although they both are actively proving and verifying their VDFs. The difference here is that they both calculate a VDF and the verifier calculates the difference in iterations between the two. Also, the verifier has a head start in the VDF calculation, which results in the measured latency being the round trip time. Due to this, the verifier ends the protocol, and has more power over the measured latency. This is a bearable consequence, as the prover can dispute the proof and refrain from signing it. Also, if the verifier deliberately was to slow down the proof generation by even a small amount, it would probably work against its incentives of receiving a closer connection.
 
-The most important part of a VDF is the setup. If a prover wants to create a valid proof, it needs a provably priorly unknown starting point at first, so that it can prove for certain that it cannot have calculated the VDF in advance. Proof of Latency tackles this problem with a two-way generator/seed setup with random numbers from which a multiple is taken and hashed to be in the \(group\, G\, integers\, modulo\, N\).
+% TODO: Font in math mode, spacing
+The most important part of a VDF is the setup. If a prover wants to create a valid proof, it needs a priorly unknown starting point at first, so that it can prove for certain that it cannot have calculated the VDF in advance. Proof of Latency tackles this problem with a two-way generator/seed setup with random numbers from which a multiple is taken and hashed to be in the \(group\, G\, integers\, modulo\, N\).
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/pol2_diagram-eps-converted-to.pdf}
-	\caption{Distance bounding, Proof of Latency}
+	\caption{Distance bounding, Proof of Latency.}
 	\label{PoL Diagram 2}
 \end{figure}
 
-First the prover and the verifier send their generator parts to themselves to construct a generator, or the starting point, for the VDF. Then, they both start calculating the same VDF independently. The prover then calculates the VDF up to a predefined threshold, and then sends the result at that threshold to the verifier, and starts calculating the proof. Proof is only sent after this, because since the VDFs the two parties calculate have the same input that was defined at roughly the same time, the parties can be sure that the result couldn't have been computed beforehand. The verifier stops its own calculation upon receiving the prover's result, and generates a proof of its own VDF. Then, it waits until it receives the proof from the verifier and then calculates the absolute difference between the amount of iterations between its own VDF and the prover's.
+In the setup, before the distance bounding, the prover and the verifier send their generator parts to themselves to construct a generator, or the starting point, for the VDF. Then, they both start calculating the same VDF independently. The prover then calculates the VDF up to a predefined threshold, and then sends the result at that threshold to the verifier, and starts calculating the proof. Proof is only sent after this, because since the VDFs the two parties calculate have the same input that was defined at roughly the same time, the parties can be sure that the result couldn't have been computed beforehand. The verifier stops its own calculation upon receiving the prover's result, and generates a proof of its own VDF. Then, it waits until it receives the proof from the verifier and then calculates the absolute difference between the amount of iterations between its own VDF and the prover's.
 
 Since calculating a VDF is relatively fast for modern processors, a VDF over as little as a few milliseconds of time can be a valid way of measuring latency. Still, without an ASIC chip for calculating VDFs faster than any other available processor, these protocols are also a measurement of processing performance. This might introduce an unfortunate barrier for entry for mobile and IoT devices. If used to optimize a P2P network, the resulting network topology would result in a gradient that is defined by geographical location and the similarity in performance. This means that connectedness between mobile and IoT devices is going to be better than between devices that have a huge performance difference. Local performant devices would optimally serve as bridges between the localized clusters.
 
