@@ -41,6 +41,7 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 
 Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier is made public.} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
 
+% TODO: protocol is a tuple of three algorithms: Setup(), Commit(), Measure()
 The protocol is a tuple of three algorithms, beginning with the use of a vector commitment, after which comes the distance bounding part. I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
 
 % TODO: "parameters cannot be changed" - What parameters? Specify the setup (and the protocol for that matter) in a more specific manner
@@ -104,14 +105,14 @@ The use case that drove me to begin working on Proof of Latency is an idea that 
 Although DHTs like Kademlia do peer distribution basically at random based on identifier closeness, there are no guarantees that when a peer connects to peers it has received from an another peer are also random, and thus the promise of random peer walk is lost. With Proof of Latency, new connections are formed in a hybrid manner together with a peer discovery mechanism that can provide protection against sybil attacks by introducing as random peers as possible, which helps in finding an approximate set of connected peers that are close to the possible minimum latency. Stochastic gradient descent works as a nice parallel from the machine learning field to describe randomness' use as an optimization tool.
 
 \subsection{Benchmark Queries}
-Proof of Latency could be used to query for performance. Processor development might render that property less effective in the future, unless one were to measure parallel processing capability with multiple VDFs, for example. Parallel multiple VDFs have been thought of and tested before, but calculating multiple separate VDFs has not been useful in previously imagined use cases, since it doesn't serve as a measure of time, but performance.
+The distance bounding part of Proof of Latency could be used to query for performance. Processor development might render that property less effective in the future, unless one were to measure parallel processing capability with multiple VDFs, for example. Parallel multiple VDFs have been thought of and tested before, but calculating multiple separate VDFs has not been useful in previously imagined use cases, since it doesn't serve as a measure of time, but performance.
 
 This could serve as a part of a greater protocol in a distributed computation system. It would be very unfortunate to run large datasets against a data analysis model on a mobile phone, and it could be beneficial to prove that the peer that advertises its services can actually run the computation without hiccups.
 
 There have been proposals for a VDF-as-a-function system~\cite{Devlin2020-qw}, in which less performant peers could query for a VDF calculation if they don't have the means to do so in a time frame small enough themselves. The FPGA based system is being tested right now on Amazon Web Services cloud platform. A benchmark query using PoL could also be a part of such a system to verify peers' ability to perform VDF calculations faster than the querying peer.
 
 \subsection{VDF Calculation with Proved Latencies}
-Assuming the soundness of the proofs created by Proof of Latency holds, given a VDF challenge with difficulty T the prover could craft a route of n number of peers that have the needed amount of PoL latency (in VDF iterations) between them. Even a weaker device could then start a game of broken telephone with these peers that would guarantee sequential message passing by repeated hashing with signatures, and give the resulting signed response as a VDF to the verifier. Because of the precomputation that has been done to prove the individual latencies between the peers, one could prove that a received challenge has been taken T amount of sequential operations to solve by relaying it through a route of peers on the network. In such a network, VDFs would be a first-class citizen and always available, equally for every participant of the network. This means that both computationally powerful and weak peers could equally take part in things that require a delay function to be evaluated and proven without either benefiting from the situation disproportionately.
+Assuming the soundness of the proofs created by Proof of Latency holds, given a VDF challenge with difficulty \(T\) the prover could craft a route of n number of peers that have the needed amount of PoL latency (in VDF iterations) between them. Even a weaker device could then start a game of broken telephone with these peers that would guarantee sequential message passing by repeated hashing with signatures, and give the resulting signed response as a VDF to the verifier. Because of the precomputation that has been done to prove the individual latencies between the peers, one could prove that a received challenge has taken \(T\) amount of sequential operations to solve by relaying it through a route of peers on the network. In such a network, VDFs would be a first-class citizen and always available, equally for every participant of the network. This means that both computationally powerful and weak peers could equally take part in things that require a delay function to be evaluated and proven without either benefiting from the situation disproportionately.
 
 \subsection{Proving Geographical Locations}
 GPS coordinates or geohashes or any widely used geolocating method do not contain a proof of the reporter's proximity to the reported location. At first, Proof of Latency was called Proof of Proximity, but since it also measures processing power, I decided to go with latency instead, as there's many types of latencies that account for latency in P2P communication. Still, in roughly the same way as in dynamic P2P routing a proof could be created that the prover is close to the verifier, and give or restrict access to resources based on this proof.
@@ -133,7 +134,7 @@ Performance matching enables attackers to perform an eclipse attack on low-perfo
 
 \section{Reducing the Attack Vectors}
 \subsection{Hiding Information of PoL Results}
-Zero-knowledge proofs could be used to protect against performance matching. If the publicized proof didn't include both the VDF results and iterations, but just included the iteration difference, an attacker would have less info on each peer. This would make attacking more difficult, requiring more queries and PoL runs on average before finding a vulnerable peer. This is more of an exploratory path that would need more research, but if you could create a proof of the latency and only broadcast the iteration difference between two peers, it would be more difficult to gather info about peers and their computing performance.
+If the publicized proof didn't include both the VDF results and iterations, but just included the iteration difference, an attacker would have less info on each peer. This would make attacking more difficult, requiring more queries and PoL runs on average before finding a vulnerable peer. This is more of an exploratory path that would need more research, but if you could create a proof of the latency and only broadcast the iteration difference between two peers, it would be more difficult to gather info about peers and their computing performance.
 
 \subsection{Web of Trust}
 There's also a possibility of introducing a web of trust in parallel to PoL to recognize and deny connections to malicious peers more effectively. An example of such a system is SybilLimit, which adds a construction called trusted routes to DHT based routing.~\cite{Yu2008-xl} I see that trusted routes in conjunction with Proof of Latency would be a great couple. The problem of advertising dishonest peers could also be tackled with a trust based system.
@@ -148,8 +149,10 @@ A way to make Proof of Latency more trustless is to introduce a randomly elected
 
 % TODO: Using a Witness selection scheme based on random IDs in Kademlia which prevents sybil attacks because close-by identities are hard to create. Three-way creation of the proof with the witness providing a salt together with a measurement of the verifier's/prover's hash rate, or squarings per second
 
-\subsection{Publishing On-chain Commitments}
-% TODO: Publishing the vector commitment on chain to "lock it in place"
+% TODO: Shuffling peer connections?
+
+\subsection{Replicating the Vector Commitment}
+% TODO: Publishing the vector commitment on chain or adding redundancy to "lock it in place"
 
 \chapter{Proof of Concept}
 \label{Proof of Concept}
