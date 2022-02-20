@@ -93,7 +93,25 @@ The "Efficient" in the name of this VDF protocol by Benjamin Wesolowski means th
 	      If the two sides are equal, the VDF has been verified as being correct.
 \end{enumerate}
 
-% TODO: Add a simple example of the calculations happening
+The following is an example of a VDF evaluation with 3 iterations, using small variables for understanding. The variables are \(N=17\), \(g=11\), and \(T=3\). Keep in mind this is not a working example due to the variables' size, but rather an example to demonstrate what actually happens with the numbers. Also, as programming languages rarely accept algebra as input, the actual implementations of VDF calculations in code are different, if not for the sequential evaluation part.
+
+\begin{align*}
+	11^2 \equiv 2\\
+	2^2 \equiv 4\\
+	4^2 \equiv 16\\
+\end{align*}
+
+After the result, \(16\), has been acquired, the proof generation goes as follows, with the random prime \(L=7\):
+
+\begin{align*}
+	pi (proof) = (2^3/7)^{2^3\mod 7} = 1
+\end{align*}
+
+To verify this proof, the verifier calculates the following:
+
+\begin{align*}
+	16 = 1^7 * 11^{2^3 \mod 7}
+\end{align*}
 
 Different VDF constructs, like the most well known ones by Wesolowski~\cite{Wesolowski2018} and Pietrzak~\cite{Pietrzak2018} make computational trade offs on different parts of the proof. In a Wesolowski VDF the proof generation is a significant part of the whole VDF calculation, comparable in time to the evaluation unless it is optimized in some way. A Pietrzak VDF is faster to prove, but a lot slower to verify. A Wesolowski VDF produces a proof that can be verified in O(1) time.
 

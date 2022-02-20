@@ -33,7 +33,7 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 		\( VDF \)     & A verifiable delay function                             \\
 		\( x \)       & The result of a VDF                                     \\
 		\(\pi \)      & The proof of a VDF                                      \\
-		\(\Delta\)    & The measured latency. Formally, \(T(VDF_v) - T(VDF_p)\) \\
+		\(\Delta\)    & The measured latency. Formally, \(T_{VDF_v} - T_{VDF_p}\) \\
 	\end{tabular}
 	\caption{Symbols used in Proof of Latency}
 	\label{table:1}
@@ -41,8 +41,8 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 
 Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier is made public.} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
 
-% TODO: protocol is a tuple of three algorithms: Setup(), Commit(), Measure()
-The protocol is a tuple of three algorithms, beginning with the use of a vector commitment, after which comes the distance bounding part. I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
+% TODO: protocol is a tuple of three algorithms: Setup(), Commit(), Measure() CONTINUE, elaborate
+The protocol is a tuple of three algorithms, \(Setup()\), \(Commit()\), and \(Measure()\). \(Setup()\). I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
 
 % TODO: "parameters cannot be changed" - What parameters? Specify the setup (and the protocol for that matter) in a more specific manner
 \subsection{Setup}
@@ -55,7 +55,7 @@ All subsequent proofs of latency are committed on the same vector commitment, co
 
 The setup is done by first measuring the computer's ability in doing modular squarings in the RSA group. This measurement is done by doing as many modular squarings as possible in a protocol-defined timeframe, which should be large enough to account for undervolting and other types of performance and battery life optimizations especially in mobile devices. This measurement and the peer's public key then gets committed to the first index of the vector commitment. For additional security, this first commitment could be submitted to a public blockchain.
 
-% TODO: Opening. (Can be called commitment though, but vector commitment opening is the right term here.
+% TODO: Opening. (Can be called commitment though, but vector commitment opening is the right term here. Subsection name = Measure VC opening and DB can be subsubsections.
 \subsection{Commitment}
 Whenever a new Proof of Latency is calculated, a new vector commitment needs to be opened by both parties. Each party opens this commitment by using the opposing party's public key as the message. This way, a single peer can be included in the vector commitment only in one index. This commitment's output is then used as the generator part advertized to the other peer.
 
