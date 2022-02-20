@@ -3,5 +3,6 @@
   "latex-workshop.latex.autoBuild.run": "onSave",
   "latex-workshop.latex.external.build.args": [
     "pdf"
-  ]
+  ],
+  "editor.wordWrap": "wordWrapColumn"
 }
