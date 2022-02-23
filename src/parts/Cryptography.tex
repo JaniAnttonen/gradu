@@ -21,6 +21,14 @@ RSA~\cite{Rivest1978-fm} is named after its discoverers – Rivest, Shamir, and 
 
 RSA uses an arithmetic trick that involves a mathematical object called a trapdoor permutation. Trapdoor permutation is a function that transforms a number \(x\) to a number \(y\) in the same range, in a way that computing \(y\) from \(x\) is easy using the public key but computing \(x\) from \(y\) is practically impossible without knowing the private key. The private key is the trapdoor~\cite{Aumasson2018-nh}. RSA relies on the prime factorization problem and the strong RSA assumption for its security. Strong RSA groups~\cite{Rivest2005-kc} are groups of unknown order, meaning that the number of elements in the group is unknown. RSA has played a big part in the development of cryptography, and even served as a motivation for the creation of verifiable delay functions, as it was used in the creation of time-lock puzzles closely related to VDFs~\cite{Boneh2018-sm}.
 
+An RSA group, like other modular multiplicative groups, are commutative under their group operation, multiplication. This enables multiple interactive protocols and proofs, one of them being Diffie-Hellman key exchange. Diffie-Hellman key exchange enables two peers to create a shared key with their private keys in a modular multiplicative group without revealing their individual secrets because of the commutative property; order of operations do not matter. An example run of Diffie-Hellman key exchange goes as follows:
+
+\begin{align*}
+	A = 256^{1097} \mod 311\\
+  B = 256^{1091} \mod 311\\
+	A^B \equiv B^A \mod 311\\
+\end{align*}
+
 \subsubsection{RSA Setup}
 When using RSA, the users need to setup the public parameters, which need to be distributed between the involved peers to be used in encryption. This key generation process is quite resource intensive, and is rarely used in ephemeral contexts, unless you can skip the key generation process, or ceremony, and use a publicly available modulo that is created by a trusted party. These types of key generation processes are called trusted setups, and they produce so-called toxic waste that needs to be discarded to preserve the key safety. To skip the trusted setup and thus the "toxic waste", one can use RSA numbers published by a trusted third party. This is sometimes even used in production systems, but it is highly encouraged to do a trusted setup in cases where security is the utmost requirement. In this thesis and the Proof of Latency protocol's proof of concept I use RSA-2048 for brevity.
 

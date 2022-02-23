@@ -4,5 +4,7 @@
   "latex-workshop.latex.external.build.args": [
     "pdf"
   ],
-  "editor.wordWrap": "wordWrapColumn"
+  "editor.wordWrap": "wordWrapColumn",
+  "latex-workshop.docker.image.latex": "qmcgaw/latexdevcontainer",
+  "latex-workshop.docker.enabled": true
 }
