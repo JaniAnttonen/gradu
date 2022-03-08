@@ -156,13 +156,13 @@ A way to make Proof of Latency more trustless is to introduce a randomly elected
 
 \chapter{Proof of Concept}
 \label{Proof of Concept}
-To test out Proof of Latency, I made a software proof of concept in Rust. I picked Rust as a programming language of choice because I have wanted to try it out in my own projects for long, and it has some good properties when it comes to cryptography and distributed computing. Since distributed computing or any server program for that matter uses some sort of concurrency to get non-blocking responses to requests they receive, you have a very good chance of running into race conditions with most systems programming languages. When a Rust program has been compiled in the default "safe" compiler setting, a data race where two or more threads try to access a shared memory resource at the same time is simply impossible to achieve.~\cite{The_Rust_Project_Developers2018-xh} Also, as it is a compiled language without a garbage collector, and with lots of optimization in the compiler, Rust has good baseline performance even when compared to other similarly low level programming languages like Go.~\cite{Howarth2020-zc} Rust has seen a surge of interest in the last few years, and is used in many projects in production, notably in embedded and distributed computing, because of Rust's modern build tooling and robustness.
+To test out the Proof of Latency, I wrote a software proof of concept in Rust. I picked Rust as a programming language of choice because it has good properties when it comes to cryptography and distributed computing. Since distributed computing, or any server program for that matter, uses some sort of concurrency to get non-blocking responses to requests they receive, the programmer has to worry about race conditions, with most systems programming languages. Rust is different, however, as when a Rust program has been compiled in the default "safe" compiler setting, a data race where two or more threads try to access a shared memory resource at the same time is simply impossible to achieve~\cite{The_Rust_Project_Developers2018-xh}. Also, as it is a compiled language without a garbage collector, and with lots of optimization in the compiler, Rust has good baseline performance, on par with C or C++~\cite{Howarth2020-zc}. Rust has seen a surge of interest in the last few years, and it is used in many projects in production, notably in embedded and distributed computing, because of Rust's modern build tooling and robustness.
 
-William Borgeaud's blog post~\cite{Borgeaud2019-wk} from November 2019 in particular was the first reference I encountered that described VDFs in familiar terms to a software engineer like me. The blog post and it's accompanying code~\cite{Borgeaud2019-wk} that also happened to be in Rust helped me bootstrap the project.
+William Borgeaud's blog post~\cite{Borgeaud2019-wk} from November 2019 was the first reference I encountered that described VDFs in terms familiar to software engineers. The blog post and it's accompanying code~\cite{Borgeaud2019-wk}, that also happened to be in Rust, helped me bootstrap the project.
 
-First of all, I knew I had to make the VDF run asynchronously, or if possible, in another thread, because it would be one of two VDFs needed in the protocol. There needs to be a separate task for listening to the other party's input, and preferably, a way to test the protocol locally without networking. For the VDF that is used in Proof of Latency it was also needed that the prover's calculation could be ran indefinitely and ended abruptly by a received "cap", a prime number from the verifier. No previous VDF library seemed to have this option, because the difficulty parameter T is usually predetermined in contrast to Proof of Latency.
+In the implementation of the VDF protocol, the computations need to run asynchronously, on separate threads. There needs to be a separate task for listening to the other party's input, and preferably, a way to test the protocol locally without networking. The PoL protocol needs a VDF such that the prover's calculation can be ran indefinitely and then ended abruptly by a received "cap", a prime number from the verifier. No previous VDF library seemed to have this option, because the difficulty parameter \(T\) is usually predetermined, which is not the case for the prover in Proof of Latency.
 
-The code is structured as follows: A runnable binary demo (main.rs) and the reusable library it also uses (lib.rs) resides in the top crate. They both depend on the subcrates "P2P" and "vdf".
+The code is structured as follows: Runnable binary demo and the reusable library it uses resides in the top crate. They depend on subcrates that individually provide functionalities like VDF calculation and vector commitments.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/PoL_software_roles.pdf}
@@ -170,11 +170,13 @@ The code is structured as follows: A runnable binary demo (main.rs) and the reus
 	\label{software_roles}
 \end{figure}
 
-To achieve a better protocol design, the protocol itself is implemented as a state machine, which also helps checking the protocol with model checkers, like TLA+. Variable names have been converted into more readable non-mathematical forms.
+The protocol is implemented as a state machine, which helps checking the protocol with model checkers, like TLA+. % CITE
+ The protocol implementation uses variable names derived from the protocol description in fig % CITE
+ , with slight adaptation from mathematical notation to a more semantic approach.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/message_flow-eps-converted-to.pdf}
-	\caption{Usage with a P2P library}
+	\caption{Usage of Proof of Latency as a library in a P2P context.}
 	\label{message_flow}
 \end{figure}
 
@@ -211,14 +213,14 @@ The following is a code example of the verification of a VDF proof:
 	\label{lst:verifyvdf.rs}
 \end{listing}
 
-The proof of concept is made as a library, so that it can be imported and used in other projects. To make it into a library in addition to a stand-alone binary, I used structs for logical instances of a single VDF, for example. This is mainly to keep program state in instances of these structs, removing possible side effects.
+The proof of concept is implemented as a library, so that it can be imported and used in other projects.
 
 % TODO: TESTS!
 
 \section{Tests}
-To make sure that the VDF calculations worked on arbitrary input by generating a succesfully verifiable proof I made unit tests for the VDF evaluation, proof generation and verification. To further ensure the soundness of the protocol, I made simulated cases for proof of latency with unit tests with separate, async threads for each execution. Unit tests reside in the same file the program code itself, and the Rust standard library has well enough functionality so that I wasn't forced to use a separate library for assertations\footnote{Checking that a statement holds true or is equal to something}, for example.
+To gain assurance of the correctness of the VDF calculations I wrote unit tests for the VDF evaluation, proof generation and verification. To further ensure the soundness of the protocol, I added integration tests for Proof of Latency with separate, asynchronous threads for each execution. The tests reside in same files as the program code itself. The Rust standard library has good support for unit testing so that no separate library was needed.
 
-In addition to regular unit tests with predefined input, I dabbled in property testing. Property testing is a term that belongs somewhere between fuzzing\footnote{Testing systems against a randomized, high volume of input.} and unit tests. Otherwise it functions like regular unit tests, but it adds generated input into the equation. By adding generated, sometimes randomized input, one can check more thoroughly for edge cases. While being effective in recognizing some unexpected bugs, it still has a way to go when compared to formal verification, which is a testing method that aims to define a system with mathematic proofs, verifying that the output should always, apart from hardware issues, be predictable and deterministic.
+In addition to regular unit tests with predefined input, I experimented with property testing. Property testing is a term that belongs somewhere between fuzzing\footnote{Testing systems against a randomized, high volume of input.} and unit tests. Otherwise it functions like regular unit tests, but it adds generated input into the equation. By adding generated, sometimes randomized input, one can check more thoroughly for edge cases. While being effective in recognizing some unexpected bugs, it still has a way to go when compared to formal verification, which is a testing method that aims to define a system with mathematical proofs, verifying that the output should always, apart from hardware issues, be correct according to the specification.
 
 %\subsection{End to End Tests}
 %To test the whole demo out in a simulated P2P setting I used Protocol Labs' Testground software. It is a tool to simulate a network with thousands of peers on one machine.
