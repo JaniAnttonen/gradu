@@ -5,6 +5,8 @@ A verifiable delay function is a function that calculates sequential calculation
 
 The common parameters in VDF calculation are a random input \(x\), the hash of \(x\) which is called the \(generator\), the group \(G\), and the number of sequential operations, also called the difficulty, \(T\). Every sequential operation during the evaluation consists of an exponentiation and a modulo operation. The exponentiation is always a squaring, so the exponent does not change. This has to do with the proof generation.
 
+%TODO add an intro/definition on VDFs from the boneh paper / Not So Slowth
+
 Verifiable delay functions are a peculiar bunch of cryptographic proofs, since they are not proving that something has happened or something has been seen, but that a certain amount of time has been spent to compute the result. Like other cryptographic proofs, for the proof to be publicly verifiable it must at least in part be based on public parameters. If a VDF is going to be calculated between two parties, these parties decide the starting parameters between themselves, in a way giving the parameters to each other. This is to prevent possible precomputation --- meaning that the peer that provides a VDF proof could have computed it earlier, separately from the current transaction. If a participant or participants can decide the parameters of the computation by themselves, the computation could have occurred far back in the past.
 
 There's no known way to reduce computation costs sublinearly to the bit length of the exponent used.~\cite{Boneh2018-sm} This means that there's no algorithm-based solution to make VDF computation faster, but there is a growing effort in developing faster hardware for VDF evaluation, especially for doing repeated modular squarings, which would speed up both the evaluation and the proof phases of a VDF.~\cite{noauthor_undated-jb, noauthor_undated-da, noauthor_2020-ki}
@@ -32,10 +34,9 @@ In the front-running use case, this property can be used to restrict front-runni
 Spam prevention and rate limiting in the context of VDFs mean roughly the same thing. This is because spam prevention with VDFs is done with rate limiting. If a network application requires peers to perform some sort of Proof of Work in a form of a VDF, by defining the difficulty parameter \(T\) they can set a time boundary for subsequent requests, also called a rate limit. If all the peers need to perform a challenge to request resources from the requestee, a performance-based limit is created for the time between each individual request, thus limiting spam. In a similar fashion, the sequential nature of VDFs can be used to make more power-efficient proof-of-work algorithms, by replacing the requirement from finding a solution to a random challenge to a predetermined challenge with an exact number of steps. This results in better power efficiency, because parallellism will not help in solving the challenge, thus limiting the use of power hungry GPUs or highly parallel ASIC chips for the job.
 
 \subsubsection{Proofs of Sequential Work}
-VDFs can be utilized in proof of work algorithms that are more efficient than trying to find an inverse of a hash as in Bitcoin.~\cite{Cohen2018-th} 
-%TODO: Why does this work?
+VDFs can be utilized in proof of work algorithms that are more efficient than trying to find an inverse of a hash as in Bitcoin.~\cite{Cohen2018-th}
+%TODO: Why does this work? It adds determinism which I guess is a good thing but a bad thing for decentralization and randomness, as the block races in PoW are now probabilistic and thus, winners are random.
 
-%TODO add an intro on VDFs from the boneh paper
 \subsection{Precursors to VDFs}
 Verifiable delay functions are based on time-lock puzzles. Like VDF's, time-lock puzzles are computational sequential puzzles that require a certain amount of time to solve.\cite{Rivest_undated-qr} Time-lock puzzles were originally created to encrypt information in a manner that could only be opened after a certain amount of computation. Functionally, this is a cryptographic time capsule. Ronald L. Rivest, Adi Shamir, and David A. Wagner classify time-lock puzzles generally under the term \emph{timed-release crypto} in their 1996 paper.~\cite{Rivest_undated-qr} They describe the envisioned use cases for timed-release crypto as being the following:
 
@@ -56,12 +57,11 @@ Since this work uses the Wesolowski proof in Proof of Latency, I will concentrat
 \subsubsection{Wesolowski's Efficient Verifiable Delay Function}
 The "Efficient" in the name of this VDF protocol by Benjamin Wesolowski means that the proof it generates is efficient to verify by a third party, requiring \( \log _{2} T \) multiplications, with \( T \) being the total amount of modular multiplications. The following is a description of the non-interactive\footnote{Requiring no messages to be sent --- no interaction} variant of the protocol and its phases.
 
-% TODO: Fix long variable names' fonts
-\( let \: N = RSA-2048, \mathbb{G} \; = \: multiplicative \: group \: of \: integers \: modulo \: N \)
+\( let \: N = \mathrm{RSA-2048}, \mathbb{G} \; = \: \mathrm{multiplicative} \: \mathrm{group} \: \mathrm{of} \: \mathrm{integers} \: \mathrm{modulo} \: N \)
 
-\( let \: x \: = random \: input,  \: H \: = hash \: function, \text{for example} \: BLAKE3 \)
+\( let \: x \: = \mathrm{random} \: \mathrm{input},  \: H \: = \mathrm{hash} \: \mathrm{function}, \text{for example} \: BLAKE3 \)
 
-\( let \: generator \: g = H(x) \to \mathbb{G}, T = difficulty \)
+\( let \: g = H(x) \to \mathbb{G}, T = difficulty \)
 
 \begin{enumerate}
 	\item{Evaluation}
@@ -119,7 +119,7 @@ Different VDF constructs, like the most well known ones by Wesolowski~\cite{Weso
 \subsubsection{Proto-VDF}
 Time-lock puzzles that do not include a proof but nevertheless can be verified faster than re-evaluated can be categorized as proto-VDFs. A non-verifiable delay function or a proto-VDF can be verified by using multiple CPU cores or highly parallel graphics processing units, checking each iteration separately with parallellism, like in Solana.~\cite{Yakovenko2018-zn} One could also argue that all blockchains and some random beacons form multi-party calculated VDFs. An algorithm based on sequential hashings, like sha-256 in Solana's Proof of History can be described as a proto-VDF, since it can be verified as correct faster than it can be evaluated with hardware, but doesn't have a separate proof.
 
-% TODO: Add a citation/backlink to a definition of a VDF
+% TODO: Add a citation/backlink to a definition of a VDF \label{}
 \subsubsection{Classic Slow Functions}
 Since a VDF's idea is that a hard and slow calculation can be verified to have been performed correctly quickly, any calculation of whose inverse is harder is a candidate for a VDF-type construct. One example of these asymmetric calculations is Sloth.~\cite{Boneh2018-sm} Sloth doesn't include a proof and is not asymptotically verifiable, thus it does not satisfy the definition of a VDF per se.\footnote{Asymptotic, meaning that there is a maximum verification time and the verification can't scale beyond that point.} The evaluation of Sloth is calculated with repeated cubic roots, and it is verified with repeated cubings, with cubic roots being harder to compute than the cubings.
 
