@@ -675,7 +675,7 @@
 
 % The entry below contains non-ASCII chars that could not be converted
 % to a LaTeX equivalent.
-@ARTICLE{Petar_Maymounkov2020-sx,
+@ARTICLE{Petar_Maymounkov2002-sx,
   title    = "Kademlia",
   author   = "Petar Maymounkov, David Mazi{\`e}res",
   abstract = "Kademlia is a distributed hash table for decentralized
@@ -705,8 +705,7 @@
               around these ``holes''. I2P's implementation of Kademlia is
               modified to mitigate Kademlia's vulnerabilities, such as Sybil
               attacks.",
-  month    =  jan,
-  year     =  2020,
+  year     =  2002,
   keywords = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
               Import (May 18)/My Library/VDF-Gradu",
   language = "en"
@@ -5150,6 +5149,26 @@
   keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
+@ARTICLE{Orlicki2020-rt,
+  title         = "Fair {Proof-of-Stake} using {VDF+VRF} Consensus",
+  author        = "Orlicki, Jos{\'e} I",
+  abstract      = "We propose a new Proof-of-Stake consensus protocol
+                   constructed with a verifiable random function (VRF) and a
+                   verifiable delay function (VDF) that has the following
+                   properties: a) all addresses with positive stake can
+                   participate; b) is fair because the coin stake is
+                   proportional to the distribution of rewards; c) is resistant
+                   to several classic blockchain attacks such as Sybil attacks,
+                   ``Nothing-at-stake'' attacks and ``Winner-takes-all''
+                   attacks. We call it Vixify Consensus.",
+  month         =  aug,
+  year          =  2020,
+  keywords      = "Zotero Import (May 18)/My Library/VDF-Gradu",
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.CR",
+  eprint        = "2008.10189"
+}
+
 @ARTICLE{Balakrishnan2003-es,
   title     = "Looking up data in {P2P} systems",
   author    = "Balakrishnan, Hari and Kaashoek, M Frans and Karger, David and
@@ -6131,4 +6150,66 @@
   year      =  2014,
   address   = "Cham",
   keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
+@MISC{Khovratovich2021-gh,
+  title        = "Not So Slowth: Invertible {VDF} for Ethereum and others",
+  author       = "Khovratovich, Dmitry and Pratyush, Ranjan",
+  year         =  2021,
+  howpublished = "\url{https://khovratovich.github.io/MinRoot/minroot.pdf}",
+  note         = "Accessed: 2022-1-18",
+  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
+@INPROCEEDINGS{Mahmoody2013-zi,
+  title           = "Publicly verifiable proofs of sequential work",
+  booktitle       = "Proceedings of the 4th conference on Innovations in
+                     Theoretical Computer Science - {ITCS} '13",
+  author          = "Mahmoody, Mohammad and Moran, Tal and Vadhan, Salil",
+  abstract        = "We construct a publicly verifiable protocol for proving
+                     computational work based on collision-resistant hash
+                     functions and a new plausible complexity assumption
+                     regarding the existence of ``inherently sequential'' hash
+                     functions. Our protocol is based on a novel construction
+                     of time-lock puzzles. Given a sampled ``puzzle'' P getsr
+                     Dn, where $n$ is the security parameter and Dn is the
+                     distribution of the puzzles, a corresponding ``solution''
+                     can be generated using N evaluations of the sequential
+                     hash function, where N>n is another parameter, while any
+                     feasible adversarial strategy for generating valid
+                     solutions must take at least as much time as $\Omega$(N)
+                     serial evaluations of the hash function after receiving
+                     $P$. Thus, valid solutions constitute a ``proof'' that
+                     $\Omega$(N) parallel time elapsed since p was received.
+                     Solutions can be publicly and efficiently verified in time
+                     poly(n) $\cdot$ polylog(N). Applications of these
+                     ``time-lock puzzles'' include noninteractive timestamping
+                     of documents (where the distribution over the possible
+                     documents corresponds to the puzzle distribution Dn) and
+                     universally verifiable CPU benchmarks. Our construction is
+                     secure in the standard model under complexity assumptions
+                     (collision-resistant hash functions and inherently
+                     sequential hash functions), and makes black-box use of the
+                     underlying primitives. Consequently, the corresponding
+                     construction in the random oracle model is secure
+                     unconditionally. Moreover, as it is a public-coin
+                     protocol, it can be made non-interactive in the random
+                     oracle model using the Fiat-Shamir Heuristic. Our
+                     construction makes a novel use of ``depth-robust''
+                     directed acyclic graphs---ones whose depth remains large
+                     even after removing a constant fraction of
+                     vertices---which were previously studied for the purpose
+                     of complexity lower-bounds. The construction bypasses a
+                     recent lower-bound of Mahmoody, Moran, and Vadhan (CRYPTO
+                     '11) for time-lock puzzles in the random oracle model,
+                     which showed that it is impossible to have time-lock
+                     puzzles like ours in the random oracle model if the puzzle
+                     generator also computes a solution together with the
+                     puzzle.",
+  publisher       = "ACM Press",
+  year            =  2013,
+  address         = "New York, New York, USA",
+  keywords        = "Zotero Import (May 18)/My Library/VDF-Gradu",
+  conference      = "the 4th conference",
+  location        = "Berkeley, California, USA"
 }
