@@ -6,7 +6,13 @@
 	\caption{Example PoL network topology. Localized and highly connected clusters with high performance bridges, resulting in optimal routing}
 	\label{PoL Example Topology}
 \end{figure}
-% TODO: Add a drawed image overarching the whole protocol, not just the distance bounding part
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{pictures/PoL_highest_abstraction.pdf}
+	\caption{A high abstraction view of Proof of Latency.}
+	\label{PoL Diagram 1}
+\end{figure}
+
 Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by connecting with peers that have the lowest latency between each other, thus establishing a more optimal network than achieved simply by peering at random. PoL aims to make network bootstrapping better, making it easier to find performant, physically close-by peers on the first interaction with a PoL-enabled network. When using PoL for peer discovery, it can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
 
 Distance bounding protocols, as previously described, are a way of measuring latency between two participants in a relatively unspoofable manner. Unfortunately, they can only provide a valid proof between the prover and the verifier, and not a third party. This is because a distance bound could have been calculated at any point in the past, and the prover and the verifier could quite easily craft a proof of 0 latency between them. The motivation for PoL was to try to fix this with its use of verifiable delay functions, but further research revealed that some additional logic was needed to come closer to fulfilling this promise.
