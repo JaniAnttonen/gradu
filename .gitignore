@@ -16,3 +16,4 @@
 _minted-Thesis
 *_temp.tex
 build
+*.DS_Store
