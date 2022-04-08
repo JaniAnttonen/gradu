@@ -1,15 +1,14 @@
 msc {
   a [label="Peer 1 (Prover)"],b [label="Peer 2 (Verifier)"];
-  ---  [ label = "Negotiate used modulus N, the difficulty T" ];
+  ---  [ label = "Create the common reference string g = hash(c_a + c_b)" ];
   |||;
-  ---  [ label = "Create the shared generator g = hash(h1 + h2) with random data" ];
+  a->b [ label = "Send Verifier the vector commitment opening c_a" ];
   |||;
-  a->b [ label = "Send Verifier a random hash h1" ];
-  |||;
-  ---  [ label = "Shared generator g created" ];
+  ---  [ label = "Common reference string g created for b" ];
   |||;
   b->b [ label = "Start VDF(g, T=1)" ];
-  a<-b [ label = "Send Prover a random hash h2 and cap c1" ];
+  a<-b [ label = "Send Prover the vector commitment opening c_b and cap c1" ];
+  ---  [ label = "Common reference string g created for a" ];
   a->a [ label = "Start VDF(g, T=1)" ];
   |||;
   ---  [ label = "Both have started VDF calculation" ];
@@ -20,14 +19,14 @@ msc {
   |||;
   ---  [ label = "Prover VDF completed (T=upper_bound reached)" ];
   |||;
-  a->a [ label = "Generate proof of VDF with cap c1" ];
+  a->a [ label = "Generate VDF proof with cap c1" ];
   ...;
-  a->b [ label = "Send cap c2 to Verifier with proof of VDF" ];
+  a->b [ label = "Send cap c2 to Verifier with VDF proof" ];
   b->b [ label = "Stop VDF(g^(2*n), T=n)" ];
   |||;
   ---  [ label = "Verifier got cap c2 from Prover, VDF stopped" ];
   |||;
-  b->b [ label = "Generate proof of VDF with cap c2" ];
+  b->b [ label = "Generate VDF proof with cap c2" ];
   |||;
   ---  [ label = "Verifier has both VDF proofs" ];
   |||;
@@ -35,6 +34,6 @@ msc {
   a<-b [ label = "Send signed Proof of Latency to Prover" ];
   a->b [ label = "Send signature to Verifier" ];
   |||;
-  ---  [ label = "Proof of Latency available to the network" ];
+  ---  [ label = "Proof of Latency created" ];
   |||;
 }
