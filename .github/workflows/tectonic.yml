@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install mscgen
-      run: apt update && apt install mscgen
+      run: wget -c https://www.mcternan.me.uk/mscgen/software/mscgen-static-0.20.tar.gz -O - | tar -xz
     - name: Build diagrams
       run: ./build_diagrams.sh
     - name: Install tectonic
