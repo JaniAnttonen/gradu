@@ -1,0 +1,11 @@
+% !TeX root = ../index.tex
+\begin{itabstract}{verifiable delay functions, peer-to-peer networks, vector commitments, distance bounding protocols}
+	In this thesis I present an interactive public-coin protocol called Proof of Latency (PoL) that aims to improve connections in peer-to-peer networks by measuring latencies with logical clocks built from verifiable delay functions (VDF). PoL is a tuple of three algorithms, \(Setup(e, \lambda)\), \(VCOpen(c, e)\), and \(Measure(g, T, l_p, l_v)\). Setup creates a vector commitment (VC), from which a vector commitment opening corresponding to a collaborator's public key is taken in VCOpen, which then gets used to create a common reference string used in Measure. If no collusion gets detected by neither party, a signed proof is ready for advertising.
+	% TODO: Two algorithms? Just Setup & Measure, as VCOpen doesn't work "by itself"
+
+	PoL is agnostic in terms of the individual implementations of the VC or VDF used. This said, I present a proof of concept in the form of a state machine in Rust that uses RSA-2048, Catalano-Fiore vector commitments and Wesolowski's VDF to demonstrate PoL.
+	% TODO: Check that VDF timestamping is mentioned in VDF chapter
+	As VDFs themselves have been shown to be useful in timestamping, they seem to work as a measurement of time in this context as well, albeit requiring a public performance metric for each peer to compare to during the measurement. I have imagined many use cases for PoL, like proving a geographical location, working as a benchmark query, or using the proofs to calculate VDFs with the latencies between peers themselves.
+
+	As it stands, PoL works as a distance bounding protocol between two participants, considering their computing performance is relatively similar. As a publicly verifiable proof that a third party can believe in, more work is needed to verify the soundness of PoL in a trustless setting.
+\end{itabstract}
