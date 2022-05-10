@@ -193,34 +193,10 @@ The following is a code example of the threaded valuation part of a VDF inside P
 \lstinputlisting[language=Rust, float, frame=lines, breaklines=true, caption=VDF iteration logic]{./parts/code/vdfiteration.rs}[H]
 % TODO: Add more meaningful, short code samples that won't break layout under Tectonic
 The following is a code example of the proof generation of a VDF:
-\begin{listing}
-	\inputminted
-	[
-		frame=lines,
-		framesep=2mm,
-		baselinestretch=1.2,
-		fontsize=\footnotesize,
-		tabsize=2,
-	]
-	{Rust}{./parts/code/proofgeneration.rs}
-	\caption{VDF proof generation}
-	\label{lst:proofgeneration.rs}
-\end{listing}
+\lstinputlisting[language=Rust, float, frame=lines, breaklines=true, caption=VDF proof generation]{./parts/code/proofgeneration.rs}[H]
 
 The following is a code example of the verification of a VDF proof:
-\begin{listing}
-	\inputminted
-	[
-		frame=lines,
-		framesep=2mm,
-		baselinestretch=1.2,
-		fontsize=\footnotesize,
-		tabsize=2,
-	]
-	{Rust}{./parts/code/verifyvdf.rs}
-	\caption{VDF proof verification}
-	\label{lst:verifyvdf.rs}
-\end{listing}
+\lstinputlisting[language=Rust, float, frame=lines, breaklines=true, caption=VDF proof verification]{./parts/code/verifyvdf.rs}[H]
 
 The proof of concept is implemented as a library, so that it can be imported and used in other projects.
 
