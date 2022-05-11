@@ -20,8 +20,9 @@ jobs:
       run: wget -c https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.8.0/tectonic-0.8.0-x86_64-unknown-linux-gnu.tar.gz -O - | tar -xz
     - name: Build PDF
       run: ./build_diagrams.sh && ./tectonic -X build
-      # Publish to gh-pages
-    - uses: maxheld83/ghpages@v0.3.0
-      env:
-        BUILD_DIR: build/ProofOfLatency
-        GH_PAT: ${{ secrets.GH_PAT }}
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      with:
+        branch: gh-pages
+        folder: build/ProofOfLatency
+        token: ${{ secrets.GH_PAT }}
