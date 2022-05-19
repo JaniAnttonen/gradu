@@ -6,9 +6,9 @@
 \end{figure}
 Distance bounding protocols are interactive protocols that aim to measure the physical distance or latency between two participants, the prover and the verifier. They are solutions to problems where a simple ping will not suffice, as either party could quite easily craft a false measurement. Distance bounding is used in applications like IP geolocation, wireless access control, and routing in P2P (ad-hoc) networks.
 
-The first distance bounding protocol was designed by Brands and Chaum in 1993 to counter so-called relay attacks.~\cite{Boureanu_undated-bn, Brands1994-hz} A commonly used example of a relay attack is that if the signals between a credit or a debit card and a point of sale system were to be relayed over a distance, two attackers could pay with the relayed info in a totally different country, for example. A distance bounding protocol is safe if information never gets passed faster than the speed of light, and if causality holds due to the prover not being able to create a valid response to a challenge before it has received the challenge.~\cite{Boureanu_undated-bn}
+The first distance bounding protocol was designed by Brands and Chaum in 1993 to counter so-called relay attacks.~\cite{Boureanu_undated-bn, Brands1994-hz} A commonly used example of a relay attack is that if the signals between a credit or a debit card and a point of sale system were to be relayed over a distance, two attackers could pay with the relayed info in a totally different country, for example. A distance bounding protocol is safe if information never gets passed faster than the speed of light, and if causality holds due to the prover not being able to create a valid response to a challenge before it has received the challenge~\cite{Boureanu_undated-bn}.
 
-The original definition of a distance bounding protocol consisted of three phases: initial phase, critical phase, and a verification phase.~\cite{Brands1994-hz, Mauw2018-uz} 
+The original definition of a distance bounding protocol consisted of three phases: initial phase, critical phase, and a verification phase~\cite{Brands1994-hz, Mauw2018-uz}.
 
 \begin{enumerate}
   \item The Initial Phase --- the two peers agree on the parameters used.
