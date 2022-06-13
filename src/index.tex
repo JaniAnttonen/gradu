@@ -27,7 +27,7 @@
 % JH: modified latin to UTF-8 encoding cues to make Scandinavian characters works
 \usepackage[utf8]{inputenc}
 % load babel-package for automatic hyphenation
-\usepackage[english]{babel}
+\usepackage[finnish, english]{babel}
 
 \usepackage{ifpdf}
 \usepackage{graphicx}
@@ -57,6 +57,12 @@
   basicstyle=\small\sffamily\linespread{0.8},
   commentstyle=\mdseries
 }
+
+% Set line height of footnotes to 1
+\usepackage{setspace}
+\usepackage[hang]{footmisc}
+\usepackage{lipsum}
+\renewcommand{\footnotelayout}{\setstretch{1.0}}
 
 %\pdfminorversion=7
 
@@ -114,7 +120,7 @@
 % Generate the title page 
 \gentitle
 
-% Include the abstract
+% Include the abstract(s)
 \input{parts/AbstractEnglish}
 \input{parts/AbstractFinnish}
 

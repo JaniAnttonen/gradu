@@ -77,7 +77,7 @@
 % \renewcommand{\baselinestretch}{1.655}
 
 % Fonts for XeTeX
-\usepackage[OT1]{fontenc}
+\usepackage[OT1, EU1]{fontenc}
 % \usepackage{hyperref}
 
 % local temporary width
@@ -242,6 +242,58 @@ Department of Computing
 \setlength{\topmargin}{0 mm}
 \renewcommand{\baselinestretch}{1.655}\normalsize
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define ittiivis environment for tiivistelmäsivu ;-)
+%
+\newenvironment{ittiivis}[1]{%
+\selectlanguage{finnish}
+\newsavebox{\asiasanat}
+\newlength{\asiasanatwidth}
+\settowidth{\asiasanatwidth}{\textrm{Asiasanat:}}
+\setlength{\etttmpwidth}{\linewidth}
+\addtolength{\etttmpwidth}{-\asiasanatwidth}
+\addtolength{\etttmpwidth}{-\labelsep}
+\addtolength{\etttmpwidth}{-1mm}
+\sbox{\asiasanat}{\parbox[t]{\etttmpwidth}{#1}}
+\setlength{\headheight}{0 pt}
+\setlength{\headsep}{0 pt}
+\addtolength\topmargin{-1 in}
+\addtolength\topmargin{2.0 cm}
+\renewcommand{\baselinestretch}{1}\normalsize
+\clearpage
+\thispagestyle{empty}
+\noindent
+\begin{minipage}[\textheight]{\linewidth}
+TURUN YLIOPISTO\\
+Teknillinen Tiedekunta
+\begin{entry}{\usebox{\eauthor}}
+\item[\usebox{\esauthor}] \usebox{\etitle}
+\end{entry}
+
+\usebox{\wtfi}, \pageref{endofpages} s., \pageref{endofappendices} liites. \\
+\usebox{\difi}\\
+\usebox{\emonthfi} \usebox{\eyear} \\
+\rule{\linewidth}{1 pt}
+\\
+}
+{
+\bigskip
+\\
+\begin{entry}{Asiasanat}
+\item[Asiasanat] \usebox{\asiasanat}
+\end{entry}
+\end{minipage}
+\clearpage
+\setcounter{page}{0}
+\setlength{\headheight}{12 pt}
+\setlength{\headsep}{24 pt}
+\setlength{\topmargin}{0 mm}
+\renewcommand{\baselinestretch}{1.655}\normalsize
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
