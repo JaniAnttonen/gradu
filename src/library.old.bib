@@ -2,8 +2,8 @@
 % BibTeX export options can be customized via Settings -> BibTeX.
 
 @ARTICLE{Roos2013-mb,
-  title    = "Comprehending Kademlia Routing --- A Theoretical Framework for
-              the Hop Count Distribution",
+  title    = "Comprehending Kademlia Routing - A Theoretical Framework for the
+              Hop Count Distribution",
   author   = "Roos, Stefanie and Salah, Hani and Strufe, Thorsten",
   abstract = "The family of Kademlia-type systems represents the most efficient
               and most widely deployed class of internet-scale distributed
@@ -77,7 +77,7 @@
 }
 
 @MISC{Grigorik_undated-mc,
-  title        = "Latency: The New Web Performance Bottleneck --- igvita.com",
+  title        = "Latency: The New Web Performance Bottleneck - igvita.com",
   author       = "Grigorik, Ilya",
   abstract     = "'High speed' connectivity is not all about bandwidth, latency
                   is the new bottleneck for most web browsing applications -
@@ -997,25 +997,23 @@
               Import (May 18)/My Library/VDF-Gradu"
 }
 
-@MISC{Samuel_Dobson_and_Steven_D_Galbraith_and_Benjamin_Smith2020-fw,
-  title        = "Trustless unknown-order groups",
-  author       = "{Samuel Dobson and Steven D. Galbraith and Benjamin Smith}",
-  abstract     = "We suggest an alternative method of generating groups of
-                  unknown order for constructions such as cryptographic
-                  accumulators, by using the Jacobian groups of hyperelliptic
-                  curves (especially of genus 3). We propose that this
-                  construction is more efficient in practice than other
-                  proposals such as the use of ideal class groups of imaginary
-                  quadratic fields. We suggest that both the group operation
-                  and the size of element representation is an improvement over
-                  class groups. We also offer potential parameter choices for
-                  security with respect to best current algorithms for
-                  calculating the order of these groups.",
-  number       =  196,
-  year         =  2020,
-  howpublished = "Cryptology ePrint Archive, Paper 2020/196",
-  keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
-                  Library;Zotero Import (May 18)/My Library/VDF-Gradu"
+@TECHREPORT{Dobson2020-fw,
+  title    = "Trustless Groups of Unknown Order with Hyperelliptic Curves",
+  author   = "Dobson, Samuel and Galbraith, Steven D",
+  abstract = "We suggest an alternative method of generating groups of unknown
+              order for constructions such as cryptographic accumulators, by
+              using the Jacobian groups of hyperelliptic curves (especially of
+              genus 3). We propose that this construction is more efficient in
+              practice than other proposals such as the use of ideal class
+              groups of imaginary quadratic fields. We suggest that both the
+              group operation and the size of element representation is an
+              improvement over class groups. We also offer potential parameter
+              choices for security with respect to best current algorithms for
+              calculating the order of these groups.",
+  number   =  196,
+  year     =  2020,
+  keywords = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
+              Import (May 18)/My Library/VDF-Gradu"
 }
 
 @ARTICLE{Buterin2019-wn,
@@ -1048,63 +1046,70 @@
   language     = "en"
 }
 
-@MISC{Chiesa2012-uz,
-  title        = "Succinct Arguments from {Multi-Prover} Interactive Proofs and
-                  their Efficiency Benefits",
-  author       = "Chiesa, Nir Bitansky And",
-  abstract     = "\textbackslashemph\{Succinct arguments of knowledge\} are
-                  computationally-sound proofs of knowledge for NP where the
-                  verifier's running time is independent of the time complexity
-                  $t$ of the nondeterministic NP machine $M$ that decides the
-                  given language. Existing succinct argument constructions are,
-                  typically, based on techniques that combine cryptographic
-                  hashing and probabilistically-checkable proofs (PCPs). Yet,
-                  even when instantiating these constructions with
-                  state-of-the-art PCPs, the prover needs $\Omega(t)$ space in
-                  order to run in quasilinear time (i.e., time $t \poly(k)$),
-                  regardless of the space complexity $s$ of the machine $M$. We
-                  say that a succinct argument is
-                  \textbackslashemph\{complexity preserving\} if the prover
-                  runs in time $t \poly(k)$ and space $s \poly(k)$ and the
-                  verifier runs in time $|x| \poly(k)$ when proving and
-                  verifying that a $t$-time $s$-space random-access machine
-                  nondeterministically accepts an input $x$. Do
-                  complexity-preserving succinct arguments exist? To study this
-                  question, we investigate the alternative approach of
-                  constructing succinct arguments based on multi-prover
-                  interactive proofs (MIPs) and stronger cryptographic
-                  techniques: (1) We construct a one-round succinct MIP of
-                  knowledge, where each prover runs in time $t \polylog(t)$ and
-                  space $s \polylog(t)$ and the verifier runs in time $|x|
-                  \polylog(t)$. (2) We show how to transform any one-round MIP
-                  protocol to a succinct four-message argument (with a single
-                  prover), while preserving the time and space efficiency of
-                  the original MIP protocol; using our MIP protocol, this
-                  transformation yields a complexity-preserving four-message
-                  succinct argument. As a main tool for our transformation, we
-                  define and construct a \textbackslashemph\{succinct
-                  multi-function commitment\} that (a) allows the sender to
-                  commit to a vector of functions in time and space complexity
-                  that are essentially the same as those needed for a single
-                  evaluation of the functions, and (b) ensures that the
-                  receiver's running time is essentially independent of the
-                  function. The scheme is based on fully-homomorphic encryption
-                  (and no additional assumptions are needed for our succinct
-                  argument). (3) In addition, we revisit the problem of
-                  \textbackslashemph\{non-interactive\} succinct arguments of
-                  knowledge (SNARKs), where known impossibilities prevent
-                  solutions based on black-box reductions to standard
-                  assumptions. We formulate a natural (but non-standard)
-                  variant of homomorphic encryption having a
-                  \textbackslashemph\{homomorphism-extraction property\}. We
-                  show that this primitive essentially allows to squash our
-                  interactive protocol, while again preserving time and space
-                  efficiency, thereby obtaining a complexity-preserving SNARK.
-                  We further show that this variant is, in fact, implied by the
-                  existence of (complexity-preserving) SNARKs.",
-  number       =  461,
-  year         =  2012,
-  howpublished = "Cryptology ePrint Archive, Paper 2012/461",
+@TECHREPORT{Bitansky2012-uz,
+  title    = "Succinct Arguments from {Multi-Prover} Interactive Proofs and
+              their Efficiency Benefits",
+  author   = "Bitansky, Nir and Chiesa, Alessandro",
+  abstract = "\textbackslashemph\{Succinct arguments of knowledge\} are
+              computationally-sound proofs of knowledge for NP where the
+              verifier's running time is independent of the time complexity $t$
+              of the nondeterministic NP machine $M$ that decides the given
+              language. Existing succinct argument constructions are,
+              typically, based on techniques that combine cryptographic hashing
+              and probabilistically-checkable proofs (PCPs). Yet, even when
+              instantiating these constructions with state-of-the-art PCPs, the
+              prover needs $\Omega(t)$ space in order to run in quasilinear
+              time (i.e., time $t \poly(k)$), regardless of the space
+              complexity $s$ of the machine $M$. We say that a succinct
+              argument is \textbackslashemph\{complexity preserving\} if the
+              prover runs in time $t \poly(k)$ and space $s \poly(k)$ and the
+              verifier runs in time $|x| \poly(k)$ when proving and verifying
+              that a $t$-time $s$-space random-access machine
+              nondeterministically accepts an input $x$. Do
+              complexity-preserving succinct arguments exist? To study this
+              question, we investigate the alternative approach of constructing
+              succinct arguments based on multi-prover interactive proofs
+              (MIPs) and stronger cryptographic techniques: (1) We construct a
+              one-round succinct MIP of knowledge, where each prover runs in
+              time $t \polylog(t)$ and space $s \polylog(t)$ and the verifier
+              runs in time $|x| \polylog(t)$. (2) We show how to transform any
+              one-round MIP protocol to a succinct four-message argument (with
+              a single prover), while preserving the time and space efficiency
+              of the original MIP protocol; using our MIP protocol, this
+              transformation yields a complexity-preserving four-message
+              succinct argument. As a main tool for our transformation, we
+              define and construct a \textbackslashemph\{succinct
+              multi-function commitment\} that (a) allows the sender to commit
+              to a vector of functions in time and space complexity that are
+              essentially the same as those needed for a single evaluation of
+              the functions, and (b) ensures that the receiver's running time
+              is essentially independent of the function. The scheme is based
+              on fully-homomorphic encryption (and no additional assumptions
+              are needed for our succinct argument). (3) In addition, we
+              revisit the problem of \textbackslashemph\{non-interactive\}
+              succinct arguments of knowledge (SNARKs), where known
+              impossibilities prevent solutions based on black-box reductions
+              to standard assumptions. We formulate a natural (but
+              non-standard) variant of homomorphic encryption having a
+              \textbackslashemph\{homomorphism-extraction property\}. We show
+              that this primitive essentially allows to squash our interactive
+              protocol, while again preserving time and space efficiency,
+              thereby obtaining a complexity-preserving SNARK. We further show
+              that this variant is, in fact, implied by the existence of
+              (complexity-preserving) SNARKs.",
+  number   =  461,
+  year     =  2012,
+  keywords = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
+              Import (May 18)/My Library/VDF-Gradu"
+}
+
+@MISC{Borgeaud2019-wk,
+  title        = "understanding-vdfs",
+  author       = "Borgeaud, William",
+  month        =  nov,
+  year         =  2019,
+  howpublished = "\url{https://wborgeaud.github.io/posts/understanding-vdfs.html}",
+  note         = "Accessed: 2020-3-9",
   keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
                   Library;Zotero Import (May 18)/My Library/VDF-Gradu"
 }
@@ -1843,34 +1848,32 @@
                   Library;Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
-@MISC{Cohen2018-th,
-  title        = "Simple Proofs of Sequential Work",
-  author       = "Cohen, Bram and Pietrzak, Krzysztof",
-  abstract     = "At ITCS 2013, Mahmoody, Moran and Vadhan [MMV'13] introduce
-                  and construct publicly verifiable proofs of sequential work,
-                  which is a protocol for proving that one spent sequential
-                  computational work related to some statement. The original
-                  motivation for such proofs included non-interactive
-                  time-stamping and universally verifiable CPU benchmarks. A
-                  more recent application, and our main motivation, are
-                  blockchain designs, where proofs of sequential work can be
-                  used -- in combination with proofs of space -- as a more
-                  ecological and economical substitute for proofs of work which
-                  are currently used to secure Bitcoin and other
-                  cryptocurrencies. The construction proposed by [MMV'13] is
-                  based on a hash function and can be proven secure in the
-                  random oracle model, or assuming inherently sequential
-                  hash-functions, which is a new standard model assumption
-                  introduced in their work. An open problem stated by [MMV'13]
-                  that our construction does not solve either is achieving a
-                  ``unique'' proof, where even a cheating prover can only
-                  generate a single accepting proof. This property would be
-                  extremely useful for applications to blockchains.",
-  number       =  183,
-  year         =  2018,
-  howpublished = "Cryptology ePrint Archive, Paper 2018/183",
-  keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
-                  Library;Zotero Import (May 18)/My Library/VDF-Gradu"
+@TECHREPORT{Cohen2018-th,
+  title    = "Simple Proofs of Sequential Work",
+  author   = "Cohen, Bram and Pietrzak, Krzysztof",
+  abstract = "At ITCS 2013, Mahmoody, Moran and Vadhan [MMV'13] introduce and
+              construct publicly verifiable proofs of sequential work, which is
+              a protocol for proving that one spent sequential computational
+              work related to some statement. The original motivation for such
+              proofs included non-interactive time-stamping and universally
+              verifiable CPU benchmarks. A more recent application, and our
+              main motivation, are blockchain designs, where proofs of
+              sequential work can be used -- in combination with proofs of
+              space -- as a more ecological and economical substitute for
+              proofs of work which are currently used to secure Bitcoin and
+              other cryptocurrencies. The construction proposed by [MMV'13] is
+              based on a hash function and can be proven secure in the random
+              oracle model, or assuming inherently sequential hash-functions,
+              which is a new standard model assumption introduced in their
+              work. An open problem stated by [MMV'13] that our construction
+              does not solve either is achieving a ``unique'' proof, where even
+              a cheating prover can only generate a single accepting proof.
+              This property would be extremely useful for applications to
+              blockchains.",
+  number   =  183,
+  year     =  2018,
+  keywords = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
+              Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{noauthor_2018-dz,
@@ -2014,6 +2017,31 @@
   note         = "Accessed: 2020-2-11",
   keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
                   Library;Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
+@TECHREPORT{Pietrzak2018-xs,
+  title       = "Simple Verifiable Delay Functions",
+  author      = "Pietrzak, Krzysztof",
+  abstract    = "We construct a verifable delay function (VDF) by showing how
+                 the Rivest-Shamir-Wagner time-lock puzzle can be made publicly
+                 verifiable. Concretely, we give a statistically sound
+                 public-coin protocol to prove that a tuple $(N,x,T,y)$
+                 satisfies $y=x^\{2^T\}\pmod N$ where the prover doesn't know
+                 the factorization of $N$ and its running time is dominated by
+                 solving the puzzle, that is, compute $x^\{2^T\}$, which is
+                 conjectured to require $T$ sequential squarings. To get a VDF
+                 we make this protocol non-interactive using the Fiat-Shamir
+                 heuristic. The motivation for this work comes from the Chia
+                 blockchain design, which uses a VDF as a key ingredient. For
+                 typical parameters ($T\le 2^\{40\},N=2048$), our proofs are of
+                 size around $10KB$, verification cost around three RSA
+                 exponentiations and computing the proof is $8000$ times faster
+                 than solving the puzzle even without any parallelism.",
+  number      =  627,
+  institution = "IST Austria",
+  year        =  2018,
+  keywords    = "Zotero Import (May 18);Zotero Import (May 18)/My
+                 Library;Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{noauthor_undated-zb,
@@ -2409,64 +2437,22 @@
                   Library;Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
-@MISC{Borgeaud2019-wk,
-  title        = "Understanding Verifiable Delay Functions (with a Rust
-                  implementation)",
-  booktitle    = "William Borgeaud's Blog",
-  author       = "Borgeaud, William",
-  month        =  nov,
-  year         =  2019,
-  howpublished = "\url{https://wborgeaud.github.io/posts/understanding-vdfs.html}",
-  note         = "Accessed: 2020-3-9",
-  keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
-                  Library;Zotero Import (May 18)/My Library/VDF-Gradu"
-}
-
-@MISC{Pietrzak2018-xs,
-  title        = "Simple Verifiable Delay Functions",
-  author       = "Pietrzak, Krzysztof",
-  abstract     = "We construct a verifable delay function (VDF) by showing how
-                  the Rivest-Shamir-Wagner time-lock puzzle can be made
-                  publicly verifiable. Concretely, we give a statistically
-                  sound public-coin protocol to prove that a tuple $(N,x,T,y)$
-                  satisfies $y=x^\{2^T\}\pmod N$ where the prover doesn't know
-                  the factorization of $N$ and its running time is dominated by
-                  solving the puzzle, that is, compute $x^\{2^T\}$, which is
-                  conjectured to require $T$ sequential squarings. To get a VDF
-                  we make this protocol non-interactive using the Fiat-Shamir
-                  heuristic. The motivation for this work comes from the Chia
-                  blockchain design, which uses a VDF as a key ingredient. For
-                  typical parameters ($T\le 2^\{40\},N=2048$), our proofs are
-                  of size around $10KB$, verification cost around three RSA
-                  exponentiations and computing the proof is $8000$ times
-                  faster than solving the puzzle even without any parallelism.",
-  number       =  627,
-  institution  = "IST Austria",
-  year         =  2018,
-  howpublished = "Cryptology ePrint Archive, Paper 2018/627",
-  keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
-                  Library;Zotero Import (May 18)/My Library/VDF-Gradu"
-}
-
 % The entry below contains non-ASCII chars that could not be converted
 % to a LaTeX equivalent.
-@MISC{Boneh2018-ml,
-  title        = "A Survey of Two Veriﬁable Delay Functions",
-  author       = "Boneh, Dan and Bunz, Benedikt and Fisch, Ben",
-  abstract     = "A veriﬁable delay function (VDF) is an important tool used
-                  for adding delay in decentralized applications. This short
-                  note brieﬂy surveys and compares two recent beautiful
-                  Veriﬁable Delay Functions (VDFs), one due to Pietrzak and the
-                  other due to Wesolowski. We also provide a new computational
-                  proof of security for one of them, and compare the complexity
-                  assumptions needed for both schemes.",
-  pages        = "13",
-  month        =  aug,
-  year         =  2018,
-  howpublished = "Cryptology ePrint Archive, Paper 2018/712",
-  keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
-                  Library;Zotero Import (May 18)/My Library/VDF-Gradu",
-  language     = "en"
+@ARTICLE{Boneh_undated-ml,
+  title    = "A Survey of Two Veriﬁable Delay Functions",
+  author   = "Boneh, Dan and Bunz, Benedikt and Fisch, Ben",
+  abstract = "A veriﬁable delay function (VDF) is an important tool used for
+              adding delay in decentralized applications. This short note
+              brieﬂy surveys and compares two recent beautiful Veriﬁable Delay
+              Functions (VDFs), one due to Pietrzak and the other due to
+              Wesolowski. We also provide a new computational proof of security
+              for one of them, and compare the complexity assumptions needed
+              for both schemes.",
+  pages    = "13",
+  keywords = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
+              Import (May 18)/My Library/VDF-Gradu",
+  language = "en"
 }
 
 @MISC{Bonneau2015-zf,
@@ -2603,19 +2589,16 @@
   keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
-@MISC{Olson2020-au,
-  title        = "Hardware Acceleration of {RSA} {VDFs} - Kelly Olson",
-  booktitle    = "{YouTube}",
-  author       = "Olson, Kelly",
-  abstract     = "This talk will discuss the importance of hardware
-                  acceleration for evaluating RSA VDFs and generating their
-                  associated proofs. It will also discuss the lates...",
-  publisher    = "Youtube",
-  month        =  sep,
-  year         =  2020,
-  howpublished = "\url{https://www.youtube.com/watch?v=ij6CsyUfn6I}",
-  note         = "Accessed: 2020-9-13",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+@MISC{Protocol_Labs_Kelly_Olson2020-au,
+  title     = "Hardware Acceleration of {RSA} {VDFs} - Kelly Olson",
+  author    = "{Protocol Labs, Kelly Olson}",
+  abstract  = "This talk will discuss the importance of hardware acceleration
+               for evaluating RSA VDFs and generating their associated proofs.
+               It will also discuss the lates...",
+  publisher = "Youtube",
+  month     =  sep,
+  year      =  2020,
+  keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{noauthor_undated-nn,
@@ -2683,8 +2666,7 @@
 }
 
 @MISC{The_Rust_Project_Developers2018-xh,
-  title        = "Races --- The Rustonomicon",
-  booktitle    = "Rust Language Documentation",
+  title        = "Races - The Rustonomicon",
   author       = "{The Rust Project Developers}",
   abstract     = "The Dark Arts of Advanced and Unsafe Rust Programming",
   month        =  nov,
@@ -2714,7 +2696,7 @@
 }
 
 @MISC{noauthor_undated-mp,
-  title        = "{BearSSL} --- {Constant-Time} Crypto",
+  title        = "{BearSSL} - {Constant-Time} Crypto",
   howpublished = "\url{https://www.bearssl.org/constanttime.html}",
   note         = "Accessed: 2020-5-18",
   keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
@@ -2732,6 +2714,16 @@
   month     =  dec,
   year      =  2005,
   address   = "San Francisco, CA",
+  keywords  = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
+               Import (May 18)/My Library/VDF-Gradu"
+}
+
+@MISC{noauthor_2020-ki,
+  title     = "supranational/vdf-fpga",
+  abstract  = "Implementation of an RSA VDF evaluator targeting FPGAs.",
+  publisher = "Supranational",
+  month     =  apr,
+  year      =  2020,
   keywords  = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
                Import (May 18)/My Library/VDF-Gradu"
 }
@@ -2829,17 +2821,13 @@
 }
 
 @MISC{Stanford_Video2020-ap,
-  title        = "Stanford {BlockChain} --- Day 2",
-  booktitle    = "{YouTube}",
-  author       = "{Stanford Video}",
-  abstract     = "Enjoy the videos and music you love, upload original content
-                  and share it all with friends, family and the world on
-                  YouTube.",
-  publisher    = "Youtube",
-  year         =  2020,
-  howpublished = "\url{https://www.youtube.com/watch?v=BXLcKQ6fLsU}",
-  note         = "Accessed: 2020-5-18",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+  title     = "Stanford {BlockChain} - Day 2",
+  author    = "{Stanford Video}",
+  abstract  = "Enjoy the videos and music you love, upload original content and
+               share it all with friends, family and the world on YouTube.",
+  publisher = "Youtube",
+  year      =  2020,
+  keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{Konstantopoulos2019-fz,
@@ -2874,19 +2862,17 @@
 }
 
 @MISC{Whyrusleeping2016-ej,
-  title        = "Issue \#3320, go-ipfs, ``writeup of router kill issue''",
-  booktitle    = "{GitHub}",
-  author       = "{Whyrusleeping}",
-  abstract     = "So we know that ipfs can kill people routers. We should do a
-                  quick write up of what the causes are, which routers are
-                  normally affected, and maybe propose a couple ideas for
-                  solutions. @Kubuxu do you think you could handle doing this
-                  at ...",
-  month        =  oct,
-  year         =  2016,
-  howpublished = "\url{https://github.com/ipfs/go-ipfs/issues/3320}",
-  note         = "Accessed: 2020-8-4",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+  title       = "Issue \#3320, go-ipfs, ``writeup of router kill issue''",
+  author      = "{Whyrusleeping}",
+  abstract    = "So we know that ipfs can kill people routers. We should do a
+                 quick write up of what the causes are, which routers are
+                 normally affected, and maybe propose a couple ideas for
+                 solutions. @Kubuxu do you think you could handle doing this at
+                 ...",
+  institution = "Github",
+  month       =  oct,
+  year        =  2016,
+  keywords    = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{Eigenmann2020-zm,
@@ -2928,11 +2914,9 @@
 }
 
 @TECHREPORT{Cheshire2013-ja,
-  title       = "Multicast {DNS}",
+  title       = "Multicast dns",
   author      = "Cheshire, Stuart and Krochmal, Marc",
-  number      = "RFC 6762",
-  institution = "Internet Engineering Task Force",
-  month       =  feb,
+  institution = "RFC 6762, February",
   year        =  2013,
   keywords    = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
@@ -3047,7 +3031,7 @@
 % The entry below contains non-ASCII chars that could not be converted
 % to a LaTeX equivalent.
 @MISC{Robinson2020-ve,
-  title        = "Ethereum is a Dark Forest --- Dan Robinson --- Medium",
+  title        = "Ethereum is a Dark Forest - Dan Robinson - Medium",
   booktitle    = "Medium",
   author       = "Robinson, Dan",
   abstract     = "Like any normal person, I spend a lot of time lurking in the
@@ -3109,7 +3093,7 @@
 % The entry below contains non-ASCII chars that could not be converted
 % to a LaTeX equivalent.
 @MISC{Howarth2020-zc,
-  title        = "Why Discord is switching from Go to Rust --- Discord Blog",
+  title        = "Why Discord is switching from Go to Rust - Discord Blog",
   booktitle    = "Discord Blog",
   author       = "Howarth, Jesse",
   abstract     = "Rust is becoming a first class language in a variety of
@@ -3217,21 +3201,19 @@
 % The entry below contains non-ASCII chars that could not be converted
 % to a LaTeX equivalent.
 @MISC{Jeff_Foley2018-zt,
-  title        = "Tendermint Trust Metric",
-  booktitle    = "{GitHub}",
-  author       = "Jeff Foley, Peng Zhong",
-  abstract     = "⟁ Tendermint Core (BFT Consensus) in Go. Contribute to
-                  tendermint/tendermint development by creating an account on
-                  GitHub.",
-  month        =  aug,
-  year         =  2018,
-  howpublished = "\url{https://github.com/tendermint/tendermint}",
-  note         = "Accessed: 2020-12-2",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+  title       = "Tendermint Trust Metric",
+  author      = "Jeff Foley, Peng Zhong",
+  abstract    = "⟁ Tendermint Core (BFT Consensus) in Go. Contribute to
+                 tendermint/tendermint development by creating an account on
+                 GitHub.",
+  institution = "Github",
+  month       =  aug,
+  year        =  2018,
+  keywords    = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{Konstantopoulos2019-ls,
-  title        = "A Deep Dive on {RSA} Accumulators --- Good Audience",
+  title        = "A Deep Dive on {RSA} Accumulators - Good Audience",
   booktitle    = "Good Audience",
   author       = "Konstantopoulos, Georgios",
   abstract     = "In this post, I make a deep dive on RSA Accumulators and
@@ -3361,15 +3343,12 @@
 }
 
 @MISC{Candela2020-am,
-  title        = "Current Status of {IP} Geolocation",
-  booktitle    = "{YouTube}",
-  author       = "Candela, Massimo",
-  publisher    = "Youtube",
-  month        =  aug,
-  year         =  2020,
-  howpublished = "\url{https://www.youtube.com/watch?v=Vdr_hdy74Tg}",
-  note         = "Accessed: 2021-6-7",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+  title     = "Current Status of {IP} Geolocation",
+  author    = "Candela, Massimo",
+  publisher = "Youtube",
+  month     =  aug,
+  year      =  2020,
+  keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{noauthor_2017-gi,
@@ -3506,10 +3485,7 @@
 
 @MISC{Peeters2011-dq,
   title        = "Three phases of distance bounding protocols",
-  booktitle    = "{ResearchGate}",
-  author       = "Peeters, Roel and Singel{\'e}e, Dave and Preneel, Bart and
-                  Barabanov, Alexander and Dergunov, Denis and Makrushin, Denis
-                  and Teplov, Aleksey",
+  author       = "Peeters, Roel and Singel{\'e}e, Dave and Preneel, Bart",
   abstract     = "Download scientific diagram | Three phases of distance
                   bounding protocols. from publication: Threshold-Based
                   Location-Aware Access Control | Designing a secure, resilient
@@ -3517,19 +3493,18 @@
                   task. In this article, a threshold-based location-aware
                   access control mechanism is proposed. This design uniquely
                   combines the concepts of secret sharing and distance bounding
-                  protocols to... | Access Control, Digital Signature and
-                  Mobile Technology | ResearchGate, the professional network
-                  for scientists.",
+                  protocols to... | Access Control, Grant and Organized
+                  Financing | ResearchGate, the professional network for
+                  scientists.",
   month        =  jul,
   year         =  2011,
   howpublished = "\url{https://www.researchgate.net/figure/Three-phases-of-distance-bounding-protocols_fig1_220535502}",
   note         = "Accessed: 2021-11-24",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu",
-  language     = "en"
+  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @MISC{noauthor_undated-hj,
-  title        = "{IBM} Documentation, {SSL}, Elliptic Curve Cryptography",
+  title        = "{IBM} Documentation, Elliptic Curve Cryptography",
   abstract     = "Java supports all DHE-RSA related SSL cipher suites, but uses
                   different names than OpenSSL.",
   howpublished = "\url{https://www.ibm.com/docs/en/zvse/6.2?topic=SSB27H_6.2.0/fa2ti_openssl_elliptic_curve_cryptography.html}",
@@ -3542,7 +3517,7 @@
   title        = "Security Considerations of {zk-SNARK} Parameter {Multi-Party}
                   Computation",
   booktitle    = "{NCC} Group Research",
-  author       = "Bottinelli, Paul",
+  author       = "Bottinelli, Paul and Bottinelli, View All Posts by",
   abstract     = "This blog post describes the state-of-the-art Multi-Party
                   Computation (MPC) ceremony for the secure computation of
                   zk-SNARKs parameters",
@@ -3571,20 +3546,6 @@
   pages     = "29--49",
   year      =  1998,
   keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
-}
-
-@MISC{Simonatsn2020-ki,
-  title        = "{VDF} {FPGA} Competition Baseline Model",
-  booktitle    = "{GitHub}",
-  author       = "{simonatsn}",
-  abstract     = "Implementation of an RSA VDF evaluator targeting FPGAs.",
-  publisher    = "Supranational",
-  month        =  apr,
-  year         =  2020,
-  howpublished = "\url{https://github.com/supranational/vdf-fpga}",
-  note         = "Accessed: 2020-4-29",
-  keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
-                  Library;Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @ARTICLE{Cline2020-wb,
@@ -3623,26 +3584,21 @@
   location        = "San Francisco, CA, USA"
 }
 
-@ARTICLE{Nikov2008-vv,
-  title    = "Yet another secure distance-bounding protocol",
-  author   = "Nikov, Ventzislav and Vauclair, Marc",
-  abstract = "Distance-bounding protocols have been proposed by Brands and
-              Chaum in 1993 in order to detect relay attacks, also known as
-              mafia fraud. Although the idea has been introduced fifteen years
-              ago, only recently distance-bounding protocols attracted the
-              attention of the researchers. Several new protocols have been
-              proposed the last five years. In this paper, a new secure
-              distance-bounding protocol is presented. It is self-contained and
-              composable with other protocols for example for authentication or
-              key-negotiation. It allows periodically execution and achieves
-              better use of the communication channels by exchanging
-              authenticated nonces. The proposed protocol becomes suitable for
-              wider class of devices, since the resource requirements to the
-              prover are relaxed.",
-  journal  = "SECRYPT 2008",
-  pages    = "218--221",
-  year     =  2008,
-  keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
+@MISC{Nikov_undated-vv,
+  title        = "Yet another secure distance-bounding protocol",
+  author       = "Nikov, Ventzislav and Vauclair, Marc",
+  howpublished = "\url{https://eprint.iacr.org/2008/319.pdf}",
+  note         = "Accessed: 2021-6-7",
+  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
+@MISC{Boureanu_undated-bn,
+  title        = "Towards secure distance bounding?",
+  author       = "Boureanu, Ioana and Mitrokotsa, Aikaterini and Vaudenay,
+                  Serge",
+  howpublished = "\url{https://eprint.iacr.org/2015/208.pdf}",
+  note         = "Accessed: 2021-6-7",
+  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @ARTICLE{Mao2020-ee,
@@ -3677,7 +3633,6 @@
                    adversary-resistant, and compatible with the selfish
                    interests of peers, making it an attractive p2p protocol for
                    blockchains.",
-  institution   = "PODC '20, August 3--7, 2020, Virtual Event, Italy",
   month         =  jun,
   year          =  2020,
   keywords      = "Zotero Import (May 18)/My Library/VDF-Gradu",
@@ -3703,24 +3658,22 @@
 
 % The entry below contains non-ASCII chars that could not be converted
 % to a LaTeX equivalent.
-@MISC{Rami_Khalil_and_Arthur_Gervais_and_Guillaume_Felley2019-sl,
-  title        = "{TEX-A} Securely Scalable Trustless Exchange",
-  author       = "{Rami Khalil and Arthur Gervais and Guillaume Felley}",
-  abstract     = "Financial exchanges are typically built out of two trusted
-                  components: a trade matching and a trade settlement system.
-                  With the advent of decentralized ledgers, that perform
-                  transactions without a trusted intermediary, so called
-                  decentralized exchanges (DEX) emerged. Some DEXs propose to
-                  off-load trade order matching to a centralized system outside
-                  the blockchain to scale, but settle each trade trustlessly as
-                  an expensive on-chain transaction. While DEX are
-                  non-custodial, their order books remains trusted, a malicious
-                  …",
-  journal      = "IACR Cryptology ePrint Archive",
-  publisher    = "eprint.iacr.org",
-  year         =  2019,
-  howpublished = "Cryptology ePrint Archive, Paper 2019/265",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
+@ARTICLE{Khalil2019-sl,
+  title     = "{TEX-A} Securely Scalable Trustless Exchange",
+  author    = "Khalil, R and Gervais, A and Felley, G",
+  abstract  = "Financial exchanges are typically built out of two trusted
+               components: a trade matching and a trade settlement system. With
+               the advent of decentralized ledgers, that perform transactions
+               without a trusted intermediary, so called decentralized
+               exchanges (DEX) emerged. Some DEXs propose to off-load trade
+               order matching to a centralized system outside the blockchain to
+               scale, but settle each trade trustlessly as an expensive
+               on-chain transaction. While DEX are non-custodial, their order
+               books remains trusted, a malicious …",
+  journal   = "IACR Cryptology ePrint Archive",
+  publisher = "eprint.iacr.org",
+  year      =  2019,
+  keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @INPROCEEDINGS{Fiat1987-iv,
@@ -3843,6 +3796,12 @@
                network;Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
+@ARTICLE{Dobson_undated-aw,
+  title    = "Trustless Groups of Unknown Order with Hyperelliptic Curves",
+  author   = "Dobson, Samuel and Galbraith, Steven D and Smith, Benjamin",
+  keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
 @ARTICLE{Halpin_undated-ar,
   title    = "Deconstructing the Decentralization Trilemma",
   author   = "Halpin, Harry",
@@ -3914,9 +3873,7 @@
 }
 
 @MISC{Harry_Halpin_undated-sq,
-  title        = "The Nym Network --- The Next Generation of Privacy
-                  Infrastructure",
-  booktitle    = "nymtech.net",
+  title        = "nym-litepaper.pdf",
   author       = "{Harry Halpin}",
   howpublished = "\url{https://nymtech.net/nym-litepaper.pdf}",
   note         = "Accessed: 2020-5-14",
@@ -4174,13 +4131,10 @@
   language  = "en"
 }
 
-@INPROCEEDINGS{Rivest1996-qr,
-  title           = "{Time-Lock} Puzzles and {Timed-Release} Crypto",
+@INPROCEEDINGS{Rivest_undated-qr,
+  title           = "Time-lock puzzles and timed-release Crypto",
   author          = "Rivest, Ronald L and Shamir, Adi and Wagner, David A",
-  publisher       = "Massachusetts Institute of Technology",
   pages           = "9",
-  institution     = "Massachusetts Institute of Technology",
-  year            =  1996,
   keywords        = "Zotero Import (May 18);Zotero Import (May 18)/My
                      Library;Zotero Import (May 18)/My Library/VDF-Gradu",
   language        = "en"
@@ -4827,30 +4781,28 @@
 }
 
 @MISC{Yakovenko2018-zn,
-  title        = "Solana: A new architecture for a high performance blockchain",
-  author       = "Yakovenko, Anatoly",
-  abstract     = "This paper proposes a new blockchain architecture based on
-                  Proof of History (PoH) - a proof for verifying order and
-                  passage of time between events. PoH is used to encode
-                  trustless passage of time into a ledger - an append only data
-                  structure. When used alongside a consensus algorithm such as
-                  Proof of Work (PoW) or Proof of Stake (PoS), PoH can reduce
-                  messaging overhead in a Byzantine Fault Tolerant replicated
-                  state machine, resulting in sub-second finality times. This
-                  paper also proposes two algorithms that leverage the time
-                  keeping properties of the PoH ledger - a PoS algorithm that
-                  can recover from partitions of any size and an efficient
-                  streaming Proof of Replication (PoRep). The combination of
-                  PoRep and PoH provides a defense against forgery of the
-                  ledger with respect to time (ordering) and storage. The
-                  protocol is analyzed on a 1 gbps network, and this paper
-                  shows that throughput up to 710k transactions per second is
-                  possible with today's hardware.",
-  month        =  oct,
-  year         =  2018,
-  howpublished = "\url{https://solana.com/solana-whitepaper.pdf}",
-  keywords     = "Zotero Import (May 18);Zotero Import (May 18)/My
-                  Library;Zotero Import (May 18)/My Library/VDF-Gradu"
+  title    = "Solana: A new architecture for a high performance blockchain",
+  author   = "Yakovenko, Anatoly",
+  abstract = "This paper proposes a new blockchain architecture based on Proof
+              of History (PoH) - a proof for verifying order and passage of
+              time between events. PoH is used to encode trustless passage of
+              time into a ledger - an append only data structure. When used
+              alongside a consensus algorithm such as Proof of Work (PoW) or
+              Proof of Stake (PoS), PoH can reduce messaging overhead in a
+              Byzantine Fault Tolerant replicated state machine, resulting in
+              sub-second finality times. This paper also proposes two
+              algorithms that leverage the time keeping properties of the PoH
+              ledger - a PoS algorithm that can recover from partitions of any
+              size and an efficient streaming Proof of Replication (PoRep). The
+              combination of PoRep and PoH provides a defense against forgery
+              of the ledger with respect to time (ordering) and storage. The
+              protocol is analyzed on a 1 gbps network, and this paper shows
+              that throughput up to 710k transactions per second is possible
+              with today's hardware.",
+  month    =  oct,
+  year     =  2018,
+  keywords = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
+              Import (May 18)/My Library/VDF-Gradu"
 }
 
 @ARTICLE{Liskov_undated-ct,
@@ -4970,6 +4922,13 @@
   keywords  = "Zotero Import (May 18);Zotero Import (May 18)/My Library;Zotero
                Import (May 18)/My Library/VDF-Gradu",
   language  = "en"
+}
+
+@ARTICLE{Kreitz_undated-yp,
+  title    = "Spotify -- Large Scale, Low Latency, {P2P} {Music-on-Demand}
+              Streaming",
+  author   = "Kreitz, Gunnar and Niemel{\"a}, Fredrik",
+  keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
 @ARTICLE{Jeon2014-ag,
@@ -5229,9 +5188,36 @@
   keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
+@ARTICLE{Bi_undated-is,
+  title    = "An Accelerated Method for Message Propagation in Blockchain
+              Networks",
+  author   = "Bi, Wei and Yang, Huawei and Zheng, Maolin",
+  keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
 @ARTICLE{noauthor_undated-kd,
   title    = "{BGB17-IEEESB-proof\_of\_delay\_ethereum.pdf}",
   keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
+}
+
+@ARTICLE{Orlicki2020-rt,
+  title         = "Fair {Proof-of-Stake} using {VDF+VRF} Consensus",
+  author        = "Orlicki, Jos{\'e} I",
+  abstract      = "We propose a new Proof-of-Stake consensus protocol
+                   constructed with a verifiable random function (VRF) and a
+                   verifiable delay function (VDF) that has the following
+                   properties: a) all addresses with positive stake can
+                   participate; b) is fair because the coin stake is
+                   proportional to the distribution of rewards; c) is resistant
+                   to several classic blockchain attacks such as Sybil attacks,
+                   ``Nothing-at-stake'' attacks and ``Winner-takes-all''
+                   attacks. We call it Vixify Consensus.",
+  month         =  aug,
+  year          =  2020,
+  keywords      = "Zotero Import (May 18)/My Library/VDF-Gradu",
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.CR",
+  eprint        = "2008.10189"
 }
 
 @ARTICLE{Balakrishnan2003-es,
@@ -6082,7 +6068,7 @@
   keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }
 
-@MISC{Foamspace_Corp2018-me,
+@UNPUBLISHED{Foamspace_Corp2018-me,
   title    = "{FOAM\_Whitepaper\_May2018.pdf}",
   author   = "{Foamspace Corp}",
   month    =  may,
@@ -6289,9 +6275,9 @@
   location        = "Berkeley, California, USA"
 }
 
-@ARTICLE{Brent2000-zp,
+@ARTICLE{Richard2000-zp,
   title    = "Public Key Cryptography with a Group of Unknown Order",
-  author   = "Brent, Richard P",
+  author   = "Richard, P",
   abstract = "Algorithms for digital signature generation and verification
               using public key cryptography over an arbitrary group G, similar
               to those of ElGamal, but do not require a knowledge of the group
@@ -6303,9 +6289,7 @@
               logarithm problem over G, or the solution of other problems which
               appear at least as difficult. The algorithms can be modified to
               work over arbitrary semigroups.",
-  journal  = "Oxford University Programming Research Group",
-  pages    = "8",
-  month    =  jun,
+  journal  = "undefined",
   year     =  2000,
   keywords = "Zotero Import (May 18)/My Library/VDF-Gradu",
   language = "en"
@@ -6341,157 +6325,4 @@
   address   = "New York, NY, USA",
   keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu",
   location  = "Providence, Rhode Island, USA"
-}
-
-@MISC{Dobson_undated-aw,
-  title        = "Trustless unknown-order groups",
-  author       = "Dobson, Samuel and Galbraith, Steven and Smith, Benjamin",
-  abstract     = "Groups whose order is computationally hard to compute have
-                  important applications including timelock puzzles, verifiable
-                  delay functions, and accumulators. Many applications require
-                  trustless setup: that is, not even the group's constructor
-                  knows its order. We argue that the impact of Sutherland's
-                  generic group-order algorithm has been overlooked in this
-                  context, and that current parameters do not meet claimed
-                  security levels. We propose updated parameters, and a model
-                  for security levels capturing the subtlety of trustless
-                  setup. The most popular trustless unknown-order group
-                  candidates are ideal class groups of imaginary quadratic
-                  fields; we show how to compress class-group elements from
-                  $\approx$ 2 log 2 () to $\approx$ 3 2 log 2 () bits, where is
-                  the order. Finally, we analyse Brent's proposal of Jacobians
-                  of hyperelliptic curves as unknown-order groups.
-                  Counter-intuitively, while polynomial-time order-computation
-                  algorithms for hyperelliptic Jacobians exist in theory, we
-                  conjecture that genus-3 Jacobians offer shorter keylengths
-                  than class groups in practice.",
-  howpublished = "\url{https://eprint.iacr.org/2020/196.pdf}",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
-}
-
-@MISC{Kreitz_undated-yp,
-  title        = "Spotify -large scale, low latency, {P2P} music-on-demand
-                  streaming",
-  author       = "Kreitz, Gunnar and Niemel{\"a}, Fredrik",
-  abstract     = "Spotify is a music streaming service offering lowlatency
-                  access to a library of over 8 million music tracks. Streaming
-                  is performed by a combination of client-server access and a
-                  peer-to-peer protocol. In this paper, we give an overview of
-                  the protocol and peer-to-peer architecture used and provide
-                  measurements of service performance and user behavior. The
-                  service currently has a user base of over 7 million and has
-                  been available in six European countries since October 2008.
-                  Data collected indicates that the combination of the
-                  client-server and peer-to-peer paradigms can be applied to
-                  music streaming with good results. In particular, 8.8\% of
-                  music data played comes from Spotify's servers while the
-                  median playback latency is only 265 ms (including cached
-                  tracks). We also discuss the user access patterns observed
-                  and how the peer-to-peer network affects the access patterns
-                  as they reach the server.",
-  howpublished = "\url{http://www.csc.kth.se/~gkreitz/spotify-p2p10/spotify-p2p10.pdf}",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
-}
-
-@MISC{Boneh2018-uz,
-  title        = "Verifiable Delay Functions",
-  author       = "Boneh, Dan and Bonneau, Joe and B{\"u}nz, Benedikt and Fisch,
-                  Ben",
-  year         =  2018,
-  howpublished = "\url{https://crypto.iacr.org/2018/slides/28858.pdf}",
-  note         = "Accessed: 2022-6-13",
-  keywords     = "Zotero Import (May 18)/My Library/VDF-Gradu"
-}
-
-@ARTICLE{Bi2018-is,
-  title         = "An accelerated method for message propagation in blockchain
-                   networks",
-  author        = "Bi, Wei and Yang, Huawei and Zheng, Maolin",
-  abstract      = "Blockchain is based on a P2P network, supporting
-                   decentralized consensus of current cryptocurrencies. Since
-                   bitcoin and altcoins all utilize an underlying blockchain,
-                   they are therefore greatly affected by the performance of
-                   the P2P network. In bitcoin, the miners are engaged in a
-                   time-sensitive competition to solve a Proof-of-Work problem
-                   to extend the blockchain. This consequently raises a
-                   critical problem to minimize the time between the
-                   propagation of a winning block and the beginning of the next
-                   round of the competition. This paper proposes a method that
-                   selects a node's closest neighbors to make messages
-                   propagate in the whole network in time. The method measures
-                   the distance from a node to its neighbor using transmission
-                   latency; thus, the lower the latency, the closer the
-                   neighbor. Simulations showed a good rate of decrease in
-                   average propagation latency and maximum propagation latency,
-                   compared to the classic method. Furthermore, this paper not
-                   only proposes the principle of establishing connections
-                   based on latency, but also evaluates the influence of the
-                   number of simultaneously established connections.",
-  institution   = "Seele Tech Corporation, San Francisco, USA",
-  month         =  sep,
-  year          =  2018,
-  keywords      = "Zotero Import (May 18)/My Library/VDF-Gradu",
-  copyright     = "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
-  archivePrefix = "arXiv",
-  primaryClass  = "cs.NI",
-  eprint        = "1809.00455"
-}
-
-@ARTICLE{Peeters2011-bd,
-  title     = "{Threshold-Based} {Location-Aware} Access Control",
-  author    = "Peeters, Roel and Singel{\'e}e, Dave and Preneel, Bart",
-  abstract  = "Threshold-Based Location-Aware Access Control:
-               10.4018/jhcr.2011070102: Designing a secure, resilient and
-               user-friendly access control system is a challenging task. In
-               this article, a threshold-based location-aware access control",
-  journal   = "IJHCR",
-  publisher = "IGI Global",
-  volume    =  2,
-  number    =  3,
-  pages     = "22--37",
-  month     =  jul,
-  year      =  2011,
-  keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu",
-  language  = "en"
-}
-
-@INCOLLECTION{Boureanu2014-bn,
-  title     = "Towards secure distance bounding",
-  booktitle = "Fast Software Encryption",
-  author    = "Boureanu, Ioana and Mitrokotsa, Aikaterini and Vaudenay, Serge",
-  abstract  = "Relay attacks (and, more generally, man-in-the-middle attacks)
-               are a serious threat against many access control and payment
-               schemes. In this work, we present distance-bounding protocols,
-               how these can deter relay attacks, and the security models
-               formalizing these protocols. We show several pitfalls making
-               existing protocols insecure (or at least, vulnerable, in some
-               cases). Then, we introduce the SKI protocol which enjoys
-               resistance to all popular attack-models and features provable
-               security. As far as we know, this is the first protocol with
-               such all-encompassing security guarantees.",
-  publisher = "Springer Berlin Heidelberg",
-  pages     = "55--67",
-  series    = "Lecture notes in computer science",
-  year      =  2014,
-  address   = "Berlin, Heidelberg",
-  keywords  = "Zotero Import (May 18)/My Library/VDF-Gradu"
-}
-
-@ARTICLE{Orlicki2020-rt,
-  title    = "Sequential {Proof-of-Work} for Fair Staking and Distributed
-              Randomness Beacons",
-  author   = "Orlicki, Jos{\'e} Ignacio",
-  abstract = "We propose a new Proof-of-Stake consensus protocol constructed
-              with a verifiable random function (VRF) and a verifiable delay
-              function (VDF) that has the following properties: a) all
-              addresses with positive stake can participate; b) is fair because
-              the coin stake is proportional to the distribution of rewards; c)
-              is resistant to several classic blockchain attacks such as Sybil
-              attacks, ``Nothing-at-stake'' attacks and ``Winner-takes-all''
-              attacks. We call it Vixify Consensus.",
-  journal  = "CoRR",
-  volume   = "abs/2008.10189",
-  month    =  aug,
-  year     =  2020,
-  keywords = "Zotero Import (May 18)/My Library/VDF-Gradu"
 }

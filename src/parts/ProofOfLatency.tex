@@ -3,7 +3,7 @@
 \label{Proof of Latency}
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/pol_topology.pdf}
-	\caption{Example PoL network topology. Localized and highly connected clusters with high performance bridges, resulting in optimal routing}
+	\caption{Example PoL network topology. Optimally, PoL would result in localized and highly connected clusters with high performance bridges.}
 	\label{PoL Example Topology}
 \end{figure}
 
@@ -15,9 +15,9 @@
 
 Proof of Latency, "the protocol" or "PoL", is a protocol that when used in a P2P context, can offer a way of reducing network latency between peers by connecting with peers that have the lowest latency between each other, thus establishing a more optimal network than achieved simply by peering at random. PoL aims to make network bootstrapping better, making it easier to find performant, physically close-by peers on the first interaction with a PoL-enabled network. When using PoL for peer discovery, it can result in a network in which a peer can at least roughly estimate its latency to another peer before connecting to it.
 
-Distance bounding protocols, as previously described, are a way of measuring latency between two participants in a relatively unspoofable manner. Unfortunately, they can only provide a valid proof between the prover and the verifier, and not a third party. This is because a distance bound could have been calculated at any point in the past, and the prover and the verifier could quite easily craft a proof of 0 latency between them. The motivation for PoL was to try to fix this with its use of verifiable delay functions, but further research revealed that some additional logic was needed to come closer to fulfilling this promise.
+Distance bounding protocols, as previously described, are a way of measuring latency between two participants in a relatively unspoofable manner. Unfortunately, they can only provide a valid proof between the prover and the verifier, and not a third party. This is because a distance bound could have been calculated at any point in the past, and the prover and the verifier could quite easily craft a proof of 0 latency between them. My motivation for PoL was to try to fix this with its use of verifiable delay functions, but further research revealed that some additional logic was needed to come closer to fulfilling this promise.
 
-The protocol is trustless between the two computing parties and it requires no specific hardware from the participants. This said, special hardware for speeding up its evaluation and proving could make it a better protocol at distance bounding, as difference in the processing powers cause measurement error.
+The protocol is trustless between the two computing parties and it requires no specific hardware from the participants. This said, special hardware for speeding up its evaluation and proving could make it a better protocol at distance bounding, as difference in the processing powers between the participants cause measurement error.
 
 Aside from constructing P2P networks with better routes, the protocol could be used as a benchmark query or a proof of geographical location. A proof of a geographical location could prove useful, since GPS coordinates along with IP addresses can be spoofed.
 
@@ -42,13 +42,13 @@ Aside from constructing P2P networks with better routes, the protocol could be u
 		\(\pi \)      & The proof of a VDF                                      \\
 		\(\Delta\)    & The measured latency. Formally, \(T_{VDF_v} - T_{VDF_p}\) \\
 	\end{tabular}
-	\caption{Symbols used in Proof of Latency}
+	\caption{Symbols used in Proof of Latency.}
 	\label{table:1}
 \end{table}
 
 Proof of Latency is an interactive public coin\footnote{A protocol where any random choice by the verifier is made public.} distance bounding protocol that produces a publicly verifiable proof signed by the participants. The protocol cannot be made non-interactive because the setup requires the participants to agree upon the parameters, and distance bounding protocols are inherently interactive.
 
-The protocol is a tuple of three algorithms, \(Setup(e, \lambda)\), \(VCOpen(c, e)\), and \(Measure(g, T, l_p, l_v)\). I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
+The protocol is a tuple of three algorithms, \(\allowbreak Setup(e, \lambda)\), \(\allowbreak VCOpen(c, e)\), and \(\allowbreak Measure(g, T, l_p, l_v)\). I've added a vague description on how the proofs would be published and then queried by other peers on the network under "Finalizing", though it is not a part of the protocol per se.
 
 \subsection{Setup}
 When a peer wants to use PoL, it must first make a vector commitment. This makes sure that once it has been made, the vector commitment is bound to that cryptographic identity and processing power. Thus, whenever a peer's setup changes, all previously calculated Proofs of Latency are invalidated, as its processing power has changed, resulting in a new vector commitment.
@@ -60,7 +60,7 @@ All subsequent Proofs of Latency are based on the same vector commitment, compou
 The setup is done by first measuring the computer's ability in doing modular squarings in the RSA group. This measurement is done by doing as many modular squarings as possible in a protocol-defined timeframe, which should be large enough to account for undervolting and other types of performance and battery life optimizations especially in mobile devices. This measurement and the peer's public key then gets hashed to a prime number, which is then used in creating the vector commitment. For additional security, this vector commitment could be submitted to a public blockchain, or duplicated across a P2P network so that it is available even when the peer it belongs to is not connected to the network.
 
 \subsection{VC Opening}
-Whenever a new Proof of Latency is calculated, a new opening is done on the individual peers' vector commitment using the other participant's public key as the message. This way, a single peer can be included in the vector commitment only in one index. This opening's output is then used as the generator part advertized to the other peer.
+Whenever a new Proof of Latency is calculated, a new opening is done on the individual peers' vector commitment using the other participant's public key as the message. This way, a single peer can be included in the vector commitment only in one index. This opening's output is then used as the generator part advertised to the other participant.
 
 The proof of the opening also gives the peers information about each other, as the vector commitment is required to be created with info of the peer's processing power and public key, the former working as a security parameter in the distance bounding. 
 
@@ -100,7 +100,7 @@ Whenever a new Proof of Latency is generated, the proof would then get broadcast
 
 The data structure that the responses would be served from could be a simple key-value database, indexed by both the public keys and the latencies, enabling for fast queries for exact peers, and queries for the closest peers to the responder.
 
-Anyways, there is a huge number of things that can be done algorithmically after generating the proofs itself to create more performant networks or any of the use cases advertized in the next section.
+There are a huge number of things that can be done algorithmically after generating the proofs itself to create more performant networks or any of the use cases advertized in the next section.
 
 \section{Use Cases}
 \begin{figure}
@@ -126,7 +126,7 @@ There have been proposals for a VDF-as-a-function system~\cite{Devlin2020-qw}, i
 Assuming the soundness of the proofs created by Proof of Latency holds, given a VDF challenge with difficulty \(T\) the prover could craft a route of \(n\) peers that have the needed amount of PoL-measured latency (in VDF iterations) between them. Even a weaker device could then start a game of broken telephone with these peers that would guarantee sequential message passing by repeated hashing with signatures, and give the resulting signed response as a VDF to the verifier. Because of the precomputation that has been done to prove the individual latencies between the peers, one could prove that a received challenge has taken roughly \(T\) amount of sequential operations to solve by relaying it through a route of peers on the network. In such a network, VDFs would be first-class citizens and always available, equally for every participant of the network. This means that both computationally powerful and weak peers could equally take part in things that require a delay function to be evaluated and proven without either benefiting from the situation disproportionately.
 
 \subsection{Proving Geographical Locations}
-GPS coordinates or geohashes or any widely used geolocating method do not contain a proof of the reporter's proximity to the reported location. At first, I called Proof of Latency Proof of Proximity, but since it also measures processing power, I decided to go with latency instead, as there's many types of latencies that account for latency in P2P communication. Still, in roughly the same way as in dynamic P2P routing, a proof could be created that the prover is close to the verifier, and give or restrict access to resources based on this proof.
+GPS coordinates or geohashes or any widely used geolocating method do not contain a proof of the reporter's proximity to the reported location. At first, I called Proof of Latency Proof of Proximity, but since it also measures processing power, I decided to go with latency instead, as there are many types of latencies that account for latency in P2P communication. Still, in roughly the same way as in dynamic P2P routing, a proof could be created that the prover is close to the verifier, and give or restrict access to resources based on this proof.
 
 \section{Security Analysis}
 Since Proof of Latency removes security quarantees by removing randomness from routing, some new attack vectors are introduced. Proof of Latency is not meant to be a one-stop shop towards a safer network, but rather an add-on to make the aforementioned use cases more efficient while still keeping security in mind. The following imagined attack vectors to create or advertize false proofs are a product of prior knowledge regarding sybil attacks in DHT networks~\cite{Urdaneta2011-oi, Al-Ameen2014-gc, Cholez2009-po, Yu2008-xl}, research and the writer's thought process, and none have been tested out in practice, yet.
@@ -137,7 +137,7 @@ A malicious network participant can spawn an arbitrarily large number of new ide
 Advertizing dishonest peers can be mitigated somewhat by requiring peers to renew their proofs regularly, using third party validators or a verifiable source of randomness, like a random beacon or a public timestamping service with signed requests. Also, trusted computing modules could be used to verify that the prover's software configuration has not been changed, removing most of the possibility for side channel attacks against using witnesses.
 
 \subsection{Performance Matching}
-The Proof of Latency protocol suffers from an issue, let's call it performance matching, which is a timing attack. Timing attacks are side-channel attacks against computer systems. Side-channel attacks utilize information from outer factors affecting the hardware and software the attacked program runs on. Timing attacks rely on gathering of timing data from the target.~\cite{noauthor_undated-mp} In performance matching, gathering data could be done by connecting to the targeted peer by another protocol or comparing existing proofs of latencies from all peers that have calculated their latency with the target.
+The Proof of Latency protocol suffers from an issue, let's call it performance matching, which is a timing attack. Timing attacks are side-channel attacks against computer systems. Side-channel attacks utilize information from outer factors affecting the hardware and software the attacked program runs on. Timing attacks rely on gathering of timing data from the target~\cite{noauthor_undated-mp}. In performance matching, gathering data could be done by connecting to the targeted peer by another protocol or comparing existing proofs of latencies from all peers that have calculated their latency with the target.
 
 Performance matching enables attackers to perform an eclipse attack on low-performance devices by matching the attacker's performance with the targeted mobile device so that it is as close as possible in the difference between iterations in PoL. This attack could result in a complete network split, as performance differences between devices make peers inaccessible to the other side of the performance spectrum, as network latencies can't compete with the computing power. There is a fundamental barrier for entry to this attack, which is that the attacker must have a more performant processor to calculate the VDF than the target. The malicious peer cannot performance match if its performance is worse or similar to the targeted peer, because of the race between them, without the target co-conspiring with the attacker.
 
@@ -145,7 +145,7 @@ Proof of Latency prevents performance matching with a requirement for peers to a
 
 \section{Reducing the Attack Vectors}
 \subsection{Hiding Information of PoL Results}
-If the publicized proof did not include both the VDF results and iterations, but just the iteration difference, an attacker would have less info on each peer. This would make attacking more difficult, requiring more queries and PoL runs on average before finding a vulnerable peer. This is more of an exploratory path that would need more research, but if it was possible to create a proof of the latency and only broadcast the iteration difference between two peers, it would be more difficult to gather info about peers and their computing performance.
+If the publicized proof did not include both the VDF results and iterations, but just the iteration difference, an attacker would have less information on each peer. This would make attacking more difficult, requiring more queries and PoL runs on average before finding a vulnerable peer. This is more of an exploratory path that would need more research, but if it was possible to create a proof of the latency and only broadcast the iteration difference between two peers, it would be more difficult to gather information about peers and their computing performance.
 
 \subsection{Web of Trust}
 There's also a possibility of introducing a web of trust in parallel to PoL to recognize and deny connections to malicious peers more effectively. An example of such a system is SybilLimit, which adds a construction called trusted routes to DHT based routing~\cite{Yu2008-xl}. I see that trusted routes in conjunction with Proof of Latency would be a good couple, as they tackle different parts of P2P routing, both making it more robust.
@@ -165,23 +165,22 @@ Bootstrapping initially to as many peers as one can, the peer also decreases the
 
 \chapter{Proof of Concept}
 \label{Proof of Concept}
-To test out the Proof of Latency, I wrote a software proof of concept in Rust. I picked Rust as a programming language of choice because it has good properties when it comes to cryptography and distributed computing. Since distributed computing, or any server program for that matter, uses some sort of concurrency to get non-blocking responses to requests they receive, the programmer has to worry about race conditions, with most systems programming languages. Rust is different, however, as when a Rust program has been compiled in the default "safe" compiler setting, a data race where two or more threads try to access a shared memory resource at the same time is simply impossible to achieve~\cite{The_Rust_Project_Developers2018-xh}. Also, as it is a compiled language without a garbage collector, and with lots of optimization in the compiler, Rust has good baseline performance, on par with C or C++~\cite{Howarth2020-zc}. Rust has seen a surge of interest in the last few years, and it is used in many projects in production, notably in embedded and distributed computing, because of Rust's modern build tooling and robustness.
+To test out Proof of Latency, I wrote a software proof of concept in Rust. I picked Rust as the implementation language because it has good properties when it comes to cryptography and distributed computing. Since distributed computing, or any server program for that matter, uses some sort of concurrency to get non-blocking responses to requests they receive, the programmer has to worry about race conditions with most systems programming languages. Rust is different, however, as when a Rust program has been compiled in the default "safe" compiler setting, a data race where two or more threads try to access a shared memory resource at the same time is simply impossible to achieve~\cite{The_Rust_Project_Developers2018-xh}. Also, as it is a compiled language without a garbage collector, and with lots of optimization in the compiler, Rust has good baseline performance, on par with C or C++~\cite{Howarth2020-zc}. Rust has seen a surge of interest in the last few years, and it is used in many projects in production, notably in embedded and distributed computing, because of Rust's modern build tooling and robustness.
 
-William Borgeaud's blog post~\cite{Borgeaud2019-wk} from November 2019 was the first reference I encountered that described VDFs in terms familiar to software engineers. The blog post and it's accompanying code~\cite{Borgeaud2019-wk}, that also happened to be in Rust, helped me bootstrap the project.
+William Borgeaud's blog post~\cite{Borgeaud2019-wk} from November 2019 was the first reference I encountered that described VDFs in terms familiar to software engineers. The blog post and its accompanying code~\cite{Borgeaud2019-wk}, that also happened to be in Rust, helped me bootstrap the project.
 
 In the implementation of the VDF protocol, the computations need to run asynchronously, on separate threads. There needs to be a separate task for listening to the other party's input, and preferably, a way to test the protocol locally without networking. The PoL protocol needs a VDF such that the prover's calculation can be ran indefinitely and then ended abruptly by a received "cap", a prime number from the verifier. No previous VDF library seemed to have this option, because the difficulty parameter \(T\) is usually predetermined, which is not the case for the prover in Proof of Latency.
 
-The code is structured as follows: Runnable binary demo and the reusable library it uses resides in the top crate. They depend on subcrates that individually provide functionalities like VDF calculation and vector commitments.
+The code is structured as follows. A runnable binary demo and the reusable library it uses resides in the top crate. They depend on subcrates that individually provide functionalities like VDF calculation and vector commitments.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/PoL_software_roles.pdf}
-	\caption{Software roles}
+	\caption{Software roles.}
 	\label{software_roles}
 \end{figure}
 
 The protocol is implemented as a state machine, which helps checking the protocol with model checkers, like TLA+. % CITE
- The protocol implementation uses variable names derived from the protocol description in fig % CITE
- , with slight adaptation from mathematical notation to a more semantic approach.
+The protocol implementation uses variable names derived from the protocol description in figure \ref{table:1} on page \pageref{table:1}, with slight adaptation from the mathematical notation to a more semantic approach.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{pictures/message_flow-eps-converted-to.pdf}
@@ -189,21 +188,21 @@ The protocol is implemented as a state machine, which helps checking the protoco
 	\label{message_flow}
 \end{figure}
 
-The following is a code example of the threaded valuation part of a VDF inside Proof of Latency, containing evaluation stop logic for both the prover and the verifier:
-\lstinputlisting[language=Rust, float, frame=lines, breaklines=true, caption=VDF iteration logic]{./parts/code/vdfiteration.rs}[H]
-% TODO: Add more meaningful, short code samples that won't break layout under Tectonic
-The following is a code example of the proof generation of a VDF:
-\lstinputlisting[language=Rust, float, frame=lines, breaklines=true, caption=VDF proof generation]{./parts/code/proofgeneration.rs}[H]
+Since the iterative process of calculating VDFs can be a bit hard to grasp after looking at the mathematical examples, I list some example code from the proof of concept here for reference. The first example, listing \ref{vdfitercode} on page \pageref{vdfitercode} shows the iterative logic for evaluating a VDF. Some of the logic is hidden, as I have programmed the logic for an RSA group in a different file. \lstinputlisting[language=Rust, float=htb!, frame=lines, breaklines=true, caption=VDF iteration logic., label=vdfitercode]{./parts/code/vdfiteration.rs}
 
-The following is a code example of the verification of a VDF proof:
-\lstinputlisting[language=Rust, float, frame=lines, breaklines=true, caption=VDF proof verification]{./parts/code/verifyvdf.rs}[H]
 
+The second example, listing \ref{vdfproofcode} on page \pageref{vdfproofcode} shows the generation of a VDF proof. Note how different the logic is from a purely arithmetic solution, and the implicit return value. 
+\lstinputlisting[language=Rust, float=htb!, frame=lines, breaklines=true, caption=VDF proof generation., label=vdfproofcode]{./parts/code/proofgeneration.rs}
+
+The third example, listing \ref{vdfverifycode} on page \pageref{vdfverifycode} is the verify logic of a VDF in Rust.
+\lstinputlisting[language=Rust, float=htb!, frame=lines, breaklines=true, caption=VDF proof verification., label=vdfverifycode]{./parts/code/verifyvdf.rs}
+% TODO: Add state machine example
 The proof of concept is implemented as a library, so that it can be imported and used in other projects.
 
 \section{Tests}
-To gain assurance of the correctness of the VDF calculations I wrote unit tests for the VDF evaluation, proof generation and verification. To further ensure the soundness of the protocol, I added integration tests for Proof of Latency with separate, asynchronous threads for each execution. The tests reside in same files as the program code itself. The Rust standard library has good support for unit testing so that no separate library was needed.
+To gain assurance of the correctness of the VDF calculations I wrote unit tests for the VDF evaluation, proof generation and verification. To further ensure the soundness of the protocol, I added integration tests for Proof of Latency with separate, asynchronous threads for each execution. The tests reside in the same files as the program code itself. The Rust standard library has good support for unit testing so no separate testing library was needed.
 
-In addition to regular unit tests with predefined input, I experimented with property testing. Property testing is a term that belongs somewhere between fuzzing\footnote{Testing systems against a randomized, high volume of input.} and unit tests. Otherwise it functions like regular unit tests, but it adds generated input into the equation. By adding generated, sometimes randomized input, one can check more thoroughly for edge cases. While being effective in recognizing some unexpected bugs, it still has a way to go when compared to formal verification, which is a testing method that aims to define a system with mathematical proofs, verifying that the output should always, apart from hardware issues, be correct according to the specification.
+In addition to regular unit tests with predefined input, I experimented with property testing. Property testing is a term that belongs somewhere between fuzzing\footnote{Testing systems against a randomized, high volume of input.} and unit tests. Otherwise it functions like regular unit tests, but it adds generated input into the equation. By adding generated, sometimes randomized input, one can check more thoroughly for edge cases. While being effective in recognizing some unexpected bugs, it still has a way to go when compared to formal verification, which is a testing method that aims to define a system with mathematical formalisms, and prove formally that the output should always, apart from hardware issues, be correct according to the specification.
 
 %\subsection{End to End Tests}
 %To test the whole demo out in a simulated P2P setting I used Protocol Labs' Testground software. It is a tool to simulate a network with thousands of peers on one machine.
