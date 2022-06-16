@@ -27,7 +27,7 @@ Even when not using distance bounding for geolocation one can use the aforementi
 When distance bounding is used in other ways than highly local applications like car keys, e.g. in digital rights management, it can reveal too much of the user's location. Usually distance bounding protocols have assumed that both the prover and the verifier are willing to disclose their locations. Some newer protocols have tried to introduce a cloaking region by reducing measurement resolution by adding a delay to the challenge responses.~\cite{Molina-Martinez2018-nw} This is a welcome solution in instances where a verifier only needs to know a rough estimate of the prover's location instead of a tight bound, for example in content delivery networks.
 
 \subsection{Attacks}
-Distance bounding protocols were originally invented to solve the problem of relay attacks. These attacks are usually not an issue anymore, and distance bounding is used widely in RFID readers nowadays~\cite{Nikov2008-vv}. There are, however, still potential attacks that could affect distance bounding. Historically, the attacks against distance bounding have been categorized into five different categories~\cite{Boureanu_undated-bn}:
+Distance bounding protocols were originally invented to solve the problem of relay attacks. These attacks are usually not an issue anymore, and distance bounding is used widely in RFID readers nowadays~\cite{Nikov2008-vv}. There are, however, still potential attacks that could affect distance bounding. Historically, the attacks against distance bounding have been categorized into five different categories~\cite{Boureanu2014-bn}:
 
 \begin{itemize}
   \item \emph{Distance fraud}, where a far-away prover tries to pass the protocol by itself.
