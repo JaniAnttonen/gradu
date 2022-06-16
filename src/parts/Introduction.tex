@@ -27,8 +27,6 @@ To remove the requirement for trust between peers in a P2P protocol is not a tri
 
 Cryptographic commitments in short are a way of locking a value in place by publishing a derivative of it that only could have been created by the original value, thus the original value cannot be changed after the derivative is known by another participating peer. Committing to a bunch of future values is also sometimes a requirement, and it can be achieved by a vector commitment, where instead of a single derivative one can create an arbitrary amount of them, called openings, all derived from the original starting point. This way, for example, once a peer commits to a certain processing power, it cannot change it without overwriting the whole vector commitment.
 
-
-
 Using vector commitments plus two concurrent verifiable delay functions and a race between them, I propose a novel protocol for producing a publicly verifiable proof of network latency and difference in computation resources between two participants. The latency is denoted in the difference of iterations between the two verifiable delay functions. This proof can be used for dynamic routing to achieve better, faster routes between peers, or to prove a geographical location.
 
 The protocol's security ultimately depends on each peer's ability to measure against a committed processing power metric of another peer based on their communication. If used with parameters described in this thesis, also all assumptions related to Catalano-Fiore vector commitments~\cite{Catalano2013-jn} and the RSA cryptosystem~\cite{Rivest1978-fm} must hold for the proofs to be valid.
