@@ -4,11 +4,11 @@ msc {
   |||;
   a->b [ label = "Send Verifier the vector commitment opening c_a" ];
   |||;
-  ---  [ label = "Common reference string g created for b" ];
+  ---  [ label = "Common reference string g created for Verifier" ];
   |||;
   b->b [ label = "Start VDF(g, T=1)" ];
   a<-b [ label = "Send Prover the vector commitment opening c_b and cap c1" ];
-  ---  [ label = "Common reference string g created for a" ];
+  ---  [ label = "Common reference string g created for Prover" ];
   a->a [ label = "Start VDF(g, T=1)" ];
   |||;
   ---  [ label = "Both have started VDF calculation" ];
